@@ -10,23 +10,16 @@ import {
 } from 'react-native';
 
 import Moment from 'moment';
-
 import { Alert, Platform } from 'react-native';
-import { NativeEventEmitter, NativeModules } from 'react-native';
-
 import update from 'immutability-helper';
 
-
 import { requestLocationPermission } from './services/PermissionRequests';
-import { toUUID, fromUUID } from './helpers/UUIDFormatter';
-import { saveContactToUpload, SERVER } from './helpers/SyncDB';
-import { hex2a, a2hex }  from './helpers/Hex2Ascii'
 
-import BLEAdvertiser from 'react-native-ble-advertiser'
 import BackgroundTaskServices from './services/BackgroundTaskService';
 import BLEBackgroundService from './services/BLEBackgroundService';
 
 import DeviceInfo from 'react-native-device-info';
+import { SERVER } from './helpers/SyncDB';
 
 import {
   Header,
@@ -37,83 +30,54 @@ class Entry extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            uuid:'',
+            deviceSerial:'',
             devicesFound:[]
         }
     }
 
-    isValidUUID(uuid) {
-      if (!uuid)return false;
-      return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{10}00$/.test(uuid);
-    }
-
-    addDevice(_uuid, _name, _rssi, _date) {
-      saveContactToUpload(
-        hex2a(fromUUID(this.state.uuid)), 
-        hex2a(fromUUID(_uuid)), _rssi, _date);
-
+    onDevice(device) {
       let index = -1;
       for(let i=0; i< this.state.devicesFound.length; i++){
-        if (this.state.devicesFound[i].uuid == _uuid) {
+        if (this.state.devicesFound[i].serial == device.serial) {
           index = i;
         }
       }
       if (index<0) {
-        let dev = {uuid:_uuid, name:_name, rssi:_rssi, start:_date, end:_date};
+        let dev = {serial:device.serial, name:device.name, rssi:device.rssi, start:device.date, end:device.date};
         this.setState({
           devicesFound: update(this.state.devicesFound, 
             {$push: [dev]}
           )
         });
       } else {
-        //let dev = this.state.devicesFound[index];
-        //const newList = this.state.devicesFound.splice(index, 1);
         const itemIndex = index;
         this.setState({
           devicesFound: update(this.state.devicesFound, 
-            {[itemIndex]: {end: {$set: _date}, rssi: {$set: _rssi || this.state.devicesFound[itemIndex].rssi }}}
+            {[itemIndex]: {end: {$set: device.date}, rssi: {$set: device.rssi || this.state.devicesFound[itemIndex].rssi }}}
           )
         });
       }
     }
 
     componentDidMount(){
+      BLEBackgroundService.addNewDeviceListener(this);
+
       requestLocationPermission().then(() => {
         let serialNumber = DeviceInfo.getSerialNumber().then(deviceSerial => {
-          console.log("Serial Number", deviceSerial);
-          console.log("Serial Number Hex", a2hex(deviceSerial));
-          console.log("Serial Number Hex Decoded", hex2a(a2hex(deviceSerial)));
-          console.log("Serial Number Hex Decoded", toUUID(a2hex(deviceSerial)));
-          console.log("Is Valid UUID", this.isValidUUID(toUUID(a2hex(deviceSerial))));
-          this.setState({
-            uuid: toUUID(a2hex(deviceSerial))
-          });
-          this.start();
-        });
-
-        console.log("BLE Advertiser", BLEAdvertiser);
-        BLEAdvertiser.setCompanyId(0x4C); 
-        
-        const eventEmitter = Platform.select({
-          ios: new NativeEventEmitter(NativeModules.BLEAdvertiser),
-          android: new NativeEventEmitter(NativeModules.BLEAdvertiser),
-        });
-
-        eventEmitter.addListener('onDeviceFound', (event) => {
-          if (event.serviceUuids) {
-            for(let i=0; i< event.serviceUuids.length; i++){
-              if (this.isValidUUID(event.serviceUuids[i])) {
-                console.log('onDeviceFound', event);
-                this.addDevice(event.serviceUuids[i], event.deviceName, event.rssi, new Date())   
-              }
-            }
-          }
+          this.setState({ deviceSerial: deviceSerial });
+          BLEBackgroundService.init();
+          BLEBackgroundService.setServicesUUID(deviceSerial);
+          this.start();       
         });
       });
     }
+    
+    componentWillUnmount() { 
+      BLEBackgroundService.removeNewDeviceListener(this);
+    }
 
     start() {
-      BLEBackgroundService.start(this.state.uuid);
+      BLEBackgroundService.start();
 
       this.setState({
         isLogging: true,
@@ -121,7 +85,7 @@ class Entry extends Component {
     }
 
     stop(){
-      BLEBackgroundService.stop(this.state.uuid);
+      BLEBackgroundService.stop();
 
       this.setState({
         isLogging: false,
@@ -152,7 +116,7 @@ class Entry extends Component {
               <Text style={styles.sectionTitle}>Contact Tracing</Text>
               <Text style={styles.sectionDescription}>
                 Broadcasting: 
-                <Text style={styles.highlight}> { hex2a(fromUUID(this.state.uuid)) }</Text>
+                <Text style={styles.highlight}> { this.state.deviceSerial }</Text>
               </Text>
               <Text style={styles.sectionDescription}>
                 Server: <Text style={styles.highlight}>{ SERVER }</Text>
@@ -183,8 +147,8 @@ class Entry extends Component {
               <Text style={styles.sectionTitle}>Devices Around</Text>
               <FlatList
                   data={ this.state.devicesFound }
-                  renderItem={({item}) => <Text style={styles.itemPastConnections}>{this.dateStr(item.start)} ({this.dateDiffSecs(item.start, item.end)}s): {hex2a(fromUUID(item.uuid))} {item.rssi} {item.name}</Text>}
-                  keyExtractor={item => item.uuid}
+                  renderItem={({item}) => <Text style={styles.itemPastConnections}>{this.dateStr(item.start)} ({this.dateDiffSecs(item.start, item.end)}s): {item.serial} {item.rssi}</Text>}
+                  keyExtractor={item => item.serial}
                   />
             </View>
 

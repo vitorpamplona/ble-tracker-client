@@ -6,7 +6,7 @@ const INTERVAL = 15; // the value is received in minutes
 
 export function executeTask() {
   sync();
-  //BLEBackgroundService.start();
+  BLEBackgroundService.pulse();
 }
 
 let MyHeadlessTask = async (event) => {

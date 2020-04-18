@@ -126,7 +126,7 @@ class Entry extends Component {
 
     start() {
       console.log(this.state.uuid, "Starting Advertising");
-      BLEAdvertiser.broadcast(this.state.uuid, [12,23,56])
+      BLEAdvertiser.broadcast(this.state.uuid, [12,23,56], {})
       .then((sucess) => {
         console.log(this.state.uuid, "Adv Successful", sucess);
       }).catch(error => {

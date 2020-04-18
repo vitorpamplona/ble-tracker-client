@@ -378,6 +378,7 @@
 			baseConfigurationReference = 57573D63BAE14F7C1E5662AF /* Pods-BLETrackerTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
 				DEVELOPMENT_TEAM = D77MCV9NZ7;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",

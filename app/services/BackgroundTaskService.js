@@ -2,7 +2,7 @@ import BackgroundFetch from 'react-native-background-fetch';
 import { sync } from '../helpers/SyncDB';
 import BLEBackgroundService from '../services/BLEBackgroundService'
 
-const UPLOAD_INTERVAL = 15; // the value is received in minutes
+const INTERVAL = 15; // the value is received in minutes
 
 export function executeTask() {
   sync();
@@ -30,7 +30,7 @@ export default class BackgroundTaskServices {
     console.log('creating background task object');
     BackgroundFetch.configure(
       {
-        minimumFetchInterval: UPLOAD_INTERVAL,
+        minimumFetchInterval: INTERVAL,
         // Android options
         forceAlarmManager: false, // <-- Set true to bypass JobScheduler.
         stopOnTerminate: false,

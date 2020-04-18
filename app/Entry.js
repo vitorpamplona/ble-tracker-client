@@ -20,6 +20,7 @@ import BLEAdvertiser from 'react-native-ble-advertiser'
 import { requestLocationPermission } from './services/PermissionRequests';
 import { toUUID, fromUUID } from './helpers/UUIDFormatter';
 import { saveContactToUpload, SERVER } from './helpers/SyncDB';
+import { hex2a, a2hex }  from './helpers/Hex2Ascii'
 import BackgroundTaskServices from './services/BackgroundTaskService';
 
 import DeviceInfo from 'react-native-device-info';
@@ -43,27 +44,10 @@ class Entry extends Component {
       return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{10}00$/.test(uuid);
     }
 
-    hex2a(hexx) {
-        var hex = hexx.toString();//force conversion
-        var str = '';
-        for (var i = 0; (i < hex.length && hex.substr(i, 2) !== '00'); i += 2)
-            str += String.fromCharCode(parseInt(hex.substr(i, 2), 16));
-        return str;
-    }
-
-    a2hex(str) {
-      var arr = [];
-      for (var i = 0, l = str.length; i < l; i ++) {
-        var hex = Number(str.charCodeAt(i)).toString(16);
-        arr.push(hex);
-      }
-      return arr.join('');
-    }
-
     addDevice(_uuid, _name, _rssi, _date) {
       saveContactToUpload(
-        this.hex2a(fromUUID(this.state.uuid)), 
-        this.hex2a(fromUUID(_uuid)), _rssi, _date);
+        hex2a(fromUUID(this.state.uuid)), 
+        hex2a(fromUUID(_uuid)), _rssi, _date);
 
       let index = -1;
       for(let i=0; i< this.state.devicesFound.length; i++){
@@ -94,12 +78,12 @@ class Entry extends Component {
       requestLocationPermission().then(() => {
         let serialNumber = DeviceInfo.getSerialNumber().then(deviceSerial => {
           console.log("Serial Number", deviceSerial);
-          console.log("Serial Number Hex", this.a2hex(deviceSerial));
-          console.log("Serial Number Hex Decoded",this.hex2a(this.a2hex(deviceSerial)));
-          console.log("Serial Number Hex Decoded", toUUID(this.a2hex(deviceSerial)));
-          console.log("Is Valid UUID", this.isValidUUID(toUUID(this.a2hex(deviceSerial))));
+          console.log("Serial Number Hex", a2hex(deviceSerial));
+          console.log("Serial Number Hex Decoded", hex2a(a2hex(deviceSerial)));
+          console.log("Serial Number Hex Decoded", toUUID(a2hex(deviceSerial)));
+          console.log("Is Valid UUID", this.isValidUUID(toUUID(a2hex(deviceSerial))));
           this.setState({
-            uuid: toUUID(this.a2hex(deviceSerial))
+            uuid: toUUID(a2hex(deviceSerial))
           });
         });
 
@@ -192,8 +176,13 @@ class Entry extends Component {
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Contact Tracing</Text>
-              <Text style={styles.sectionDescription}>Broadcasting: <Text style={styles.highlight}>{ this.hex2a(fromUUID(this.state.uuid)) }</Text></Text>
-              <Text style={styles.sectionDescription}>Server: <Text style={styles.highlight}>{ SERVER }</Text></Text>
+              <Text style={styles.sectionDescription}>
+                Broadcasting: 
+                <Text style={styles.highlight}> { hex2a(fromUUID(this.state.uuid)) }</Text>
+              </Text>
+              <Text style={styles.sectionDescription}>
+                Server: <Text style={styles.highlight}>{ SERVER }</Text>
+              </Text>
             </View>
 
             <View style={styles.sectionContainer}>
@@ -220,7 +209,7 @@ class Entry extends Component {
               <Text style={styles.sectionTitle}>Devices Around</Text>
               <FlatList
                   data={ this.state.devicesFound }
-                  renderItem={({item}) => <Text style={styles.itemPastConnections}>{this.dateStr(item.start)} ({this.dateDiffSecs(item.start, item.end)}s): {this.hex2a(fromUUID(item.uuid))} {item.rssi} {item.name}</Text>}
+                  renderItem={({item}) => <Text style={styles.itemPastConnections}>{this.dateStr(item.start)} ({this.dateDiffSecs(item.start, item.end)}s): {hex2a(fromUUID(item.uuid))} {item.rssi} {item.name}</Text>}
                   keyExtractor={item => item.uuid}
                   />
             </View>

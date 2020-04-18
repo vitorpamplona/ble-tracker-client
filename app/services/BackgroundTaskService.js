@@ -1,12 +1,12 @@
 import BackgroundFetch from 'react-native-background-fetch';
 import { sync } from '../helpers/SyncDB';
+import BLEBackgroundService from '../services/BLEBackgroundService'
 
 const UPLOAD_INTERVAL = 15; // the value is received in minutes
 
 export function executeTask() {
-  console.log('[BackgroundFetch ForegroundTask] start: ');
   sync();
-  console.log('[BackgroundFetch ForegroundTask] start: ');
+  //BLEBackgroundService.start();
 }
 
 let MyHeadlessTask = async (event) => {
@@ -14,7 +14,7 @@ let MyHeadlessTask = async (event) => {
   let taskId = event.taskId;
   console.log('[BackgroundFetch HeadlessTask] start: ', event);
 
-  sync();
+  executeTask();
 
   console.log('[BackgroundFetch HeadlessTask] finish: ', event);
 
@@ -44,7 +44,9 @@ export default class BackgroundTaskServices {
       },
       async taskId => {
         console.log('[js] Received background-fetch event: ', taskId);
+        console.log('[BackgroundFetch ForegroundTask] start: ');
         executeTask();
+        console.log('[BackgroundFetch ForegroundTask] start: ');
         BackgroundFetch.finish(taskId);
       },
       error => {
@@ -70,7 +72,7 @@ export default class BackgroundTaskServices {
         }
     });
 
-    sync();
+    executeTask();
   }
 
   static stop() {

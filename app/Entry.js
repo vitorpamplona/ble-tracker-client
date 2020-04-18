@@ -16,12 +16,15 @@ import { NativeEventEmitter, NativeModules } from 'react-native';
 
 import update from 'immutability-helper';
 
-import BLEAdvertiser from 'react-native-ble-advertiser'
+
 import { requestLocationPermission } from './services/PermissionRequests';
 import { toUUID, fromUUID } from './helpers/UUIDFormatter';
 import { saveContactToUpload, SERVER } from './helpers/SyncDB';
 import { hex2a, a2hex }  from './helpers/Hex2Ascii'
+
+import BLEAdvertiser from 'react-native-ble-advertiser'
 import BackgroundTaskServices from './services/BackgroundTaskService';
+import BLEBackgroundService from './services/BLEBackgroundService';
 
 import DeviceInfo from 'react-native-device-info';
 
@@ -110,21 +113,7 @@ class Entry extends Component {
     }
 
     start() {
-      console.log(this.state.uuid, "Starting Advertising");
-      BLEAdvertiser.broadcast(this.state.uuid, [12,23,56], {})
-      .then((sucess) => {
-        console.log(this.state.uuid, "Adv Successful", sucess);
-      }).catch(error => {
-        console.log(this.state.uuid, "Adv Error", error); 
-      });
-      
-      console.log(this.state.uuid, "Starting Scanner");
-      BLEAdvertiser.scan([12,23,56], {})
-      .then((sucess) => {
-        console.log(this.state.uuid, "Scan Successful", sucess);
-      }).catch(error => {
-        console.log(this.state.uuid, "Scan Error", error); 
-      });
+      BLEBackgroundService.start(this.state.uuid);
 
       this.setState({
         isLogging: true,
@@ -132,21 +121,7 @@ class Entry extends Component {
     }
 
     stop(){
-      console.log(this.state.uuid, "Stopping Broadcast");
-      BLEAdvertiser.stopBroadcast()
-        .then((sucess) => {
-          console.log(this.state.uuid, "Stop Broadcast Successful", sucess);
-        }).catch(error => {
-          console.log(this.state.uuid, "Stop Broadcast Error", error); 
-        });
-
-      console.log(this.state.uuid, "Stopping Scanning");
-      BLEAdvertiser.stopScan()
-        .then((sucess) => {
-          console.log(this.state.uuid, "Stop Scan Successful", sucess);
-        }).catch(error => {
-          console.log(this.state.uuid, "Stop Scan Error", error); 
-        });
+      BLEBackgroundService.stop(this.state.uuid);
 
       this.setState({
         isLogging: false,

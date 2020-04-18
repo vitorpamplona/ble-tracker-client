@@ -15,9 +15,9 @@ export default class BLEBackgroundService {
       
       console.log(uuid, "Starting Scanner");
       BLEAdvertiser.scan([12,23,56], {})
-    }
       .then(sucess => console.log(uuid, "Scan Successful", sucess))
       .catch(error => console.log(uuid, "Scan Error", error)); 
+    });
 
     static stop(uuid){
       console.log(uuid, "Stopping Broadcast");
@@ -27,7 +27,7 @@ export default class BLEBackgroundService {
 
       console.log(uuid, "Stopping Scanning");
       BLEAdvertiser.stopScan()
-    }
         .then(sucess => console.log(uuid, "Stop Scan Successful", sucess))
         .catch(error => console.log(uuid, "Stop Scan Error", error));
+    });
 }

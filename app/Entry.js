@@ -19,7 +19,7 @@ import update from 'immutability-helper';
 import BLEAdvertiser from 'react-native-ble-advertiser'
 import { requestLocationPermission } from './services/PermissionRequests';
 import { toUUID, fromUUID } from './helpers/UUIDFormatter';
-import { saveContactToUpload } from './helpers/SyncDB';
+import { saveContactToUpload, SERVER } from './helpers/SyncDB';
 import BackgroundTaskServices from './services/BackgroundTaskService';
 
 import DeviceInfo from 'react-native-device-info';
@@ -121,6 +121,8 @@ class Entry extends Component {
             }
           }
         });
+
+        this.start();
       });
     }
 
@@ -191,6 +193,7 @@ class Entry extends Component {
             <View style={styles.sectionContainer}>
               <Text style={styles.sectionTitle}>Contact Tracing</Text>
               <Text style={styles.sectionDescription}>Broadcasting: <Text style={styles.highlight}>{ this.hex2a(fromUUID(this.state.uuid)) }</Text></Text>
+              <Text style={styles.sectionDescription}>Server: <Text style={styles.highlight}>{ SERVER }</Text></Text>
             </View>
 
             <View style={styles.sectionContainer}>

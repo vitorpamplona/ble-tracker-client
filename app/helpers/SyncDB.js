@@ -37,9 +37,9 @@ function uploadAndRemove(key) {
 export async function sync () {
   AsyncStorage.getAllKeys().then(ks => {
       ks.sort().map(key => {
-        console.log("Uploading Key", key);
         // it's a uuid
         if (key.startsWith(CONTACT)) {
+            console.log("Uploading Key", key);
             uploadAndRemove(key);
         }
       })

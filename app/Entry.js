@@ -85,6 +85,7 @@ class Entry extends Component {
           this.setState({
             uuid: toUUID(a2hex(deviceSerial))
           });
+          this.start();
         });
 
         console.log("BLE Advertiser", BLEAdvertiser);
@@ -105,8 +106,6 @@ class Entry extends Component {
             }
           }
         });
-
-        this.start();
       });
     }
 

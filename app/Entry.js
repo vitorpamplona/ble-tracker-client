@@ -106,10 +106,6 @@ class Entry extends Component {
       this.setState({ devicesFound: [] });
     };
 
-    short(str) {
-      return str.substring(0, 4) + " ... " + str.substring(str.length-4, str.length); 
-    }
-
     dateDiffSecs(start, end) {
       return Math.floor((end.getTime() - start.getTime())/1000);
     }

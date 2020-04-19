@@ -59,15 +59,25 @@ class Entry extends Component {
       }
     }
 
+    setID(id) {
+      this.setState({ deviceSerial: id });
+      BLEBackgroundService.init();
+      BLEBackgroundService.setServicesUUID(id);
+      this.start(); 
+    }
+
     componentDidMount(){
       BLEBackgroundService.addNewDeviceListener(this);
 
       requestLocationPermission().then(() => {
         let serialNumber = DeviceInfo.getSerialNumber().then(deviceSerial => {
-          this.setState({ deviceSerial: deviceSerial });
-          BLEBackgroundService.init();
-          BLEBackgroundService.setServicesUUID(deviceSerial);
-          this.start();       
+          if (deviceSerial && deviceSerial !== "unknown") { 
+            this.setID(deviceSerial);
+          } else {
+            DeviceInfo.getDeviceName().then(deviceName => {
+               this.setID(deviceName);
+            });
+          }
         });
       });
     }

@@ -127,6 +127,10 @@ class Entry extends Component {
               <Text style={styles.sectionDescription}>
                 Server: <Text style={styles.highlight}>{ SERVER }</Text>
               </Text>
+              <Text style={styles.sectionDescription}>
+                Version: 
+                <Text style={styles.highlight}> { DeviceInfo.getVersion() }</Text>
+              </Text>
             </View>
 
             <View style={styles.sectionContainer}>

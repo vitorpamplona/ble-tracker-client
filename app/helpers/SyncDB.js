@@ -4,7 +4,8 @@ import AsyncStorage from '@react-native-community/async-storage';
 // safepath.tch.harvard.edu:80/api/v1/contacts
 // 10.1.10.98:4567/api/v1/contacts
 // 192.168.0.11:4567/api/v1/contacts
-export const SERVER = "192.168.0.11:4567";
+//export const SERVER = "192.168.0.11:4567";
+export const SERVER = "safepath.tch.harvard.edu:80";
 
 export async function saveContactToUpload(_uploader, _contact, _rssi, _date) {
   let contactData = { uploader:_uploader, contact: _contact, rssi:_rssi, date:_date.toISOString() };

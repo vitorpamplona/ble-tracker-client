@@ -12,7 +12,7 @@ export default class BLEBackgroundService {
   static eventEmitter = new NativeEventEmitter(NativeModules.BLEAdvertiser);
   static onDeviceFoundListener;
 
-  static _newDeviceListeners = [];
+  static _newDeviceListeners = []; // Objects that implement event onDevice(data)
 
   /**
    * If the app needs to update the screen at every new device. 
@@ -65,9 +65,15 @@ export default class BLEBackgroundService {
     this.start();
   }
 
-  static start() {
-    if (this.onDeviceFoundListener) 
+  static clearListener() {
+    if (this.onDeviceFoundListener) {
       this.onDeviceFoundListener.remove();
+      this.onDeviceFoundListener = null;
+    }
+  }
+
+  static start() {
+    this.clearListener();
 
     this.onDeviceFoundListener = this.eventEmitter.addListener('onDeviceFound', (event) => {
       if (event.serviceUuids) {
@@ -94,8 +100,7 @@ export default class BLEBackgroundService {
   }
 
   static stop(){
-    if (this.onDeviceFoundListener)
-      this.onDeviceFoundListener.remove();
+    this.clearListener();
 
     AsyncStorage.getItem(MY_UUID).then(uuid => {
       console.log(uuid, "Stopping Broadcast");

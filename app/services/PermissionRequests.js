@@ -1,6 +1,30 @@
 import BLEAdvertiser from 'react-native-ble-advertiser'
 import { PermissionsAndroid } from 'react-native';
 
+export async function hasLocationPermission() {
+  try {
+    const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
+    console.log("Location Permission:", granted);
+    return granted ? 'Granted' : 'Not Granted';
+  } catch (e) {
+    return e.toString();
+  }
+}
+
+export async function hasPhonePermission() {
+  try {
+    const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE);
+    console.log("Phone Permission:", granted);
+    return granted ? 'Granted' : 'Not Granted';
+  } catch (e) {
+    return e.toString();
+  }
+}
+
+export async function isBluetoothActive() {
+  return await BLEAdvertiser.getAdapterState() === "STATE_ON";
+}
+
 export async function requestLocationPermission() {
   try {
     if (Platform.OS === 'android') {
@@ -11,7 +35,7 @@ export async function requestLocationPermission() {
           'message': 'Example App access to your location and phone ID'
         }
       );
-      console.log("PErmissions Granted? ", locationGranted === PermissionsAndroid.RESULTS.GRANTED);
+      console.log("Permissions Granted? ", locationGranted === PermissionsAndroid.RESULTS.GRANTED);
     }
 
     BLEAdvertiser.getAdapterState().then(result => {

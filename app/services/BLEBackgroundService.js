@@ -11,31 +11,58 @@ import { saveContactToUpload, SERVER } from '../helpers/SyncDB';
 export default class BLEBackgroundService {
   static eventEmitter = new NativeEventEmitter(NativeModules.BLEAdvertiser);
   static onDeviceFoundListener;
+  static onBluetoothStatusListener;
 
-  static _newDeviceListeners = []; // Objects that implement event onDevice(data)
+  static listeners = []; // Objects that implement event onDevice(data), onScanSatus, onBroadcastStatus
 
   /**
    * If the app needs to update the screen at every new device. 
    */
   static addNewDeviceListener(callback) {
-    var index = this._newDeviceListeners.indexOf(callback);
+    var index = this.listeners.indexOf(callback);
     if (index < 0)
-      this._newDeviceListeners.push(callback);
+      this.listeners.push(callback);
   }
   static removeNewDeviceListener(callback) {
-    var index = this._newDeviceListeners.indexOf(callback);
+    var index = this.listeners.indexOf(callback);
     if (index > -1) {
-        this._newDeviceListeners.splice(index, 1);
+        this.listeners.splice(index, 1);
     }
   }
   static emitNewDevice(data) {
-    this._newDeviceListeners.forEach(callback => {
+    this.listeners.forEach(callback => {
       callback.onDevice(data);
+    });
+  }
+  static emitBroadcastingStatus(data) {
+    this.listeners.forEach(callback => {
+      callback.onBroadcastStatus(data);
+    });
+  }
+  static emitScanningStatus(data) {
+    this.listeners.forEach(callback => {
+      callback.onScanStatus(data);
+    });
+  }
+  static emitBluetoothStatus(data) {
+    this.listeners.forEach(callback => {
+      callback.onBluetoothStatus(data);
     });
   }
 
   static init() {
     BLEAdvertiser.setCompanyId(0x4C); 
+
+    this.emitBroadcastingStatus('Initialized');
+    this.emitScanningStatus('Initialized');
+  }
+
+  static requestBluetoothStatus() {
+    BLEAdvertiser.getAdapterState().then(result => {
+      this.emitBluetoothStatus(result === 'STATE_ON' ? "On" : "Off");
+    }).catch(error => { 
+      this.emitBluetoothStatus(error);
+    });
   }
 
   static isValidUUID(uuid) {
@@ -70,10 +97,18 @@ export default class BLEBackgroundService {
       this.onDeviceFoundListener.remove();
       this.onDeviceFoundListener = null;
     }
+
+    if (this.onBluetoothStatusListener) {
+      this.onBluetoothStatusListener.remove();
+      this.onBluetoothStatusListener = null;
+    }
   }
 
   static start() {
     this.clearListener();
+
+    this.emitBroadcastingStatus('Starting');
+    this.emitScanningStatus('Starting');
 
     this.onDeviceFoundListener = this.eventEmitter.addListener('onDeviceFound', (event) => {
       if (event.serviceUuids) {
@@ -86,32 +121,44 @@ export default class BLEBackgroundService {
       }
     });
 
+    this.onBluetoothStatusListener = this.eventEmitter.addListener('onBTStatusChange', (bluetooth) => {
+      this.emitBluetoothStatus(bluetooth.enabled ? "On" : "Off");
+
+      if (!bluetooth.enabled) {
+        this.emitBroadcastingStatus('Bluetooth Off');
+        this.emitScanningStatus('Bluetooth Off');
+      }
+    });
+
     AsyncStorage.getItem(MY_UUID).then(uuid => {
       console.log(uuid, "Starting Advertising");
       BLEAdvertiser.broadcast(uuid, [12,23,56], {})
-      .then(sucess => console.log(uuid, "Adv Successful", sucess))
-      .catch(error => console.log(uuid, "Adv Error", error));
+      .then(sucess => this.emitBroadcastingStatus("Started"))
+      .catch(error => this.emitBroadcastingStatus(error));
       
       console.log(uuid, "Starting Scanner");
       BLEAdvertiser.scan([12,23,56], {})
-      .then(sucess => console.log(uuid, "Scan Successful", sucess))
-      .catch(error => console.log(uuid, "Scan Error", error)); 
+      .then(sucess => this.emitScanningStatus("Started"))
+      .catch(error => this.emitScanningStatus(error)); 
     });
   }
 
   static stop(){
     this.clearListener();
 
+    this.emitBroadcastingStatus('Stopping');
+    this.emitScanningStatus('Stopping');
+
     AsyncStorage.getItem(MY_UUID).then(uuid => {
       console.log(uuid, "Stopping Broadcast");
       BLEAdvertiser.stopBroadcast()
-        .then(sucess => console.log(uuid, "Stop Broadcast Successful", sucess))
-        .catch(error => console.log(uuid, "Stop Broadcast Error", error));
+        .then(sucess => this.emitBroadcastingStatus("Stopped"))
+        .catch(error => this.emitBroadcastingStatus(error));
 
       console.log(uuid, "Stopping Scanning");
       BLEAdvertiser.stopScan()
-        .then(sucess => console.log(uuid, "Stop Scan Successful", sucess))
-        .catch(error => console.log(uuid, "Stop Scan Error", error));
+        .then(sucess => this.emitScanningStatus("Stopped"))
+        .catch(error => this.emitScanningStatus(error));
     });
   }
 }

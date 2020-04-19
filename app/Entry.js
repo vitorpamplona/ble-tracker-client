@@ -13,7 +13,7 @@ import Moment from 'moment';
 import { Alert, Platform } from 'react-native';
 import update from 'immutability-helper';
 
-import { requestLocationPermission } from './services/PermissionRequests';
+import { requestLocationPermission, hasPhonePermission, hasLocationPermission } from './services/PermissionRequests';
 
 import BackgroundTaskServices from './services/BackgroundTaskService';
 import BLEBackgroundService from './services/BLEBackgroundService';
@@ -31,7 +31,12 @@ class Entry extends Component {
         super(props);
         this.state = {
             deviceSerial:'',
-            devicesFound:[]
+            devicesFound:[], 
+            scanStatus:'',
+            broadcastStatus:'', 
+            bluetoothStatus:'',
+            locationPermission: false,
+            phonePermission: false,
         }
     }
 
@@ -59,17 +64,46 @@ class Entry extends Component {
       }
     }
 
+    onScanStatus(status) {
+      this.setState({
+        scanStatus: status.toString()
+      });
+    }
+
+    onBroadcastStatus(status) {
+      this.setState({
+        broadcastStatus: status.toString()
+      });
+    }
+
+    onBluetoothStatus(status) {
+      this.setState({
+        bluetoothStatus: status.toString()
+      });
+    }
+
     setID(id) {
       this.setState({ deviceSerial: id });
-      BLEBackgroundService.init();
       BLEBackgroundService.setServicesUUID(id);
       this.start(); 
     }
 
     componentDidMount(){
+      BLEBackgroundService.init();
       BLEBackgroundService.addNewDeviceListener(this);
+      BLEBackgroundService.requestBluetoothStatus();  
 
       requestLocationPermission().then(() => {
+        hasLocationPermission().then(result => {
+          this.setState({
+            locationPermission: result
+          });
+        });
+        hasPhonePermission().then(result => {
+          this.setState({
+            phonePermission: result
+          });
+        });  
         let serialNumber = DeviceInfo.getSerialNumber().then(deviceSerial => {
           if (deviceSerial && deviceSerial !== "unknown") { 
             this.setID(deviceSerial);
@@ -130,6 +164,26 @@ class Entry extends Component {
               <Text style={styles.sectionDescription}>
                 Version: 
                 <Text style={styles.highlight}> { DeviceInfo.getVersion() }</Text>
+              </Text>
+              <Text style={styles.sectionDescription}>
+                Broadcasting: 
+                <Text style={styles.highlight}> { this.state.broadcastStatus }</Text>
+              </Text>
+              <Text style={styles.sectionDescription}>
+                Scan: 
+                <Text style={styles.highlight}> { this.state.scanStatus }</Text>
+              </Text>
+              <Text style={styles.sectionDescription}>
+                Location: 
+                <Text style={styles.highlight}> { this.state.locationPermission }</Text>
+              </Text>
+              <Text style={styles.sectionDescription}>
+                Phone: 
+                <Text style={styles.highlight}> { this.state.phonePermission }</Text>
+              </Text>
+              <Text style={styles.sectionDescription}>
+                Bluetooth: 
+                <Text style={styles.highlight}> { this.state.bluetoothStatus }</Text>
               </Text>
             </View>
 

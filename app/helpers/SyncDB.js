@@ -25,7 +25,7 @@ function uploadAndRemove(key) {
                     body: contact
                 }
             ).then(response => {
-                if (response.status >= 200 && response.status < 300) {
+                if (response.status == 200) {
                     AsyncStorage.removeItem(key);
                 }
             }).catch(error => {

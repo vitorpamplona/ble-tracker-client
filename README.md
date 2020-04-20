@@ -8,10 +8,10 @@ Together with the server, this app allows companies to track their phones when t
 
 ## Behavior
 
-1. Get consent to locally track bluetooth using the Phone's Serial Number (non private)
-2. Locally cache a minute-by-minute database of: ``` Contact |  Date/Time  |  RSSI ```
+1. Locally tracks bluetooth by exposing the Phone's Serial Number (non private)
+2. Cache a minute-by-minute database of: ``` Contact |  Time  |  RSSI ```
 3. Wake the app at every 15 minutes to scan and broadcast BLE
-4. Upload all data to a server (not private). See: https://github.com/vitorpamplona/ble-tracker-server
+4. Upload all data to a https://github.com/vitorpamplona/ble-tracker-server (not private).
 
 # Development Overview
 

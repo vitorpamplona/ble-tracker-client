@@ -1,4 +1,4 @@
-# Bluetooth LE Contact Tracing Tracker Uploader. 
+# Bluetooth LE Contact Tracing Uploader. 
 
 <img align="right" src="./docs/preview.png" data-canonical-src="./docs/preview.png" width="350px"/>
 

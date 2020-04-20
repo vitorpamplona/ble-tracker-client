@@ -105,6 +105,8 @@ export default class BLEBackgroundService {
   }
 
   static start() {
+    console.log("Starting BLE service");
+
     this.clearListener();
 
     this.emitBroadcastingStatus('Starting');
@@ -131,34 +133,40 @@ export default class BLEBackgroundService {
     });
 
     AsyncStorage.getItem(MY_UUID).then(uuid => {
-      console.log(uuid, "Starting Advertising");
-      BLEAdvertiser.broadcast(uuid, [12,23,56], {})
-      .then(sucess => this.emitBroadcastingStatus("Started"))
-      .catch(error => this.emitBroadcastingStatus(error));
-      
-      console.log(uuid, "Starting Scanner");
-      BLEAdvertiser.scan([12,23,56], {})
-      .then(sucess => this.emitScanningStatus("Started"))
-      .catch(error => this.emitScanningStatus(error)); 
+      if (uuid) {
+        console.log(uuid, "Starting Advertising");
+        BLEAdvertiser.broadcast(uuid, [12,23,56], {})
+        .then(sucess => this.emitBroadcastingStatus("Started"))
+        .catch(error => this.emitBroadcastingStatus(error));
+        
+        console.log(uuid, "Starting Scanner");
+        BLEAdvertiser.scan([12,23,56], {})
+        .then(sucess => this.emitScanningStatus("Started"))
+        .catch(error => this.emitScanningStatus(error)); 
+      }
     });
   }
 
   static stop(){
+    console.log("Starting BLE service");
+
     this.clearListener();
 
     this.emitBroadcastingStatus('Stopping');
     this.emitScanningStatus('Stopping');
 
     AsyncStorage.getItem(MY_UUID).then(uuid => {
-      console.log(uuid, "Stopping Broadcast");
-      BLEAdvertiser.stopBroadcast()
-        .then(sucess => this.emitBroadcastingStatus("Stopped"))
-        .catch(error => this.emitBroadcastingStatus(error));
+      if (uuid) {
+        console.log(uuid, "Stopping Broadcast");
+        BLEAdvertiser.stopBroadcast()
+          .then(sucess => this.emitBroadcastingStatus("Stopped"))
+          .catch(error => this.emitBroadcastingStatus(error));
 
-      console.log(uuid, "Stopping Scanning");
-      BLEAdvertiser.stopScan()
-        .then(sucess => this.emitScanningStatus("Stopped"))
-        .catch(error => this.emitScanningStatus(error));
+        console.log(uuid, "Stopping Scanning");
+        BLEAdvertiser.stopScan()
+          .then(sucess => this.emitScanningStatus("Stopped"))
+          .catch(error => this.emitScanningStatus(error));
+      }
     });
   }
 }

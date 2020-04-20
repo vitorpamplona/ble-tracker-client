@@ -15,11 +15,10 @@ import update from 'immutability-helper';
 
 import { requestLocationPermission, hasPhonePermission, hasLocationPermission } from './services/PermissionRequests';
 
-import BackgroundTaskServices from './services/BackgroundTaskService';
 import BLEBackgroundService from './services/BLEBackgroundService';
 
 import DeviceInfo from 'react-native-device-info';
-import { SERVER } from './helpers/SyncDB';
+import { SERVER, sync } from './helpers/SyncDB';
 
 import {
   Header,
@@ -126,6 +125,8 @@ class Entry extends Component {
       this.setState({
         isLogging: true,
       });
+
+      sync();
     }
 
     stop(){
@@ -134,6 +135,8 @@ class Entry extends Component {
       this.setState({
         isLogging: false,
       });
+
+      sync();
     }
 
     onClearArray = () => {

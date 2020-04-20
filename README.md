@@ -1,6 +1,6 @@
 # Bluetooth LE Contact Tracing Tracker Uploader. 
 
-<img align="right" src="./docs/preview.png" data-canonical-src="./docs/preview.png" width="250px"/>
+<img align="right" src="./docs/preview.png" data-canonical-src="./docs/preview.png" width="350px"/>
 
 Ultra simple app to track BLE devices on Android using the Phone's Serial Number as UUID (not private). 
 

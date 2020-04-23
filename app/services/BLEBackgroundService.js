@@ -86,9 +86,18 @@ export default class BLEBackgroundService {
     AsyncStorage.setItem(MY_UUID, myUUID);
   }
 
+  static enableBT() {
+    BLEAdvertiser.enableAdapter();
+  }
+
+  static disableBT() {
+    BLEAdvertiser.disableAdapter();
+  }
+
   // Called by Background function. 
   static pulse() {
-    this.stop();
+    this.enableBT();
+    this.init();
     this.start();
   }
 
@@ -153,7 +162,7 @@ export default class BLEBackgroundService {
   }
 
   static stop(){
-    console.log("Starting BLE service");
+    console.log("Stopping BLE service");
 
     this.clearListener();
 

@@ -120,6 +120,7 @@ class Entry extends Component {
     }
 
     start() {
+      BLEBackgroundService.enableBT();
       BLEBackgroundService.start();
 
       this.setState({

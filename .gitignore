@@ -98,7 +98,6 @@ yarn.lock # include if you are using npm - don't use both npm and yarn
 # BUCK
 buck-out/
 \.buckd/
-*.keystore
 
 # Bundle artifact
 *.jsbundle

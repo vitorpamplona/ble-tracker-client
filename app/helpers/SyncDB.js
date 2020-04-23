@@ -36,13 +36,27 @@ function uploadAndRemove(key) {
 }
 
 export async function sync () {
-  AsyncStorage.getAllKeys().then(ks => {
-      ks.sort().map(key => {
-        // it's a uuid
-        if (key.startsWith(CONTACT)) {
-            console.log("Uploading Key", key);
-            uploadAndRemove(key);
+    fetch('http://' + SERVER + "/api/v1/health", 
+        {
+            method: "GET",
+            headers: {
+            "Accept": "application/json",
+            "Content-Type": "application/json"
+            }
         }
-      })
-  });
+    ).then(response => {
+        if (response == 200) { // is online
+            AsyncStorage.getAllKeys().then(ks => {
+                ks.sort().map(key => {
+                    // it's a uuid
+                    if (key.startsWith(CONTACT)) {
+                        console.log("Uploading Key", key);
+                        uploadAndRemove(key);
+                    }
+                })
+            });
+        }
+    }).catch(error => {
+        console.log("Phone Offline", error); 
+    });
 }

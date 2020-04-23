@@ -16,7 +16,7 @@
     "react": "16.11.0",
     "react-native": "0.62.1",
     "react-native-background-fetch": "^3.0.4",
-    "react-native-ble-advertiser": "0.0.13",
+    "react-native-ble-advertiser": "0.0.14",
     "react-native-device-info": "^5.5.4",
     "react-native-version": "^4.0.0"
   }

@@ -2,12 +2,12 @@
 <Workspace
    version = "1.0">
    <FileRef
-      location = "group:/Users/vitor/Documents/workspace/ble-tracker-client/ios/BLETracker.xcodeproj">
+      location = "group:/Users/vitor/Documents/workspace/ble-tracker-client/ios/BCHContactTracing.xcodeproj">
    </FileRef>
    <FileRef
       location = "group:Pods/Pods.xcodeproj">
    </FileRef>
    <FileRef
-      location = "group:BLETracker.xcodeproj">
+      location = "group:BCHContactTracing.xcodeproj">
    </FileRef>
 </Workspace>

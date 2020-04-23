@@ -7,13 +7,13 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		00E356F31AD99517003FC87E /* BLETrackerTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BLETrackerTests.m */; };
+		00E356F31AD99517003FC87E /* BCHContactTracingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BCHContactTracingTests.m */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
 		13B07FC11A68108700A75B9A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB71A68108700A75B9A /* main.m */; };
-		2F2E429C2EEB5222967A40BD /* libPods-BLETracker.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5ABAAB17F68671B5A9BC52 /* libPods-BLETracker.a */; };
-		F3562260F3318E087E369650 /* libPods-BLETrackerTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5242468837AFDFB2B5357739 /* libPods-BLETrackerTests.a */; };
+		2F2E429C2EEB5222967A40BD /* libPods-BCHContactTracing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5ABAAB17F68671B5A9BC52 /* libPods-BCHContactTracing.a */; };
+		F3562260F3318E087E369650 /* libPods-BCHContactTracingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5242468837AFDFB2B5357739 /* libPods-BCHContactTracingTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -22,30 +22,30 @@
 			containerPortal = 83CBB9F71A601CBA00E9B192 /* Project object */;
 			proxyType = 1;
 			remoteGlobalIDString = 13B07F861A680F5B00A75B9A;
-			remoteInfo = BLETracker;
+			remoteInfo = BCHContactTracing;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
 		008F07F21AC5B25A0029DE68 /* main.jsbundle */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = main.jsbundle; sourceTree = "<group>"; };
-		00E356EE1AD99517003FC87E /* BLETrackerTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BLETrackerTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		00E356EE1AD99517003FC87E /* BCHContactTracingTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BCHContactTracingTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		00E356F11AD99517003FC87E /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		00E356F21AD99517003FC87E /* BLETrackerTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BLETrackerTests.m; sourceTree = "<group>"; };
-		13B07F961A680F5B00A75B9A /* BLETracker.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BLETracker.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BLETracker/AppDelegate.h; sourceTree = "<group>"; };
-		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = BLETracker/AppDelegate.m; sourceTree = "<group>"; };
+		00E356F21AD99517003FC87E /* BCHContactTracingTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BCHContactTracingTests.m; sourceTree = "<group>"; };
+		13B07F961A680F5B00A75B9A /* BCHContactTracing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = BCHContactTracing.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		13B07FAF1A68108700A75B9A /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppDelegate.h; path = BCHContactTracing/AppDelegate.h; sourceTree = "<group>"; };
+		13B07FB01A68108700A75B9A /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppDelegate.m; path = BCHContactTracing/AppDelegate.m; sourceTree = "<group>"; };
 		13B07FB21A68108700A75B9A /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = Base; path = Base.lproj/LaunchScreen.xib; sourceTree = "<group>"; };
-		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BLETracker/Images.xcassets; sourceTree = "<group>"; };
-		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BLETracker/Info.plist; sourceTree = "<group>"; };
-		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BLETracker/main.m; sourceTree = "<group>"; };
-		5242468837AFDFB2B5357739 /* libPods-BLETrackerTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BLETrackerTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		57573D63BAE14F7C1E5662AF /* Pods-BLETrackerTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLETrackerTests.debug.xcconfig"; path = "Target Support Files/Pods-BLETrackerTests/Pods-BLETrackerTests.debug.xcconfig"; sourceTree = "<group>"; };
-		6B6E2A8FAAECC94D17DB2D1A /* Pods-BLETracker.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLETracker.debug.xcconfig"; path = "Target Support Files/Pods-BLETracker/Pods-BLETracker.debug.xcconfig"; sourceTree = "<group>"; };
-		953DA8161A5D29D44E43C129 /* Pods-BLETracker.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLETracker.release.xcconfig"; path = "Target Support Files/Pods-BLETracker/Pods-BLETracker.release.xcconfig"; sourceTree = "<group>"; };
-		D2315CD1E0B1CDA03480822F /* Pods-BLETrackerTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BLETrackerTests.release.xcconfig"; path = "Target Support Files/Pods-BLETrackerTests/Pods-BLETrackerTests.release.xcconfig"; sourceTree = "<group>"; };
+		13B07FB51A68108700A75B9A /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; name = Images.xcassets; path = BCHContactTracing/Images.xcassets; sourceTree = "<group>"; };
+		13B07FB61A68108700A75B9A /* Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = Info.plist; path = BCHContactTracing/Info.plist; sourceTree = "<group>"; };
+		13B07FB71A68108700A75B9A /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = main.m; path = BCHContactTracing/main.m; sourceTree = "<group>"; };
+		5242468837AFDFB2B5357739 /* libPods-BCHContactTracingTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BCHContactTracingTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		57573D63BAE14F7C1E5662AF /* Pods-BCHContactTracingTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCHContactTracingTests.debug.xcconfig"; path = "Target Support Files/Pods-BCHContactTracingTests/Pods-BCHContactTracingTests.debug.xcconfig"; sourceTree = "<group>"; };
+		6B6E2A8FAAECC94D17DB2D1A /* Pods-BCHContactTracing.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCHContactTracing.debug.xcconfig"; path = "Target Support Files/Pods-BCHContactTracing/Pods-BCHContactTracing.debug.xcconfig"; sourceTree = "<group>"; };
+		953DA8161A5D29D44E43C129 /* Pods-BCHContactTracing.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCHContactTracing.release.xcconfig"; path = "Target Support Files/Pods-BCHContactTracing/Pods-BCHContactTracing.release.xcconfig"; sourceTree = "<group>"; };
+		D2315CD1E0B1CDA03480822F /* Pods-BCHContactTracingTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-BCHContactTracingTests.release.xcconfig"; path = "Target Support Files/Pods-BCHContactTracingTests/Pods-BCHContactTracingTests.release.xcconfig"; sourceTree = "<group>"; };
 		ED297162215061F000B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = System/Library/Frameworks/JavaScriptCore.framework; sourceTree = SDKROOT; };
 		ED2971642150620600B7C4FE /* JavaScriptCore.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = JavaScriptCore.framework; path = Platforms/AppleTVOS.platform/Developer/SDKs/AppleTVOS12.0.sdk/System/Library/Frameworks/JavaScriptCore.framework; sourceTree = DEVELOPER_DIR; };
-		FE5ABAAB17F68671B5A9BC52 /* libPods-BLETracker.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BLETracker.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		FE5ABAAB17F68671B5A9BC52 /* libPods-BCHContactTracing.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-BCHContactTracing.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -53,7 +53,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				F3562260F3318E087E369650 /* libPods-BLETrackerTests.a in Frameworks */,
+				F3562260F3318E087E369650 /* libPods-BCHContactTracingTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -61,20 +61,20 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2F2E429C2EEB5222967A40BD /* libPods-BLETracker.a in Frameworks */,
+				2F2E429C2EEB5222967A40BD /* libPods-BCHContactTracing.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		00E356EF1AD99517003FC87E /* BLETrackerTests */ = {
+		00E356EF1AD99517003FC87E /* BCHContactTracingTests */ = {
 			isa = PBXGroup;
 			children = (
-				00E356F21AD99517003FC87E /* BLETrackerTests.m */,
+				00E356F21AD99517003FC87E /* BCHContactTracingTests.m */,
 				00E356F01AD99517003FC87E /* Supporting Files */,
 			);
-			path = BLETrackerTests;
+			path = BCHContactTracingTests;
 			sourceTree = "<group>";
 		};
 		00E356F01AD99517003FC87E /* Supporting Files */ = {
@@ -85,7 +85,7 @@
 			name = "Supporting Files";
 			sourceTree = "<group>";
 		};
-		13B07FAE1A68108700A75B9A /* BLETracker */ = {
+		13B07FAE1A68108700A75B9A /* BCHContactTracing */ = {
 			isa = PBXGroup;
 			children = (
 				008F07F21AC5B25A0029DE68 /* main.jsbundle */,
@@ -96,7 +96,7 @@
 				13B07FB11A68108700A75B9A /* LaunchScreen.xib */,
 				13B07FB71A68108700A75B9A /* main.m */,
 			);
-			name = BLETracker;
+			name = BCHContactTracing;
 			sourceTree = "<group>";
 		};
 		2D16E6871FA4F8E400B85C8A /* Frameworks */ = {
@@ -104,8 +104,8 @@
 			children = (
 				ED297162215061F000B7C4FE /* JavaScriptCore.framework */,
 				ED2971642150620600B7C4FE /* JavaScriptCore.framework */,
-				FE5ABAAB17F68671B5A9BC52 /* libPods-BLETracker.a */,
-				5242468837AFDFB2B5357739 /* libPods-BLETrackerTests.a */,
+				FE5ABAAB17F68671B5A9BC52 /* libPods-BCHContactTracing.a */,
+				5242468837AFDFB2B5357739 /* libPods-BCHContactTracingTests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -113,10 +113,10 @@
 		50FF01A95101365DD5E7033D /* Pods */ = {
 			isa = PBXGroup;
 			children = (
-				6B6E2A8FAAECC94D17DB2D1A /* Pods-BLETracker.debug.xcconfig */,
-				953DA8161A5D29D44E43C129 /* Pods-BLETracker.release.xcconfig */,
-				57573D63BAE14F7C1E5662AF /* Pods-BLETrackerTests.debug.xcconfig */,
-				D2315CD1E0B1CDA03480822F /* Pods-BLETrackerTests.release.xcconfig */,
+				6B6E2A8FAAECC94D17DB2D1A /* Pods-BCHContactTracing.debug.xcconfig */,
+				953DA8161A5D29D44E43C129 /* Pods-BCHContactTracing.release.xcconfig */,
+				57573D63BAE14F7C1E5662AF /* Pods-BCHContactTracingTests.debug.xcconfig */,
+				D2315CD1E0B1CDA03480822F /* Pods-BCHContactTracingTests.release.xcconfig */,
 			);
 			path = Pods;
 			sourceTree = "<group>";
@@ -131,9 +131,9 @@
 		83CBB9F61A601CBA00E9B192 = {
 			isa = PBXGroup;
 			children = (
-				13B07FAE1A68108700A75B9A /* BLETracker */,
+				13B07FAE1A68108700A75B9A /* BCHContactTracing */,
 				832341AE1AAA6A7D00B99B32 /* Libraries */,
-				00E356EF1AD99517003FC87E /* BLETrackerTests */,
+				00E356EF1AD99517003FC87E /* BCHContactTracingTests */,
 				83CBBA001A601CBA00E9B192 /* Products */,
 				2D16E6871FA4F8E400B85C8A /* Frameworks */,
 				50FF01A95101365DD5E7033D /* Pods */,
@@ -146,8 +146,8 @@
 		83CBBA001A601CBA00E9B192 /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				13B07F961A680F5B00A75B9A /* BLETracker.app */,
-				00E356EE1AD99517003FC87E /* BLETrackerTests.xctest */,
+				13B07F961A680F5B00A75B9A /* BCHContactTracing.app */,
+				00E356EE1AD99517003FC87E /* BCHContactTracingTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -155,9 +155,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		00E356ED1AD99517003FC87E /* BLETrackerTests */ = {
+		00E356ED1AD99517003FC87E /* BCHContactTracingTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BLETrackerTests" */;
+			buildConfigurationList = 00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BCHContactTracingTests" */;
 			buildPhases = (
 				9D87D236DA4549793B2B3DCB /* [CP] Check Pods Manifest.lock */,
 				00E356EA1AD99517003FC87E /* Sources */,
@@ -169,14 +169,14 @@
 			dependencies = (
 				00E356F51AD99517003FC87E /* PBXTargetDependency */,
 			);
-			name = BLETrackerTests;
-			productName = BLETrackerTests;
-			productReference = 00E356EE1AD99517003FC87E /* BLETrackerTests.xctest */;
+			name = BCHContactTracingTests;
+			productName = BCHContactTracingTests;
+			productReference = 00E356EE1AD99517003FC87E /* BCHContactTracingTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
-		13B07F861A680F5B00A75B9A /* BLETracker */ = {
+		13B07F861A680F5B00A75B9A /* BCHContactTracing */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BLETracker" */;
+			buildConfigurationList = 13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BCHContactTracing" */;
 			buildPhases = (
 				20FE36C844EDFDAA6AB013BF /* [CP] Check Pods Manifest.lock */,
 				FD10A7F022414F080027D42C /* Start Packager */,
@@ -189,9 +189,9 @@
 			);
 			dependencies = (
 			);
-			name = BLETracker;
-			productName = BLETracker;
-			productReference = 13B07F961A680F5B00A75B9A /* BLETracker.app */;
+			name = BCHContactTracing;
+			productName = BCHContactTracing;
+			productReference = 13B07F961A680F5B00A75B9A /* BCHContactTracing.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -214,7 +214,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BLETracker" */;
+			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BCHContactTracing" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
@@ -227,8 +227,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				13B07F861A680F5B00A75B9A /* BLETracker */,
-				00E356ED1AD99517003FC87E /* BLETrackerTests */,
+				13B07F861A680F5B00A75B9A /* BCHContactTracing */,
+				00E356ED1AD99517003FC87E /* BCHContactTracingTests */,
 			);
 		};
 /* End PBXProject section */
@@ -282,7 +282,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BLETracker-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BCHContactTracing-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -304,7 +304,7 @@
 			outputFileListPaths = (
 			);
 			outputPaths = (
-				"$(DERIVED_FILE_DIR)/Pods-BLETrackerTests-checkManifestLockResult.txt",
+				"$(DERIVED_FILE_DIR)/Pods-BCHContactTracingTests-checkManifestLockResult.txt",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -337,7 +337,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				00E356F31AD99517003FC87E /* BLETrackerTests.m in Sources */,
+				00E356F31AD99517003FC87E /* BCHContactTracingTests.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -355,7 +355,7 @@
 /* Begin PBXTargetDependency section */
 		00E356F51AD99517003FC87E /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = 13B07F861A680F5B00A75B9A /* BLETracker */;
+			target = 13B07F861A680F5B00A75B9A /* BCHContactTracing */;
 			targetProxy = 00E356F41AD99517003FC87E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
@@ -367,7 +367,7 @@
 				13B07FB21A68108700A75B9A /* Base */,
 			);
 			name = LaunchScreen.xib;
-			path = BLETracker;
+			path = BCHContactTracing;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */
@@ -375,7 +375,7 @@
 /* Begin XCBuildConfiguration section */
 		00E356F61AD99517003FC87E /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 57573D63BAE14F7C1E5662AF /* Pods-BLETrackerTests.debug.xcconfig */;
+			baseConfigurationReference = 57573D63BAE14F7C1E5662AF /* Pods-BCHContactTracingTests.debug.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
@@ -384,7 +384,7 @@
 					"DEBUG=1",
 					"$(inherited)",
 				);
-				INFOPLIST_FILE = BLETrackerTests/Info.plist;
+				INFOPLIST_FILE = BCHContactTracingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -394,18 +394,18 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLETracker.app/BLETracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BCHContactTracing.app/BCHContactTracing";
 			};
 			name = Debug;
 		};
 		00E356F71AD99517003FC87E /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = D2315CD1E0B1CDA03480822F /* Pods-BLETrackerTests.release.xcconfig */;
+			baseConfigurationReference = D2315CD1E0B1CDA03480822F /* Pods-BCHContactTracingTests.release.xcconfig */;
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = D77MCV9NZ7;
-				INFOPLIST_FILE = BLETrackerTests/Info.plist;
+				INFOPLIST_FILE = BCHContactTracingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -415,13 +415,13 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = "org.reactjs.native.example.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BLETracker.app/BLETracker";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/BCHContactTracing.app/BCHContactTracing";
 			};
 			name = Release;
 		};
 		13B07F941A680F5B00A75B9A /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 6B6E2A8FAAECC94D17DB2D1A /* Pods-BLETracker.debug.xcconfig */;
+			baseConfigurationReference = 6B6E2A8FAAECC94D17DB2D1A /* Pods-BCHContactTracing.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
@@ -429,7 +429,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEAD_CODE_STRIPPING = NO;
 				DEVELOPMENT_TEAM = D77MCV9NZ7;
-				INFOPLIST_FILE = BLETracker/Info.plist;
+				INFOPLIST_FILE = BCHContactTracing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -437,7 +437,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.vitorpamplona.bletracker;
-				PRODUCT_NAME = BLETracker;
+				PRODUCT_NAME = BCHContactTracing;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -445,14 +445,14 @@
 		};
 		13B07F951A680F5B00A75B9A /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 953DA8161A5D29D44E43C129 /* Pods-BLETracker.release.xcconfig */;
+			baseConfigurationReference = 953DA8161A5D29D44E43C129 /* Pods-BCHContactTracing.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = D77MCV9NZ7;
-				INFOPLIST_FILE = BLETracker/Info.plist;
+				INFOPLIST_FILE = BCHContactTracing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -460,7 +460,7 @@
 					"-lc++",
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.vitorpamplona.bletracker;
-				PRODUCT_NAME = BLETracker;
+				PRODUCT_NAME = BCHContactTracing;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
 			};
@@ -570,7 +570,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BLETrackerTests" */ = {
+		00E357021AD99517003FC87E /* Build configuration list for PBXNativeTarget "BCHContactTracingTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				00E356F61AD99517003FC87E /* Debug */,
@@ -579,7 +579,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BLETracker" */ = {
+		13B07F931A680F5B00A75B9A /* Build configuration list for PBXNativeTarget "BCHContactTracing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				13B07F941A680F5B00A75B9A /* Debug */,
@@ -588,7 +588,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BLETracker" */ = {
+		83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BCHContactTracing" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				83CBBA201A601CBA00E9B192 /* Debug */,

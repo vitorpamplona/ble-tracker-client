@@ -1,4 +1,4 @@
-package com.vitorpamplona.bletracker;
+package org.childrenshospital.contacttracer;
 
 import android.app.Application;
 import android.content.Context;

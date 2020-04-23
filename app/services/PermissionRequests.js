@@ -31,7 +31,7 @@ export async function requestLocationPermission() {
       const locationGranted = await PermissionsAndroid.requestMultiple(
         [PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION, PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE],
         {
-          'title': 'BLE Tracker App',
+          'title': 'BCH Contact Tracing',
           'message': 'Example App access to your location and phone ID'
         }
       );
@@ -43,7 +43,7 @@ export async function requestLocationPermission() {
 
       if (result !== "STATE_ON") {
         Alert.alert(
-          'BLE Tracker requires bluetooth to be enabled',
+          'BCH Contact Tracing requires bluetooth to be enabled',
           'Would you like to enable Bluetooth?',
           [
             {

@@ -9,8 +9,8 @@ export function hex2a(hexx) {
 export function a2hex(str) {
     var arr = [];
     for (var i = 0, l = str.length; i < l; i ++) {
-    var hex = Number(str.charCodeAt(i)).toString(16);
-    arr.push(hex);
+        var hex = Number(str.charCodeAt(i)).toString(16);
+        arr.push(hex);
     }
     return arr.join('');
 }

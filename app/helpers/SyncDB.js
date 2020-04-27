@@ -44,7 +44,8 @@ export async function sync () {
             }
         }
     ).then(response => {
-        if (response == 200) { // is online
+        console.log(response.status);
+        if (response.status == 200) { // is online
             AsyncStorage.getAllKeys().then(ks => {
                 ks.sort().map(key => {
                     // it's a uuid

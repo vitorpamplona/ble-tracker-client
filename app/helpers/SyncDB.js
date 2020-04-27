@@ -44,7 +44,7 @@ export async function sync () {
             }
         }
     ).then(response => {
-        console.log(response.status);
+
         if (response.status == 200) { // is online
             AsyncStorage.getAllKeys().then(ks => {
                 ks.sort().map(key => {

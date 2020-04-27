@@ -18,7 +18,7 @@ import { requestLocationPermission, hasPhonePermission, hasLocationPermission } 
 import BLEBackgroundService from './services/BLEBackgroundService';
 
 import DeviceInfo from 'react-native-device-info';
-import { SERVER, sync } from './helpers/SyncDB';
+import { SERVER, sync, readyToUpload } from './helpers/SyncDB';
 
 import {
   Header,
@@ -36,7 +36,14 @@ class Entry extends Component {
             bluetoothStatus:'',
             locationPermission: false,
             phonePermission: false,
+            readyToUpload: 0,
         }
+    }
+
+    refreshReadyToUpload() {
+      readyToUpload().then(toUpload => {
+        this.setState({readyToUpload: toUpload});
+      });
     }
 
     onDevice(device) {
@@ -61,6 +68,8 @@ class Entry extends Component {
           )
         });
       }
+
+      this.refreshReadyToUpload();
     }
 
     onScanStatus(status) {
@@ -113,6 +122,8 @@ class Entry extends Component {
           }
         });
       });
+
+      this.refreshReadyToUpload();
     }
     
     componentWillUnmount() { 
@@ -188,6 +199,10 @@ class Entry extends Component {
               <Text style={styles.sectionDescription}>
                 Bluetooth: 
                 <Text style={styles.highlight}> { this.state.bluetoothStatus }</Text>
+              </Text>
+              <Text style={styles.sectionDescription}>
+                Contacts To Upload: 
+                <Text style={styles.highlight}> { this.state.readyToUpload }</Text>
               </Text>
             </View>
 

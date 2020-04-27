@@ -20,7 +20,7 @@ export async function saveContactToUpload(_uploader, _contact, _rssi, _date) {
   }); 
 };
 
-export async function readyToUpload() {
+export async function readyToUploadCounter() {
     let ks = await AsyncStorage.getAllKeys();
     return ks.filter(key => key.startsWith(CONTACT)).length;
 }

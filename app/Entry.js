@@ -18,7 +18,7 @@ import { requestLocationPermission, hasPhonePermission, hasLocationPermission } 
 import BLEBackgroundService from './services/BLEBackgroundService';
 
 import DeviceInfo from 'react-native-device-info';
-import { SERVER, sync, readyToUpload } from './helpers/SyncDB';
+import { SERVER, sync, readyToUploadCounter } from './helpers/SyncDB';
 
 import {
   Header,
@@ -41,7 +41,7 @@ class Entry extends Component {
     }
 
     refreshReadyToUpload() {
-      readyToUpload().then(toUpload => {
+      readyToUploadCounter().then(toUpload => {
         this.setState({readyToUpload: toUpload});
       });
     }

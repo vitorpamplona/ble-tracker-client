@@ -1,4 +1,4 @@
-import { CONTACT } from '../constants/storage';
+import { CONTACT, LAST_SEEN } from '../constants/storage';
 import AsyncStorage from '@react-native-community/async-storage';
 
 // safepath.tch.harvard.edu:80/api/v1/contacts
@@ -6,11 +6,18 @@ import AsyncStorage from '@react-native-community/async-storage';
 //export const SERVER = "192.168.0.11:4567";
 export const SERVER = "safepath.tch.harvard.edu:80";
 
+const c1MIN = 1000 * 60;
 const ACCEPT_JSON = { "Accept": "application/json", "Content-Type": "application/json" };
 
 export async function saveContactToUpload(_uploader, _contact, _rssi, _date) {
-  let contactData = { uploader:_uploader, contact: _contact, rssi:_rssi, date:_date.toISOString() };
-  AsyncStorage.setItem(CONTACT + _contact + _date.toISOString(), JSON.stringify(contactData));  
+  AsyncStorage.getItem(LAST_SEEN + _contact).then(lastSeenInMilliseconds => {
+      // Only records one per minute. 
+      if (!lastSeenInMilliseconds || _date.getTime() > parseInt(lastSeenInMilliseconds) + c1MIN) {
+        let contactData = { uploader:_uploader, contact: _contact, rssi:_rssi, date:_date.toISOString() };
+        AsyncStorage.setItem(CONTACT + _contact + _date.toISOString(), JSON.stringify(contactData));  
+        AsyncStorage.setItem(LAST_SEEN + _contact, _date.getTime().toString()); 
+      }
+  }); 
 };
 
 export async function readyToUpload() {

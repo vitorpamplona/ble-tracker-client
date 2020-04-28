@@ -2,6 +2,9 @@ import BLEAdvertiser from 'react-native-ble-advertiser'
 import { PermissionsAndroid } from 'react-native';
 
 export async function hasLocationPermission() {
+  if (Platform.OS === 'ios') {
+    return "Granted"
+  }
   try {
     const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     console.log("Location Permission:", granted);
@@ -12,6 +15,9 @@ export async function hasLocationPermission() {
 }
 
 export async function hasPhonePermission() {
+  if (Platform.OS === 'ios') {
+    return "Granted"
+  }
   try {
     const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE);
     console.log("Phone Permission:", granted);

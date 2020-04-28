@@ -174,31 +174,21 @@ class Entry extends Component {
                 <Text style={styles.highlight}> { this.state.deviceSerial }</Text>
               </Text>
               <Text style={styles.sectionDescription}>
-                Server: <Text style={styles.highlight}>{ SERVER }</Text>
+                Server: <Text style={styles.highlight}>{ SERVER }</Text>, v<Text style={styles.highlight}> { DeviceInfo.getVersion() }</Text>
               </Text>
               <Text style={styles.sectionDescription}>
-                Version: 
-                <Text style={styles.highlight}> { DeviceInfo.getVersion() }</Text>
-              </Text>
-              <Text style={styles.sectionDescription}>
-                Broadcasting: 
-                <Text style={styles.highlight}> { this.state.broadcastStatus }</Text>
-              </Text>
-              <Text style={styles.sectionDescription}>
+                Broadcast: 
+                <Text style={styles.highlight}> { this.state.broadcastStatus }</Text>, 
                 Scan: 
                 <Text style={styles.highlight}> { this.state.scanStatus }</Text>
               </Text>
               <Text style={styles.sectionDescription}>
-                Location: 
-                <Text style={styles.highlight}> { this.state.locationPermission }</Text>
-              </Text>
-              <Text style={styles.sectionDescription}>
+                BT: 
+                <Text style={styles.highlight}> { this.state.bluetoothStatus }</Text>,
+                Loc: 
+                <Text style={styles.highlight}> { this.state.locationPermission }</Text>,
                 Phone: 
                 <Text style={styles.highlight}> { this.state.phonePermission }</Text>
-              </Text>
-              <Text style={styles.sectionDescription}>
-                Bluetooth: 
-                <Text style={styles.highlight}> { this.state.bluetoothStatus }</Text>
               </Text>
               <Text style={styles.sectionDescription}>
                 Contacts To Upload: 

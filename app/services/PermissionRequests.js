@@ -3,12 +3,12 @@ import { PermissionsAndroid } from 'react-native';
 
 export async function hasLocationPermission() {
   if (Platform.OS === 'ios') {
-    return "Granted"
+    return "Yes"
   }
   try {
     const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION);
     console.log("Location Permission:", granted);
-    return granted ? 'Granted' : 'Not Granted';
+    return granted ? 'Yes' : 'No';
   } catch (e) {
     return e.toString();
   }
@@ -16,12 +16,12 @@ export async function hasLocationPermission() {
 
 export async function hasPhonePermission() {
   if (Platform.OS === 'ios') {
-    return "Granted"
+    return "Yes"
   }
   try {
     const granted = await PermissionsAndroid.check(PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE);
     console.log("Phone Permission:", granted);
-    return granted ? 'Granted' : 'Not Granted';
+    return granted ? 'Yes' : 'No';
   } catch (e) {
     return e.toString();
   }

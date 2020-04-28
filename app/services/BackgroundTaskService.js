@@ -3,6 +3,7 @@ import { sync } from '../helpers/SyncDB';
 import BLEBackgroundService from '../services/BLEBackgroundService'
 
 const INTERVAL = 15; // the value is received in minutes
+const TASK_ID = "com.transistorsoft.childrenshospital.contacttracer.pulse";
 
 export function executeTask() {
   console.log("Background => Sync");
@@ -23,6 +24,21 @@ let MyHeadlessTask = async ({ taskId }) => {
   BackgroundFetch.finish(taskId);
 }
 
+export const scheduleTask = async() => {
+  try {
+    await BackgroundFetch.scheduleTask({
+      taskId: TASK_ID,
+      stopOnTerminate: false,
+      enableHeadless: true,
+      delay: 5000,               // milliseconds (5s)
+      forceAlarmManager: false,   // more precise timing with AlarmManager vs default JobScheduler
+      periodic: false            // Fire once only.
+    });
+  } catch (e) {
+    console.warn('[BackgroundFetch] scheduleTask fail', e);
+  }
+}
+
 export default class BackgroundTaskServices {
   static start() {
     // Configure it.
@@ -41,20 +57,28 @@ export default class BackgroundTaskServices {
         requiresStorageNotLow: false, // Default
         enableHeadless: true,
       },
-      async taskId => {
-        console.log('[js] Received background-fetch event: ', taskId);
-        console.log('[BackgroundFetch ForegroundTask] start: ');
+      async (taskId) => {
+        console.log('[BackgroundFetch ForegroundTask] start: ', taskId);
         executeTask();
-        console.log('[BackgroundFetch ForegroundTask] start: ');
+
+        // If it comes from the Scheduler, start it again. 
+        if (taskId === 'react-native-background-fetch') {
+          // Test initiating a #scheduleTask when the periodic fetch event is received.
+          try {
+            console.log('[BackgroundFetch ForegroundTask] scheduling task again: ');
+            await scheduleTask();
+          } catch (e) {
+            console.warn('[BackgroundFetch] scheduleTask falied', e);
+          }
+        }
+
+        console.log('[BackgroundFetch ForegroundTask] start: ', taskId);
         BackgroundFetch.finish(taskId);
       },
       error => {
         console.log('RNBackgroundFetch failed to start', error);
       },
     );
-
-    // Register your BackgroundFetch HeadlessTask
-    BackgroundFetch.registerHeadlessTask(MyHeadlessTask);
 
     // Optional: Query the authorization status.
     BackgroundFetch.status((status) => {
@@ -70,6 +94,13 @@ export default class BackgroundTaskServices {
             break;
         }
     });
+
+   // Register your BackgroundFetch HeadlessTask
+    BackgroundFetch.registerHeadlessTask(MyHeadlessTask);
+
+    BackgroundFetch.start();
+ 
+    scheduleTask();
 
     executeTask();
   }

@@ -144,7 +144,7 @@ export default class BLEBackgroundService {
     AsyncStorage.getItem(MY_UUID).then(uuid => {
       if (uuid) {
         console.log(uuid, "Starting Advertising");
-        BLEAdvertiser.broadcast(uuid, [12,23,56], {
+        BLEAdvertiser.broadcast(uuid, [1,0,0,0], {
           advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER, 
           txPowerLevel: BLEAdvertiser.ADVERTISE_TX_POWER_LOW, 
           connectable: false, 
@@ -154,7 +154,7 @@ export default class BLEBackgroundService {
         .catch(error => this.emitBroadcastingStatus(error));
         
         console.log(uuid, "Starting Scanner");
-        BLEAdvertiser.scan([12,23,56], {scanMode: BLEAdvertiser.SCAN_MODE_BALANCED})
+        BLEAdvertiser.scan([1,0,0,0], {scanMode: BLEAdvertiser.SCAN_MODE_BALANCED})
         .then(sucess => this.emitScanningStatus("Started"))
         .catch(error => this.emitScanningStatus(error)); 
       }

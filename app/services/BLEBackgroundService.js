@@ -125,7 +125,7 @@ export default class BLEBackgroundService {
       if (event.serviceUuids) {
         for(let i=0; i< event.serviceUuids.length; i++){
           if (this.isValidUUID(event.serviceUuids[i])) {
-            console.log('onDeviceFound', event);
+            //console.log('onDeviceFound', event);
             this.addDevice(event.serviceUuids[i], event.deviceName, event.rssi, new Date())   
           }
         }

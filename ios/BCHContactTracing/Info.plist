@@ -55,6 +55,11 @@
 		<string>armv7</string>
 		<string>bluetooth-le</string>
 	</array>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+			<string>com.transistorsoft.fetch</string>
+			<string>com.transistorsoft.childrenshospital.contacttracer.pulse</string>
+	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>

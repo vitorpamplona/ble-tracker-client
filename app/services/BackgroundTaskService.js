@@ -5,18 +5,17 @@ import BLEBackgroundService from '../services/BLEBackgroundService'
 const INTERVAL = 15; // the value is received in minutes
 
 export function executeTask() {
+  console.log("Background => Sync");
   sync();
+  console.log("Background => Pulse");
   BLEBackgroundService.pulse();
+  console.log("Finished Execute Task");
 }
 
-let MyHeadlessTask = async (event) => {
-    // Get task id from event {}:
-  let taskId = event.taskId;
-  console.log('[BackgroundFetch HeadlessTask] start: ', event);
-
+let MyHeadlessTask = async ({ taskId }) => {
+  console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
   executeTask();
-
-  console.log('[BackgroundFetch HeadlessTask] finish: ', event);
+  console.log('[BackgroundFetch HeadlessTask] finish: ', taskId);
 
   // Required:  Signal to native code that your task is complete.
   // If you don't do this, your app could be terminated and/or assigned
@@ -27,7 +26,7 @@ let MyHeadlessTask = async (event) => {
 export default class BackgroundTaskServices {
   static start() {
     // Configure it.
-    console.log('creating background task object');
+    console.log('Configuring Background Task object');
     BackgroundFetch.configure(
       {
         minimumFetchInterval: INTERVAL,
@@ -50,7 +49,7 @@ export default class BackgroundTaskServices {
         BackgroundFetch.finish(taskId);
       },
       error => {
-        console.log('[js] RNBackgroundFetch failed to start', error);
+        console.log('RNBackgroundFetch failed to start', error);
       },
     );
 

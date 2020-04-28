@@ -114,7 +114,7 @@ export default class BLEBackgroundService {
   }
 
   static start() {
-    console.log("Starting BLE service");
+    console.log("[BLEService] Starting BLE service");
 
     this.clearListener();
 
@@ -125,7 +125,7 @@ export default class BLEBackgroundService {
       if (event.serviceUuids) {
         for(let i=0; i< event.serviceUuids.length; i++){
           if (this.isValidUUID(event.serviceUuids[i])) {
-            //console.log('onDeviceFound', event);
+            //console.log("[BLEService]", 'onDeviceFound', event);
             this.addDevice(event.serviceUuids[i], event.deviceName, event.rssi, new Date())   
           }
         }
@@ -143,7 +143,7 @@ export default class BLEBackgroundService {
 
     AsyncStorage.getItem(MY_UUID).then(uuid => {
       if (uuid) {
-        console.log(uuid, "Starting Advertising");
+        console.log("[BLEService]", uuid, "Starting Advertising");
         BLEAdvertiser.broadcast(uuid, [1,0,0,0], {
           advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER, 
           txPowerLevel: BLEAdvertiser.ADVERTISE_TX_POWER_LOW, 
@@ -153,7 +153,7 @@ export default class BLEBackgroundService {
         .then(sucess => this.emitBroadcastingStatus("Started"))
         .catch(error => this.emitBroadcastingStatus(error));
         
-        console.log(uuid, "Starting Scanner");
+        console.log("[BLEService]", uuid, "Starting Scanner");
         BLEAdvertiser.scan([1,0,0,0], {scanMode: BLEAdvertiser.SCAN_MODE_BALANCED})
         .then(sucess => this.emitScanningStatus("Started"))
         .catch(error => this.emitScanningStatus(error)); 
@@ -162,7 +162,7 @@ export default class BLEBackgroundService {
   }
 
   static stop(){
-    console.log("Stopping BLE service");
+    console.log("[BLEService] Stopping BLE service");
 
     this.clearListener();
 
@@ -171,12 +171,12 @@ export default class BLEBackgroundService {
 
     AsyncStorage.getItem(MY_UUID).then(uuid => {
       if (uuid) {
-        console.log(uuid, "Stopping Broadcast");
+        console.log("[BLEService]", uuid, "Stopping Broadcast");
         BLEAdvertiser.stopBroadcast()
           .then(sucess => this.emitBroadcastingStatus("Stopped"))
           .catch(error => this.emitBroadcastingStatus(error));
 
-        console.log(uuid, "Stopping Scanning");
+        console.log("[BLEService]", uuid, "Stopping Scanning");
         BLEAdvertiser.stopScan()
           .then(sucess => this.emitScanningStatus("Stopped"))
           .catch(error => this.emitScanningStatus(error));

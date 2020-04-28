@@ -6,17 +6,17 @@ const INTERVAL = 15; // the value is received in minutes
 const TASK_ID = "com.transistorsoft.childrenshospital.contacttracer.pulse";
 
 export function executeTask() {
-  console.log("Background => Sync");
+  console.log("[BackgroundService] ExecuteTask Sync");
   sync();
-  console.log("Background => Pulse");
+  console.log("[BackgroundService] ExecuteTask Pulse");
   BLEBackgroundService.pulse();
-  console.log("Finished Execute Task");
+  console.log("[BackgroundService] ExecuteTask Finished Execute Task");
 }
 
 let MyHeadlessTask = async ({ taskId }) => {
-  console.log('[BackgroundFetch HeadlessTask] start: ', taskId);
+  console.log('[BackgroundService] Headless Task start: ', taskId);
   executeTask();
-  console.log('[BackgroundFetch HeadlessTask] finish: ', taskId);
+  console.log('[BackgroundService] Headless Task finish: ', taskId);
 
   // Required:  Signal to native code that your task is complete.
   // If you don't do this, your app could be terminated and/or assigned
@@ -30,19 +30,20 @@ export const scheduleTask = async() => {
       taskId: TASK_ID,
       stopOnTerminate: false,
       enableHeadless: true,
-      delay: 5000,               // milliseconds (5s)
+      delay: 15 * 60 * 1000,               // milliseconds (5s)
       forceAlarmManager: false,   // more precise timing with AlarmManager vs default JobScheduler
-      periodic: false            // Fire once only.
+      periodic: false           // Fire once only.
     });
+    console.log('[BackgroundService] Task scheduled');
   } catch (e) {
-    console.warn('[BackgroundFetch] scheduleTask fail', e);
+    console.warn('[BackgroundService] ScheduleTask fail', e);
   }
 }
 
 export default class BackgroundTaskServices {
   static start() {
     // Configure it.
-    console.log('Configuring Background Task object');
+    console.log('[BackgroundService] Configuring Background Task object');
     BackgroundFetch.configure(
       {
         minimumFetchInterval: INTERVAL,
@@ -58,11 +59,11 @@ export default class BackgroundTaskServices {
         enableHeadless: true,
       },
       async (taskId) => {
-        console.log('[BackgroundFetch ForegroundTask] start: ', taskId);
+        console.log('[BackgroundService] Inner task start: ', taskId);
         executeTask();
 
         // If it comes from the Scheduler, start it again. 
-        if (taskId === 'react-native-background-fetch') {
+        if (taskId === 'com.transistorsoft.childrenshospital.contacttracer.pulse') {
           // Test initiating a #scheduleTask when the periodic fetch event is received.
           try {
             console.log('[BackgroundFetch ForegroundTask] scheduling task again: ');
@@ -72,11 +73,11 @@ export default class BackgroundTaskServices {
           }
         }
 
-        console.log('[BackgroundFetch ForegroundTask] start: ', taskId);
+        console.log('[BackgroundService] Inner task end: ', taskId);
         BackgroundFetch.finish(taskId);
       },
       error => {
-        console.log('RNBackgroundFetch failed to start', error);
+        console.warn('[BackgroundService] Failed to start', error);
       },
     );
 
@@ -84,13 +85,15 @@ export default class BackgroundTaskServices {
     BackgroundFetch.status((status) => {
         switch(status) {
         case BackgroundFetch.STATUS_RESTRICTED:
-            console.log("BackgroundFetch restricted");
+            console.warn("[BackgroundService] BackgroundFetch restricted");
             break;
         case BackgroundFetch.STATUS_DENIED:
-            console.log("BackgroundFetch denied");
+            console.warn("[BackgroundService] BackgroundFetch denied");
             break;
         case BackgroundFetch.STATUS_AVAILABLE:
-            console.log("BackgroundFetch is enabled");
+            console.log("[BackgroundService] BackgroundFetch is enabled");
+            executeTask();
+            scheduleTask();
             break;
         }
     });
@@ -99,10 +102,6 @@ export default class BackgroundTaskServices {
     BackgroundFetch.registerHeadlessTask(MyHeadlessTask);
 
     BackgroundFetch.start();
- 
-    scheduleTask();
-
-    executeTask();
   }
 
   static stop() {

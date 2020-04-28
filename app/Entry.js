@@ -160,7 +160,7 @@ class Entry extends Component {
     }
 
     dateStr(dt) {
-      return Moment(dt).format('H:mm');
+      return Moment(dt).format('H:mm:ss');
     }
 
     render() {
@@ -168,13 +168,13 @@ class Entry extends Component {
         <SafeAreaView>
           <View style={styles.body}>
             <View style={styles.sectionContainer}>
-              <Text style={styles.sectionTitle}>Contact Tracing</Text>
+              <Text style={styles.sectionTitle}>BCH Contact Tracer</Text>
               <Text style={styles.sectionDescription}>
                 Broadcasting: 
                 <Text style={styles.highlight}> { this.state.deviceSerial }</Text>
               </Text>
               <Text style={styles.sectionDescription}>
-                Server: <Text style={styles.highlight}>{ SERVER }</Text>, v<Text style={styles.highlight}> { DeviceInfo.getVersion() }</Text>
+                Server: <Text style={styles.highlight}>{ SERVER }</Text>, v<Text style={styles.highlight}>{ DeviceInfo.getVersion() }</Text>
               </Text>
               <Text style={styles.sectionDescription}>
                 Broadcast: 
@@ -217,10 +217,10 @@ class Entry extends Component {
             </View>
 
             <View style={styles.sectionContainerFlex}>
-              <Text style={styles.sectionTitle}>Devices Around</Text>
+              <Text style={styles.sectionTitle}>Last Seen</Text>
               <FlatList
                   data={ this.state.devicesFound }
-                  renderItem={({item}) => <Text style={styles.itemPastConnections}>{this.dateStr(item.start)} ({this.dateDiffSecs(item.start, item.end)}s): {item.serial} {item.rssi}</Text>}
+                  renderItem={({item}) => <Text style={styles.itemPastConnections}>{this.dateStr(item.end)}: {item.serial} {item.rssi}</Text>}
                   keyExtractor={item => item.serial}
                   />
             </View>
@@ -266,7 +266,7 @@ const styles = StyleSheet.create({
     textAlign: 'center'
   },
   sectionDescription: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: '400',
     textAlign: 'center',
     color: Colors.dark,
@@ -312,14 +312,11 @@ const styles = StyleSheet.create({
     textAlign: 'center',
     color: '#ffffff',
   },
-  listPastConnections: {
-      width: "80%",
-      height: 200
-  },
   itemPastConnections: {
-      padding: 3,
-      fontSize: 18,
-      fontWeight: '400',
+    paddingTop: 3,
+    paddingBottom: 3,
+    fontSize: 18,
+    fontWeight: '400',
   },
 });
 

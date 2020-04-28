@@ -75,6 +75,6 @@ export default class BackgroundTaskServices {
   }
 
   static stop() {
-    BackgroundFetch.stop();
+    //BackgroundFetch.stop();
   }
 }

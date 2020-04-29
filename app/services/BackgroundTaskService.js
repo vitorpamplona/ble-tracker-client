@@ -19,9 +19,14 @@ export const scheduleTask = async() => {
       taskId: TASK_ID,
       stopOnTerminate: false,
       enableHeadless: true,
-      delay: 15 * 60 * 1000,               // milliseconds (5s)
+      delay: 60 * 1000,               // milliseconds (5s)
       forceAlarmManager: false,   // more precise timing with AlarmManager vs default JobScheduler
-      periodic: false           // Fire once only.
+      periodic: false,           // Fire once only.
+      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
+      requiresCharging: false, // Default
+      requiresDeviceIdle: false, // Default
+      requiresBatteryNotLow: false, // Default
+      requiresStorageNotLow: false, // Default
     });
     console.log('[BackgroundService] Task scheduled');
   } catch (e) {
@@ -82,7 +87,7 @@ export default class BackgroundTaskServices {
         case BackgroundFetch.STATUS_AVAILABLE:
             console.log("[BackgroundService] BackgroundFetch is enabled");
             executeTask();
-            scheduleTask();
+            //scheduleTask();
             break;
         }
     });

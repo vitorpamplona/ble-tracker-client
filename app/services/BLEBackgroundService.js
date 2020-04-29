@@ -143,7 +143,7 @@ export default class BLEBackgroundService {
 
     AsyncStorage.getItem(MY_UUID).then(uuid => {
       if (uuid) {
-        console.log("[BLEService]", uuid, "Starting Advertising");
+        console.log("[BLEService]", hex2a(fromUUID(uuid)), "Starting Advertising");
         BLEAdvertiser.broadcast(uuid, [1,0,0,0], {
           advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER, 
           txPowerLevel: BLEAdvertiser.ADVERTISE_TX_POWER_LOW, 
@@ -153,7 +153,7 @@ export default class BLEBackgroundService {
         .then(sucess => this.emitBroadcastingStatus("Started"))
         .catch(error => this.emitBroadcastingStatus(error));
         
-        console.log("[BLEService]", uuid, "Starting Scanner");
+        console.log("[BLEService]", hex2a(fromUUID(uuid)), "Starting Scanner");
         BLEAdvertiser.scan([1,0,0,0], {scanMode: BLEAdvertiser.SCAN_MODE_BALANCED})
         .then(sucess => this.emitScanningStatus("Started"))
         .catch(error => this.emitScanningStatus(error)); 
@@ -171,12 +171,12 @@ export default class BLEBackgroundService {
 
     AsyncStorage.getItem(MY_UUID).then(uuid => {
       if (uuid) {
-        console.log("[BLEService]", uuid, "Stopping Broadcast");
+        console.log("[BLEService]", hex2a(fromUUID(uuid)), "Stopping Broadcast");
         BLEAdvertiser.stopBroadcast()
           .then(sucess => this.emitBroadcastingStatus("Stopped"))
           .catch(error => this.emitBroadcastingStatus(error));
 
-        console.log("[BLEService]", uuid, "Stopping Scanning");
+        console.log("[BLEService]", hex2a(fromUUID(uuid)), "Stopping Scanning");
         BLEAdvertiser.stopScan()
           .then(sucess => this.emitScanningStatus("Stopped"))
           .catch(error => this.emitScanningStatus(error));

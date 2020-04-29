@@ -24,6 +24,17 @@
 	<string>7</string>
 	<key>LSRequiresIPhoneOS</key>
 	<true/>
+	<key>NSExtensionAttributes</key>
+	<dict>
+			<key>IsASCIICapable</key>
+			<false/>
+			<key>PrefersRightToLeft</key>
+			<false/>
+			<key>PrimaryLanguage</key>
+			<string>en-US</string>
+			<key>RequestsOpenAccess</key>
+			<true/>
+	</dict>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>

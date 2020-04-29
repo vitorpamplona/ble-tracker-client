@@ -13,17 +13,6 @@ export function executeTask() {
   console.log("[BackgroundService] ExecuteTask Finished Execute Task");
 }
 
-let MyHeadlessTask = async ({ taskId }) => {
-  console.log('[BackgroundService] Headless Task start: ', taskId);
-  executeTask();
-  console.log('[BackgroundService] Headless Task finish: ', taskId);
-
-  // Required:  Signal to native code that your task is complete.
-  // If you don't do this, your app could be terminated and/or assigned
-  // battery-blame for consuming too much time in background.
-  BackgroundFetch.finish(taskId);
-}
-
 export const scheduleTask = async() => {
   try {
     await BackgroundFetch.scheduleTask({
@@ -97,9 +86,6 @@ export default class BackgroundTaskServices {
             break;
         }
     });
-
-   // Register your BackgroundFetch HeadlessTask
-    BackgroundFetch.registerHeadlessTask(MyHeadlessTask);
 
     BackgroundFetch.start();
   }

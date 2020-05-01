@@ -2,6 +2,11 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
+	<key>BGTaskSchedulerPermittedIdentifiers</key>
+	<array>
+		<string>com.transistorsoft.fetch</string>
+		<string>com.transistorsoft.childrenshospital.contacttracer.pulse</string>
+	</array>
 	<key>CFBundleDevelopmentRegion</key>
 	<string>en</string>
 	<key>CFBundleDisplayName</key>
@@ -23,35 +28,37 @@
 	<key>CFBundleVersion</key>
 	<string>8</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true />
-	<key>NSExtensionAttributes</key>
-	<dict>
-		<key>IsASCIICapable</key>
-		<false />
-		<key>PrefersRightToLeft</key>
-		<false />
-		<key>PrimaryLanguage</key>
-		<string>en-US</string>
-		<key>RequestsOpenAccess</key>
-		<true />
-	</dict>
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true />
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
+				<true/>
 			</dict>
 		</dict>
 	</dict>
 	<key>NSBluetoothAlwaysUsageDescription</key>
-	<string>We broadcast and scan for bluetooth signals in a way to track all phones nearby you in a privacy-preserving way.</string>
+	<string>We broadcast and scan for bluetooth signals to track all phones nearby you.</string>
+	<key>NSBluetoothPeripheralUsageDescription</key>
+	<string>We broadcast and scan for bluetooth signals to track all phones nearby you.</string>
 	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We log your location to allow comparisons with other user's locations in a privacy-preserving way.</string>
+	<string>We log your location to allow comparisons with other user's locations.</string>
+	<key>NSExtensionAttributes</key>
+	<dict>
+		<key>IsASCIICapable</key>
+		<false/>
+		<key>PrefersRightToLeft</key>
+		<false/>
+		<key>PrimaryLanguage</key>
+		<string>en-US</string>
+		<key>RequestsOpenAccess</key>
+		<true/>
+	</dict>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
@@ -66,11 +73,6 @@
 		<string>armv7</string>
 		<string>bluetooth-le</string>
 	</array>
-	<key>BGTaskSchedulerPermittedIdentifiers</key>
-	<array>
-		<string>com.transistorsoft.fetch</string>
-		<string>com.transistorsoft.childrenshospital.contacttracer.pulse</string>
-	</array>
 	<key>UISupportedInterfaceOrientations</key>
 	<array>
 		<string>UIInterfaceOrientationPortrait</string>
@@ -78,6 +80,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
+	<false/>
 </dict>
 </plist>

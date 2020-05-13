@@ -74,13 +74,15 @@ class Entry extends Component {
 
     onScanStatus(status) {
       this.setState({
-        scanStatus: status.toString()
+        scanStatus: status.toString(),
+        isLogging: status.toString() === "Started"
       });
     }
 
     onBroadcastStatus(status) {
       this.setState({
-        broadcastStatus: status.toString()
+        broadcastStatus: status.toString(), 
+        isLogging: status.toString() === "Started"
       });
     }
 

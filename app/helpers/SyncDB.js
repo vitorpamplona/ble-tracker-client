@@ -56,16 +56,10 @@ function upload1000Keys() {
     });
 }
 
-async function isOnline() {
+export async function isOnline() {
     return fetch('http://' + SERVER + "/api/v1/health", { method: "GET", headers: ACCEPT_JSON } );
 }
 
 export async function sync () {
-    isOnline().then(response => {
-        if (response.status == 200) { // is online
-            upload1000Keys();
-        }
-    }).catch(error => {
-        console.log("Phone Offline", error); 
-    });
+    upload1000Keys();
 }

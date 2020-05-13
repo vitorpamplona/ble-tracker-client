@@ -1,5 +1,5 @@
 import BackgroundFetch from 'react-native-background-fetch';
-import { sync } from '../helpers/SyncDB';
+import { sync, isOnline } from '../helpers/SyncDB';
 import BLEBackgroundService from '../services/BLEBackgroundService'
 
 const INTERVAL = 15; // the value is received in minutes
@@ -7,9 +7,21 @@ const TASK_ID = "com.transistorsoft.childrenshospital.contacttracer.pulse";
 
 export function executeTask() {
   console.log("[BackgroundService] ExecuteTask Sync");
-  sync();
-  console.log("[BackgroundService] ExecuteTask Pulse");
-  BLEBackgroundService.pulse();
+  
+  isOnline().then(response => {
+      if (response.status == 200) { // is online
+        console.log("[BackgroundService] ExecuteTask Pulse");
+        sync();
+        BLEBackgroundService.pulse();
+      } else {
+        console.log("[BackgroundService] Server Offline, stopping");
+        BLEBackgroundService.stop();
+      }
+  }).catch(error => {
+    console.log("[BackgroundService] Not online, stopping");
+    BLEBackgroundService.stop();
+  });
+  
   console.log("[BackgroundService] ExecuteTask Finished Execute Task");
 }
 
@@ -22,7 +34,7 @@ export const scheduleTask = async() => {
       delay: 60 * 1000,               // milliseconds (5s)
       forceAlarmManager: false,   // more precise timing with AlarmManager vs default JobScheduler
       periodic: false,           // Fire once only.
-      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
+      requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY, // Default
       requiresCharging: false, // Default
       requiresDeviceIdle: false, // Default
       requiresBatteryNotLow: false, // Default
@@ -45,7 +57,7 @@ export default class BackgroundTaskServices {
         forceAlarmManager: false, // <-- Set true to bypass JobScheduler.
         stopOnTerminate: false,
         startOnBoot: true,
-        requiredNetworkType: BackgroundFetch.NETWORK_TYPE_NONE, // Default
+        requiredNetworkType: BackgroundFetch.NETWORK_TYPE_ANY, // Default
         requiresCharging: false, // Default
         requiresDeviceIdle: false, // Default
         requiresBatteryNotLow: false, // Default

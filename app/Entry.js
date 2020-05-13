@@ -18,7 +18,7 @@ import { requestLocationPermission, hasPhonePermission, hasLocationPermission } 
 import BLEBackgroundService from './services/BLEBackgroundService';
 
 import DeviceInfo from 'react-native-device-info';
-import { SERVER, sync, readyToUploadCounter } from './helpers/SyncDB';
+import { SERVER, sync, isOnline, readyToUploadCounter } from './helpers/SyncDB';
 
 import {
   Header,
@@ -132,13 +132,25 @@ class Entry extends Component {
 
     start() {
       BLEBackgroundService.enableBT();
-      BLEBackgroundService.start();
+      
+      isOnline().then(response => {
+        if (response.status == 200) { // is online
+          console.log("[Entry] Server is online, starting to track");
+          BLEBackgroundService.start();
 
-      this.setState({
-        isLogging: true,
+          this.setState({
+            isLogging: true,
+          });
+
+          sync();
+        } else {
+          console.log("[Entry] Server Offline, stopping");
+          this.stop();
+        }
+      }).catch(error => {
+        console.log("[Entry] Not online, stopping");
+        this.stop();
       });
-
-      sync();
     }
 
     stop(){
@@ -147,8 +159,6 @@ class Entry extends Component {
       this.setState({
         isLogging: false,
       });
-
-      sync();
     }
 
     onClearArray = () => {

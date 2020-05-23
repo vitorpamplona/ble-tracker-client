@@ -14,6 +14,7 @@ export default class BLEBackgroundService {
   static onBluetoothStatusListener;
 
   static listeners = []; // Objects that implement event onDevice(data), onScanSatus, onBroadcastStatus
+  static cached_my_uuid;
 
   /**
    * If the app needs to update the screen at every new device. 
@@ -53,6 +54,7 @@ export default class BLEBackgroundService {
   static init() {
     BLEAdvertiser.setCompanyId(0x4C); 
 
+    cached_my_uuid = null;
     this.emitBroadcastingStatus('Initialized');
     this.emitScanningStatus('Initialized');
   }
@@ -71,14 +73,24 @@ export default class BLEBackgroundService {
   }
 
   static addDevice(_uuid, _name, _rssi, _date) {
-    AsyncStorage.getItem(MY_UUID).then(uuid => {
+    if (cached_my_uuid) {
+      console.log("[BLEService] USING MY_UUID in CACHE");
       saveContactToUpload(
-        hex2a(fromUUID(uuid)), 
+        hex2a(fromUUID(cached_my_uuid)), 
         hex2a(fromUUID(_uuid)), _rssi, _date);
+    } else {
+      console.log("[BLEService] LOADING MY_UUID in CACHE");
+      AsyncStorage.getItem(MY_UUID).then(uuid => {
+        cached_my_uuid = uuid;
 
-      let device = {serial: hex2a(fromUUID(_uuid)), name: _name, rssi: _rssi, date: _date}
-      this.emitNewDevice(device);  
-    });
+        saveContactToUpload(
+          hex2a(fromUUID(cached_my_uuid)), 
+          hex2a(fromUUID(_uuid)), _rssi, _date);
+      });
+    }
+
+    let device = {serial: hex2a(fromUUID(_uuid)), name: _name, rssi: _rssi, date: _date}
+    this.emitNewDevice(device);  
   }
 
   static setServicesUUID(deviceSerial) {
@@ -116,6 +128,7 @@ export default class BLEBackgroundService {
   static start() {
     console.log("[BLEService] Starting BLE service");
 
+    cached_my_uuid = null;
     this.clearListener();
 
     this.emitBroadcastingStatus('Starting');
@@ -164,6 +177,7 @@ export default class BLEBackgroundService {
   static stop(){
     console.log("[BLEService] Stopping BLE service");
 
+    cached_my_uuid = null;
     this.clearListener();
 
     this.emitBroadcastingStatus('Stopping');

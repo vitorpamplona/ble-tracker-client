@@ -28,17 +28,17 @@
 	<key>CFBundleVersion</key>
 	<string>10</string>
 	<key>LSRequiresIPhoneOS</key>
-	<true />
+	<true/>
 	<key>NSAppTransportSecurity</key>
 	<dict>
 		<key>NSAllowsArbitraryLoads</key>
-		<true />
+		<true/>
 		<key>NSExceptionDomains</key>
 		<dict>
 			<key>localhost</key>
 			<dict>
 				<key>NSExceptionAllowsInsecureHTTPLoads</key>
-				<true />
+				<true/>
 			</dict>
 		</dict>
 	</dict>
@@ -46,19 +46,19 @@
 	<string>We broadcast and scan for bluetooth signals to track all phones nearby you.</string>
 	<key>NSBluetoothPeripheralUsageDescription</key>
 	<string>We broadcast and scan for bluetooth signals to track all phones nearby you.</string>
-	<key>NSLocationWhenInUseUsageDescription</key>
-	<string>We log your location to allow comparisons with other user's locations.</string>
 	<key>NSExtensionAttributes</key>
 	<dict>
 		<key>IsASCIICapable</key>
-		<false />
+		<false/>
 		<key>PrefersRightToLeft</key>
-		<false />
+		<false/>
 		<key>PrimaryLanguage</key>
 		<string>en-US</string>
 		<key>RequestsOpenAccess</key>
-		<true />
+		<true/>
 	</dict>
+	<key>NSLocationWhenInUseUsageDescription</key>
+	<string>We log your location to allow comparisons with other user's locations.</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>bluetooth-central</string>
@@ -80,6 +80,6 @@
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
 	<key>UIViewControllerBasedStatusBarAppearance</key>
-	<false />
+	<false/>
 </dict>
 </plist>

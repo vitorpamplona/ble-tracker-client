@@ -15,15 +15,16 @@ export const SERVER = __DEV__ ? DEV_HOSTNAME : PROD_HOSTNAME;
 const c1MIN = 1000 * 60;
 const ACCEPT_JSON = { "Accept": "application/json", "Content-Type": "application/json" };
 
+var cashedLastSeen = {};
+
 export async function saveContactToUpload(_uploader, _contact, _rssi, _date) {
-  AsyncStorage.getItem(LAST_SEEN + _contact).then(lastSeenInMilliseconds => {
-      // Only records one per minute. 
-      if (!lastSeenInMilliseconds || _date.getTime() > parseInt(lastSeenInMilliseconds) + c1MIN) {
-        let contactData = { uploader:_uploader, contact: _contact, rssi:_rssi, date:_date.toISOString() };
-        AsyncStorage.setItem(CONTACT + _contact + _date.toISOString(), JSON.stringify(contactData));  
-        AsyncStorage.setItem(LAST_SEEN + _contact, _date.getTime().toString()); 
-      }
-  }); 
+  lastSeenInMilliseconds = cashedLastSeen[_contact]  
+
+  if (!lastSeenInMilliseconds || _date.getTime() > lastSeenInMilliseconds + c1MIN) {
+    let contactData = { uploader:_uploader, contact: _contact, rssi:_rssi, date:_date.toISOString() };
+    AsyncStorage.setItem(CONTACT + _contact + _date.toISOString(), JSON.stringify(contactData));  
+    cashedLastSeen[_contact] = _date.getTime(); 
+  }
 };
 
 export async function readyToUploadCounter() {

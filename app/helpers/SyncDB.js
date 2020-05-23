@@ -5,12 +5,10 @@ import { NativeModules } from 'react-native';
 
 const PROD_HOSTNAME = "safepath.tch.harvard.edu:80";
 
-if (__DEV__) {
-    // Load compiler IP as Server (assuming running ble-tracker-server in the same machine)
-    const scriptURL = NativeModules.SourceCode.scriptURL;
-    const address = scriptURL.split('://')[1].split('/')[0];
-    const DEV_HOSTNAME = address.split(':')[0] + ":4567";
-} 
+// Load compiler IP as Server (assuming running ble-tracker-server in the same machine)
+const scriptURL = NativeModules.SourceCode.scriptURL;
+const address = scriptURL.split('://')[1].split('/')[0];
+const DEV_HOSTNAME = address.split(':')[0] + ":4567";
 
 export const SERVER = __DEV__ ? DEV_HOSTNAME : PROD_HOSTNAME;
 

@@ -74,12 +74,10 @@ export default class BLEBackgroundService {
 
   static addDevice(_uuid, _name, _rssi, _date) {
     if (cached_my_uuid) {
-      console.log("[BLEService] USING MY_UUID in CACHE");
       saveContactToUpload(
         hex2a(fromUUID(cached_my_uuid)), 
         hex2a(fromUUID(_uuid)), _rssi, _date);
     } else {
-      console.log("[BLEService] LOADING MY_UUID in CACHE");
       AsyncStorage.getItem(MY_UUID).then(uuid => {
         cached_my_uuid = uuid;
 

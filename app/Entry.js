@@ -25,6 +25,8 @@ import {
   Colors
 } from 'react-native/Libraries/NewAppScreen';
 
+const c1MIN = 1000 * 60;
+
 class Entry extends Component {
     constructor(props) {
         super(props);
@@ -37,13 +39,19 @@ class Entry extends Component {
             locationPermission: false,
             phonePermission: false,
             readyToUpload: 0,
+            lastRefreshReadyToUpload: 0,
         }
     }
 
     refreshReadyToUpload() {
-      readyToUploadCounter().then(toUpload => {
-        this.setState({readyToUpload: toUpload});
-      });
+      if (this.state.lastRefreshReadyToUpload < new Date().getTime() - c1MIN) {
+        readyToUploadCounter().then(toUpload => {
+          this.setState({
+            readyToUpload: toUpload, 
+            lastRefreshReadyToUpload: new Date().getTime(),
+          });
+        });
+      }
     }
 
     onDevice(device) {

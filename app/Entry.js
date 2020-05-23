@@ -208,26 +208,6 @@ class Entry extends Component {
               </Text>
             </View>
 
-            <View style={styles.sectionContainer}>
-              {this.state.isLogging ? (
-              <TouchableOpacity
-                onPress={() => this.stop()}
-                style={styles.stopLoggingButtonTouchable}>
-                <Text style={styles.stopLoggingButtonText}>
-                  Stop
-                </Text>
-              </TouchableOpacity>
-                ) : (
-              <TouchableOpacity
-                onPress={() => this.start()}
-                style={styles.startLoggingButtonTouchable}>
-                <Text style={styles.startLoggingButtonText}>
-                  Start
-                </Text>
-              </TouchableOpacity>
-              )}
-            </View>
-
             <View style={styles.sectionContainerFlex}>
               <Text style={styles.sectionTitle}>Last Seen</Text>
               <FlatList

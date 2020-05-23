@@ -1,10 +1,18 @@
 import { CONTACT, LAST_SEEN } from '../constants/storage';
 import AsyncStorage from '@react-native-community/async-storage';
 
-// safepath.tch.harvard.edu:80/api/v1/contacts
-//export const SERVER = "10.1.10.98:4567"
-//export const SERVER = "192.168.0.11:4567";
-export const SERVER = "safepath.tch.harvard.edu:80";
+import { NativeModules } from 'react-native';
+
+const PROD_HOSTNAME = "safepath.tch.harvard.edu:80";
+
+if (__DEV__) {
+    // Load compiler IP as Server (assuming running ble-tracker-server in the same machine)
+    const scriptURL = NativeModules.SourceCode.scriptURL;
+    const address = scriptURL.split('://')[1].split('/')[0];
+    const DEV_HOSTNAME = address.split(':')[0] + ":4567";
+} 
+
+export const SERVER = __DEV__ ? DEV_HOSTNAME : PROD_HOSTNAME;
 
 const c1MIN = 1000 * 60;
 const ACCEPT_JSON = { "Accept": "application/json", "Content-Type": "application/json" };

@@ -173,6 +173,7 @@ class Entry extends Component {
 
     onClearArray = () => {
       this.setState({ devicesFound: [] });
+      BLEBackgroundService.pulse();
     };
 
     dateDiffSecs(start, end) {

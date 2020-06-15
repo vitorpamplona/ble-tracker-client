@@ -205,11 +205,11 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = D77MCV9NZ7;
+						DevelopmentTeam = T22YG9T7N6;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = D77MCV9NZ7;
+						DevelopmentTeam = T22YG9T7N6;
 						ProvisioningStyle = Automatic;
 					};
 				};
@@ -379,7 +379,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				DEVELOPMENT_TEAM = D77MCV9NZ7;
+				DEVELOPMENT_TEAM = T22YG9T7N6;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
@@ -404,7 +404,7 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = D77MCV9NZ7;
+				DEVELOPMENT_TEAM = T22YG9T7N6;
 				INFOPLIST_FILE = BCHContactTracingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
@@ -428,7 +428,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = D77MCV9NZ7;
+				DEVELOPMENT_TEAM = T22YG9T7N6;
 				INFOPLIST_FILE = BCHContactTracing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (
@@ -436,7 +436,7 @@
 					"-ObjC",
 					"-lc++",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = org.childrenshospital.contacttracer;
+				PRODUCT_BUNDLE_IDENTIFIER = org.childrenshospital.contacttracer.ios;
 				PRODUCT_NAME = BCHContactTracing;
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				VERSIONING_SYSTEM = "apple-generic";
@@ -451,7 +451,7 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 7;
-				DEVELOPMENT_TEAM = 2UG3E8ZWCH;
+				DEVELOPMENT_TEAM = T22YG9T7N6;
 				INFOPLIST_FILE = BCHContactTracing/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = (

@@ -6,19 +6,11 @@
  * @flow
  */
 
-import React from 'react';
+import "react-native-gesture-handler";
+import React from "react";
 
+import AppNavigation from "./app/navigation";
 
-import Entry from './app/Entry';
-
-const App: () => React$Node = () => {
-  return (
-    <>
-      <Entry></Entry>
-    </>
-  );
-};
-
-
+const App = () => <AppNavigation />;
 
 export default App;

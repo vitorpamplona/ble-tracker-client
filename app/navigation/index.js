@@ -7,6 +7,7 @@ import { useDispatch } from "react-redux";
 import { setDeviceId } from "../actions/device";
 import { requestLocationPermission } from "../services/PermissionRequests";
 import DeviceInfo from "react-native-device-info";
+import NetInfo from "@react-native-community/netinfo";
 
 //Screens
 import EmployeeId from "../screens/EmployeeId";
@@ -23,8 +24,9 @@ function AppNavigation() {
     const setDeviceIdWithSerialNumber = async () => {
       await requestLocationPermission();
       const deviceId = await DeviceInfo.getUniqueId();
+      const netInfo = await NetInfo.fetch();
 
-      dispatch(setDeviceId(deviceId));
+      dispatch(setDeviceId(`${deviceId}@${netInfo.details.ipAddress}`));
     };
     if (!isPersonal && Platform.OS === "android") {
       setDeviceIdWithSerialNumber();

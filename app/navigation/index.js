@@ -3,17 +3,33 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
 import screenNames from "../constants/screenNames";
 import Config from "react-native-config";
+import { useDispatch } from "react-redux";
+import { setDeviceId } from "../actions/device";
+import { requestLocationPermission } from "../services/PermissionRequests";
+import DeviceInfo from "react-native-device-info";
 
 //Screens
 import EmployeeId from "../screens/EmployeeId";
 import Home from "../screens/Home";
+import { Platform } from "react-native";
 
 const Stack = createStackNavigator();
 
 function AppNavigation() {
+  const dispatch = useDispatch();
   const isPersonal = Config.ENV === "PERSONAL";
 
-  console.log(isPersonal, Config.ENV);
+  useEffect(() => {
+    const setDeviceIdWithSerialNumber = async () => {
+      await requestLocationPermission();
+      const deviceId = await DeviceInfo.getUniqueId();
+
+      dispatch(setDeviceId(deviceId));
+    };
+    if (!isPersonal && Platform.OS === "android") {
+      setDeviceIdWithSerialNumber();
+    }
+  }, []);
 
   return (
     <NavigationContainer>

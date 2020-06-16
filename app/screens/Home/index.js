@@ -10,8 +10,8 @@ import {
 } from "react-native";
 
 import Moment from "moment";
-import { Alert, Platform } from "react-native";
 import update from "immutability-helper";
+import { connect } from "react-redux";
 
 import {
   requestLocationPermission,
@@ -115,37 +115,21 @@ class Entry extends Component {
     });
   }
 
-  setID(id) {
-    this.setState({ deviceSerial: id });
-    BLEBackgroundService.setServicesUUID(id);
-    this.start();
-  }
-
   componentDidMount() {
     BLEBackgroundService.init();
     BLEBackgroundService.addNewDeviceListener(this);
     BLEBackgroundService.requestBluetoothStatus();
+    BLEBackgroundService.setServicesUUID(this.props.deviceId);
+    this.start();
 
-    requestLocationPermission().then(() => {
-      hasLocationPermission().then((result) => {
-        this.setState({
-          locationPermission: result,
-        });
+    hasLocationPermission().then((result) => {
+      this.setState({
+        locationPermission: result,
       });
-      hasPhonePermission().then((result) => {
-        this.setState({
-          phonePermission: result,
-        });
-      });
-
-      let serialNumber = DeviceInfo.getSerialNumber().then((deviceSerial) => {
-        if (deviceSerial && deviceSerial !== "unknown") {
-          this.setID(deviceSerial);
-        } else {
-          DeviceInfo.getDeviceName().then((deviceName) => {
-            this.setID(deviceName);
-          });
-        }
+    });
+    hasPhonePermission().then((result) => {
+      this.setState({
+        phonePermission: result,
       });
     });
 
@@ -210,7 +194,7 @@ class Entry extends Component {
             <Text style={styles.sectionTitle}>BCH Contact Tracer</Text>
             <Text style={styles.sectionDescription}>
               Broadcasting:
-              <Text style={styles.highlight}> {this.state.deviceSerial}</Text>
+              <Text style={styles.highlight}> {this.props.deviceId}</Text>
             </Text>
             <Text style={styles.sectionDescription}>
               Server: <Text style={styles.highlight}>{SERVER}</Text>, v
@@ -354,4 +338,8 @@ const styles = StyleSheet.create({
   },
 });
 
-export default Entry;
+const mapStateToProps = (state) => ({
+  deviceId: state.device.deviceId,
+});
+
+export default connect(mapStateToProps)(Entry);

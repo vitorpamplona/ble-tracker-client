@@ -3,7 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "android": "npx react-native run-android",
+    "run:android": "export ENVFILE=.env.personal && npx react-native run-android --variant=personalDebug",
+    "run:mdm": "export ENVFILE=.env.mdm && npx react-native run-android --variant=mdmDebug",
+    "build:android": "cd android/ && ENVFILE=.env.personal ./gradlew assemblePersonalRelease",
+    "build:mdm": "cd android/ && ENVFILE=.env.mdm ./gradlew assembleMdmRelease",
     "ios": "npx react-native run-ios",
     "start": "npx react-native start",
     "postversion": "react-native-version"
@@ -20,7 +23,9 @@
     "react-native": "0.62.1",
     "react-native-background-fetch": "^3.0.4",
     "react-native-ble-advertiser": "0.0.14",
+    "react-native-config": "^1.2.1",
     "react-native-device-info": "^5.5.4",
+    "react-native-fs": "^2.16.6",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.3",

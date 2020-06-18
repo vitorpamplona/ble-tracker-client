@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 
+import ContactItem from "../../components/ContactItem";
 import TrackingStatus from "../../components/TrackingStatus";
 import Button from "../../components/Button";
 import { SafeAreaView, View, Text, ScrollView } from "react-native";
@@ -9,7 +10,6 @@ import update from "immutability-helper";
 import { connect } from "react-redux";
 
 import {
-  requestLocationPermission,
   hasPhonePermission,
   hasLocationPermission,
 } from "../../services/PermissionRequests";
@@ -228,9 +228,7 @@ class Entry extends Component {
             <View style={styles.sectionContainerFlex}>
               <Text style={styles.sectionTitle}>Last Seen</Text>
               {devicesFound.map((device, i) => (
-                <Text key={i} style={styles.itemPastConnections}>
-                  {this.dateStr(device.end)}: {device.serial} {device.rssi}
-                </Text>
+                <ContactItem key={i} device={device} />
               ))}
             </View>
           </ScrollView>

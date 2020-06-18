@@ -15,11 +15,18 @@ function TrackingStatus({ server, isTracking }) {
 
   function animateIdicator() {
     scaleAnimation.setValue(1);
-    Animated.timing(scaleAnimation, {
-      toValue: 2,
-      timing: 3000,
-      useNativeDriver: false,
-    }).start(() => animateIdicator());
+    Animated.sequence([
+      Animated.delay(300),
+      Animated.timing(scaleAnimation, {
+        toValue: 2,
+        duration: 1000,
+        useNativeDriver: true,
+      }),
+    ]).start(() => {
+      if (isTracking) {
+        animateIdicator();
+      }
+    });
   }
 
   useEffect(() => {

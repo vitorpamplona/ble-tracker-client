@@ -2,7 +2,7 @@ import React, { Component } from "react";
 
 import TrackingStatus from "../../components/TrackingStatus";
 import Button from "../../components/Button";
-import { SafeAreaView, View, Text, FlatList } from "react-native";
+import { SafeAreaView, View, Text, ScrollView } from "react-native";
 
 import Moment from "moment";
 import update from "immutability-helper";
@@ -182,13 +182,13 @@ class Entry extends Component {
   }
 
   render() {
-    const { isLogging } = this.state;
+    const { isLogging, devicesFound } = this.state;
 
     return (
       <SafeAreaView>
         <View style={styles.body}>
           <TrackingStatus server={SERVER} isTracking={isLogging} />
-          <View style={styles.sectionContainer}>
+          <ScrollView style={[styles.sectionContainer, { flex: 1 }]}>
             <Text style={styles.sectionTitle}>BCH Contact Tracer</Text>
             <Text style={styles.sectionDescription}>
               Broadcasting:
@@ -224,20 +224,16 @@ class Entry extends Component {
               Contacts To Upload:
               <Text style={styles.highlight}> {this.state.readyToUpload}</Text>
             </Text>
-          </View>
 
-          <View style={styles.sectionContainerFlex}>
-            <Text style={styles.sectionTitle}>Last Seen</Text>
-            <FlatList
-              data={this.state.devicesFound}
-              renderItem={({ item }) => (
-                <Text style={styles.itemPastConnections}>
-                  {this.dateStr(item.end)}: {item.serial} {item.rssi}
+            <View style={styles.sectionContainerFlex}>
+              <Text style={styles.sectionTitle}>Last Seen</Text>
+              {devicesFound.map((device, i) => (
+                <Text key={i} style={styles.itemPastConnections}>
+                  {this.dateStr(device.end)}: {device.serial} {device.rssi}
                 </Text>
-              )}
-              keyExtractor={(item) => item.serial}
-            />
-          </View>
+              ))}
+            </View>
+          </ScrollView>
 
           <View style={styles.sectionContainer}>
             <Button

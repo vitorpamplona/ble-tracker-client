@@ -5,9 +5,9 @@
   "scripts": {
     "run:android": "export ENVFILE=.env.personal && npx react-native run-android --variant=personalDebug",
     "run:mdm": "export ENVFILE=.env.mdm && npx react-native run-android --variant=mdmDebug",
+    "run:ios": "export ENVFILE=.env.personal && npx react-native run-ios",
     "build:android": "cd android/ && ENVFILE=.env.personal ./gradlew assemblePersonalRelease",
     "build:mdm": "cd android/ && ENVFILE=.env.mdm ./gradlew assembleMdmRelease",
-    "ios": "npx react-native run-ios",
     "start": "npx react-native start",
     "postversion": "react-native-version"
   },
@@ -31,6 +31,7 @@
     "react-native-reanimated": "^1.9.0",
     "react-native-safe-area-context": "^3.0.3",
     "react-native-screens": "^2.8.0",
+    "react-native-vector-icons": "^6.6.0",
     "react-native-version": "^4.0.0",
     "react-redux": "^7.2.0",
     "redux": "^4.0.5",

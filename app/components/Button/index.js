@@ -4,14 +4,21 @@ import styles from "./styles";
 import { TouchableOpacity, Text } from "react-native";
 import colors from "../../constants/colors";
 
-function Button({ style, onPress, label, ...props }) {
+function Button({
+  style,
+  onPress,
+  label,
+  background = colors.white,
+  labelColor = colors.blue,
+  ...props
+}) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.button, style]}
+      style={[styles.button, { backgroundColor: background }, style]}
       {...props}
     >
-      <Text style={styles.label}>{label}</Text>
+      <Text style={[styles.label, { color: labelColor }]}>{label}</Text>
     </TouchableOpacity>
   );
 }

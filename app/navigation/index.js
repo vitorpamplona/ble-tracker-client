@@ -21,13 +21,21 @@ function AppNavigation() {
   const isPersonal = Config.ENV === "PERSONAL";
 
   useEffect(() => {
-    const setDeviceIdWithSerialNumber = async () => {
+    const requestPermission = async () => {
       await requestLocationPermission();
-      const deviceId = await DeviceInfo.getUniqueId();
-      const netInfo = await NetInfo.fetch();
-
-      dispatch(setDeviceId(`${deviceId}@${netInfo.details.ipAddress}`));
     };
+
+    const setDeviceIdWithSerialNumber = async () => {
+      const serialNumber = await DeviceInfo.getSerialNumber();
+      dispatch(setDeviceId(serialNumber));
+
+      //   const deviceId = await DeviceInfo.getUniqueId();
+      //   const netInfo = await NetInfo.fetch();
+
+      //   dispatch(setDeviceId(`${deviceId}@${netInfo.details.ipAddress}`));
+    };
+
+    requestPermission();
     if (!isPersonal && Platform.OS === "android") {
       setDeviceIdWithSerialNumber();
     }

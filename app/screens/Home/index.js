@@ -1,13 +1,8 @@
 import React, { Component } from "react";
 
-import {
-  SafeAreaView,
-  StyleSheet,
-  View,
-  Text,
-  TouchableOpacity,
-  FlatList,
-} from "react-native";
+import TrackingStatus from "../../components/TrackingStatus";
+import Button from "../../components/Button";
+import { SafeAreaView, View, Text, FlatList } from "react-native";
 
 import Moment from "moment";
 import update from "immutability-helper";
@@ -28,8 +23,8 @@ import {
   isOnline,
   readyToUploadCounter,
 } from "../../helpers/SyncDB";
-
-import { Header, Colors } from "react-native/Libraries/NewAppScreen";
+import styles from "./styles";
+import colors from "../../constants/colors";
 
 const c1MIN = 1000 * 60;
 
@@ -62,6 +57,7 @@ class Entry extends Component {
 
   onDevice(device) {
     let index = -1;
+    console.log(device);
     for (let i = 0; i < this.state.devicesFound.length; i++) {
       if (this.state.devicesFound[i].serial == device.serial) {
         index = i;
@@ -187,18 +183,17 @@ class Entry extends Component {
   }
 
   render() {
+    const { isLogging } = this.state;
+
     return (
       <SafeAreaView>
         <View style={styles.body}>
+          <TrackingStatus server={SERVER} isTracking={isLogging} />
           <View style={styles.sectionContainer}>
             <Text style={styles.sectionTitle}>BCH Contact Tracer</Text>
             <Text style={styles.sectionDescription}>
               Broadcasting:
               <Text style={styles.highlight}> {this.props.deviceId}</Text>
-            </Text>
-            <Text style={styles.sectionDescription}>
-              Server: <Text style={styles.highlight}>{SERVER}</Text>, v
-              <Text style={styles.highlight}>{DeviceInfo.getVersion()}</Text>
             </Text>
             <Text style={styles.sectionDescription}>
               Broadcast:
@@ -246,97 +241,18 @@ class Entry extends Component {
           </View>
 
           <View style={styles.sectionContainer}>
-            <TouchableOpacity
+            <Button
+              background={colors.blue}
+              labelColor={colors.white}
               onPress={this.onClearArray}
-              style={styles.startLoggingButtonTouchable}
-            >
-              <Text style={styles.startLoggingButtonText}>Clear Devices</Text>
-            </TouchableOpacity>
+              label="Clear devices"
+            />
           </View>
         </View>
       </SafeAreaView>
     );
   }
 }
-
-const styles = StyleSheet.create({
-  body: {
-    backgroundColor: Colors.white,
-    height: "100%",
-  },
-  sectionContainerFlex: {
-    flex: 1,
-    marginTop: 12,
-    marginBottom: 12,
-    paddingHorizontal: 24,
-  },
-  sectionContainer: {
-    flex: 0,
-    marginTop: 12,
-    marginBottom: 12,
-    paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    marginBottom: 8,
-    fontWeight: "600",
-    color: Colors.black,
-    textAlign: "center",
-  },
-  sectionDescription: {
-    fontSize: 16,
-    fontWeight: "400",
-    textAlign: "center",
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: "700",
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: "600",
-    padding: 4,
-    paddingRight: 12,
-    textAlign: "right",
-  },
-  startLoggingButtonTouchable: {
-    borderRadius: 12,
-    backgroundColor: "#665eff",
-    height: 52,
-    alignSelf: "center",
-    width: 300,
-    justifyContent: "center",
-  },
-  startLoggingButtonText: {
-    fontSize: 14,
-    lineHeight: 19,
-    letterSpacing: 0,
-    textAlign: "center",
-    color: "#ffffff",
-  },
-  stopLoggingButtonTouchable: {
-    borderRadius: 12,
-    backgroundColor: "#fd4a4a",
-    height: 52,
-    alignSelf: "center",
-    width: 300,
-    justifyContent: "center",
-  },
-  stopLoggingButtonText: {
-    fontSize: 14,
-    lineHeight: 19,
-    letterSpacing: 0,
-    textAlign: "center",
-    color: "#ffffff",
-  },
-  itemPastConnections: {
-    paddingTop: 3,
-    paddingBottom: 3,
-    fontSize: 18,
-    fontWeight: "400",
-  },
-});
 
 const mapStateToProps = (state) => ({
   deviceId: state.device.deviceId,

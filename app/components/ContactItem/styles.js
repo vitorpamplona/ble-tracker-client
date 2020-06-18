@@ -2,18 +2,19 @@ import { StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 
 const styles = StyleSheet.create({
-  button: {
+  contactWrapper: {
+    padding: 20,
     borderRadius: 12,
-    height: 52,
-    alignSelf: "center",
-    width: "100%",
-    justifyContent: "center",
+    borderWidth: 1,
+    borderColor: "#ccc",
   },
-  label: {
+  id: {
+    fontWeight: "bold",
     fontSize: 18,
-    lineHeight: 19,
-    letterSpacing: 0,
-    textAlign: "center",
+  },
+  footer: {
+    flexDirection: "row",
+    justifyContent: "space-between",
   },
 });
 

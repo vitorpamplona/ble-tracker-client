@@ -16,7 +16,6 @@ import {
 
 import BLEBackgroundService from "../../services/BLEBackgroundService";
 
-import DeviceInfo from "react-native-device-info";
 import {
   SERVER,
   sync,

@@ -1,14 +1,47 @@
-import React from "react";
+import React, { useEffect } from "react";
 import PropTypes from "prop-types";
-import { View, Text } from "react-native";
+import { View, Text, Animated, Easing } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import colors from "../../constants/colors";
 import styles from "./styles";
 
 function TrackingStatus({ server, isTracking }) {
+  const scaleAnimation = new Animated.Value(1);
+  const indicatorOpcaity = scaleAnimation.interpolate({
+    inputRange: [1, 2],
+    outputRange: [0.8, 0.2],
+    extrapolate: "clamp",
+  });
+
+  function animateIdicator() {
+    scaleAnimation.setValue(1);
+    Animated.timing(scaleAnimation, {
+      toValue: 2,
+      timing: 3000,
+      useNativeDriver: false,
+    }).start(() => animateIdicator());
+  }
+
+  useEffect(() => {
+    if (isTracking) {
+      animateIdicator();
+    }
+  }, [isTracking]);
+
   return (
     <View style={styles.wrapper}>
       <View style={[styles.iconWrapper, !isTracking && styles.iconError]}>
+        {isTracking && (
+          <Animated.View
+            style={[
+              styles.trackingIndicator,
+              {
+                transform: [{ scale: scaleAnimation }],
+                opacity: indicatorOpcaity,
+              },
+            ]}
+          />
+        )}
         <Ionicons
           name={isTracking ? "ios-bluetooth" : "ios-close"}
           color={colors.white}

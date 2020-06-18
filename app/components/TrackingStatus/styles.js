@@ -7,9 +7,10 @@ const styles = StyleSheet.create({
     height: 80,
     width: 80,
     borderRadius: 40,
-    marginBottom: 10,
+    marginBottom: 50,
     justifyContent: "center",
     alignItems: "center",
+    zIndex: 1,
   },
   wrapper: {
     justifyContent: "center",
@@ -22,6 +23,14 @@ const styles = StyleSheet.create({
   },
   iconError: {
     backgroundColor: colors.error,
+  },
+  trackingIndicator: {
+    backgroundColor: colors.blue,
+    height: 80,
+    width: 80,
+    borderRadius: 40,
+    position: "absolute",
+    zIndex: 0,
   },
 });
 

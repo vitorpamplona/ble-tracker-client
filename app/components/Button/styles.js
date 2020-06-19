@@ -15,6 +15,9 @@ const styles = StyleSheet.create({
     letterSpacing: 0,
     textAlign: "center",
   },
+  disabled: {
+    backgroundColor: "rgba(220, 220, 220, 0.3)",
+  },
 });
 
 export default styles;

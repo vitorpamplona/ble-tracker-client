@@ -10,12 +10,19 @@ function Button({
   label,
   background = colors.white,
   labelColor = colors.blue,
+  disabled,
   ...props
 }) {
   return (
     <TouchableOpacity
       onPress={onPress}
-      style={[styles.button, { backgroundColor: background }, style]}
+      disabled={disabled}
+      style={[
+        styles.button,
+        { backgroundColor: background },
+        disabled && styles.disabled,
+        style,
+      ]}
       {...props}
     >
       <Text style={[styles.label, { color: labelColor }]}>{label}</Text>

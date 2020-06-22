@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 
 import Button from "../../components/Button";
 import PermissionItem from "../../components/PermissionItem";
+import AsyncStorage from "@react-native-community/async-storage";
 
 import { View, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -32,6 +33,12 @@ function Permissions({ navigation }) {
   useEffect(() => {
     const requestPermission = async () => {
       const permissions = await requestAllPermissions();
+
+      if (
+        permissions.location === "granted" &&
+        permissions.phoneState === "granted"
+      )
+        return navigation.navigate(screenNames.PRIVACY_POLICY);
 
       setLocationPermissionsGranted(permissions.location === "granted");
       setPhonePermissionsGranted(permissions.phoneState === "granted");
@@ -65,9 +72,7 @@ function Permissions({ navigation }) {
       setDeviceIdWithSerialNumber();
     }
 
-    navigation.navigate(
-      isPersonal ? screenNames.EMPLOYEE_ID : screenNames.HOME
-    );
+    navigation.navigate(screenNames.PRIVACY_POLICY);
   };
 
   const notGranted = !locationPermisionsGranted || !phonePermisionsGranted;

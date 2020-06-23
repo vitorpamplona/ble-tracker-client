@@ -10,7 +10,7 @@ export async function hasLocationPermission() {
       PermissionsAndroid.PERMISSIONS.ACCESS_FINE_LOCATION
     );
     console.log("Location Permission:", granted);
-    return granted ? "Yes" : "No";
+    return granted;
   } catch (e) {
     return e.toString();
   }
@@ -25,10 +25,14 @@ export async function hasPhonePermission() {
       PermissionsAndroid.PERMISSIONS.READ_PHONE_STATE
     );
     console.log("Phone Permission:", granted);
-    return granted ? "Yes" : "No";
+    return granted;
   } catch (e) {
     return e.toString();
   }
+}
+
+export async function hasAllPermissions() {
+  return (await hasLocationPermission()) && (await hasPhonePermission());
 }
 
 export async function isBluetoothActive() {

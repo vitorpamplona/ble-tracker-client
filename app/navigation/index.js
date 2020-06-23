@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React from "react";
 
 import { NavigationContainer } from "@react-navigation/native";
 import { createStackNavigator } from "@react-navigation/stack";
@@ -7,6 +7,7 @@ import Config from "react-native-config";
 import { useSelector } from "react-redux";
 
 //Screens
+import Preloader from "../screens/Preloader";
 import EmployeeId from "../screens/EmployeeId";
 import Home from "../screens/Home";
 import Permissions from "../screens/Permissions";
@@ -16,24 +17,16 @@ const Stack = createStackNavigator();
 
 function AppNavigation() {
   const isPersonal = Config.ENV === "PERSONAL";
-  const policyAccepted = useSelector((store) => store.global.policyAccepted);
-  const permissionsGranted = useSelector(
-    (store) => store.global.permissionsGranted
+  const { loading, policyAccepted, permissionsGranted } = useSelector(
+    (store) => store.global
   );
-
-  const checkIfAccepted = async () => {
-    const isAccepted = await AsyncStorage.getItem("policyAccepted");
-
-    if (Boolean(isAccepted) === true) {
-      navigation.navigate(
-        isPersonal ? screenNames.EMPLOYEE_ID : screenNames.HOME
-      );
-    }
-  };
 
   return (
     <NavigationContainer>
       <Stack.Navigator headerMode="none">
+        {loading && (
+          <Stack.Screen name={screenNames.PRELOADER} component={Preloader} />
+        )}
         {!permissionsGranted && (
           <Stack.Screen
             name={screenNames.PERMISSIONS}

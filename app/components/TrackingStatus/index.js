@@ -8,8 +8,8 @@ import styles from "./styles";
 function TrackingStatus({ server, isTracking }) {
   const scaleAnimation = new Animated.Value(1);
   const indicatorOpcaity = scaleAnimation.interpolate({
-    inputRange: [1, 2],
-    outputRange: [0.8, 0.2],
+    inputRange: [1, 2.5],
+    outputRange: [0.8, 0.01],
     extrapolate: "clamp",
   });
 
@@ -18,7 +18,7 @@ function TrackingStatus({ server, isTracking }) {
     Animated.sequence([
       Animated.delay(300),
       Animated.timing(scaleAnimation, {
-        toValue: 2,
+        toValue: 2.5,
         duration: 1000,
         useNativeDriver: true,
       }),

@@ -2,7 +2,9 @@ import React, { useEffect } from "react";
 import { View, Text } from "react-native";
 import styles from "./styles";
 import AsyncStorage from "@react-native-community/async-storage";
+import Config from "react-native-config";
 import { hasAllPermissions } from "../../services/PermissionRequests";
+import { setDeviceId, setServer } from "../../actions/device";
 import {
   acceptPrivacyPolicy,
   setPermissions,
@@ -11,6 +13,7 @@ import {
 import { useDispatch } from "react-redux";
 
 function Preloader() {
+  const isPersonal = Config.ENV === "PERSONAL";
   const dispatch = useDispatch();
   const checkIfAccepted = async () => {
     const isAccepted = await AsyncStorage.getItem("policyAccepted");
@@ -22,9 +25,20 @@ function Preloader() {
     if (await hasAllPermissions()) dispatch(setPermissions());
   };
 
+  const getEmoloyeeValues = async () => {
+    if (isPersonal) {
+      const employee = await AsyncStorage.getItem("employee");
+      const server = await AsyncStorage.getItem("server");
+
+      dispatch(setDeviceId(employee));
+      dispatch(setServer(server));
+    }
+  };
+
   const checkAll = async () => {
     await checkIfAccepted();
     await checkPermissions();
+    await getEmoloyeeValues();
     dispatch(setLoading(false));
   };
 

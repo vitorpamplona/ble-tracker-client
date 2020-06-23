@@ -4,6 +4,7 @@ import ContactItem from "../../components/ContactItem";
 import TrackingStatus from "../../components/TrackingStatus";
 import Button from "../../components/Button";
 import { SafeAreaView, View, Text, ScrollView } from "react-native";
+import Ionicons from "react-native-vector-icons/Ionicons";
 
 import Moment from "moment";
 import update from "immutability-helper";
@@ -13,17 +14,14 @@ import {
   hasPhonePermission,
   hasLocationPermission,
 } from "../../services/PermissionRequests";
+import { resetEmployeeValues } from "../../actions/device";
 
 import BLEBackgroundService from "../../services/BLEBackgroundService";
 
-import {
-  SERVER,
-  sync,
-  isOnline,
-  readyToUploadCounter,
-} from "../../helpers/SyncDB";
+import { sync, isOnline, readyToUploadCounter } from "../../helpers/SyncDB";
 import styles from "./styles";
 import colors from "../../constants/colors";
+import { TouchableOpacity } from "react-native-gesture-handler";
 
 const c1MIN = 1000 * 60;
 
@@ -56,7 +54,7 @@ class Entry extends Component {
 
   onDevice(device) {
     let index = -1;
-    console.log(device);
+
     for (let i = 0; i < this.state.devicesFound.length; i++) {
       if (this.state.devicesFound[i].serial == device.serial) {
         index = i;
@@ -138,7 +136,7 @@ class Entry extends Component {
   start() {
     BLEBackgroundService.enableBT();
 
-    isOnline()
+    isOnline(this.props.server)
       .then((response) => {
         if (response.status == 200) {
           // is online
@@ -149,7 +147,7 @@ class Entry extends Component {
             isLogging: true,
           });
 
-          sync();
+          sync(this.props.server);
         } else {
           console.log("[Entry] Server Offline, stopping");
           this.stop();
@@ -183,11 +181,20 @@ class Entry extends Component {
 
   render() {
     const { isLogging, devicesFound } = this.state;
+    const { server } = this.props;
 
     return (
       <SafeAreaView>
         <View style={styles.body}>
-          <TrackingStatus server={SERVER} isTracking={isLogging} />
+          <View style={styles.logout}>
+            <TouchableOpacity
+              style={styles.logoutButton}
+              onPress={this.props.resetEmployeeValues}
+            >
+              <Ionicons name="ios-exit" color={colors.blue} size={30} />
+            </TouchableOpacity>
+          </View>
+          <TrackingStatus server={server} isTracking={isLogging} />
           <ScrollView style={[styles.sectionContainer, { flex: 1 }]}>
             <Text style={styles.sectionTitle}>BCH Contact Tracer</Text>
             <Text style={styles.sectionDescription}>
@@ -249,6 +256,11 @@ class Entry extends Component {
 
 const mapStateToProps = (state) => ({
   deviceId: state.device.deviceId,
+  server: state.device.server,
 });
 
-export default connect(mapStateToProps)(Entry);
+const mapDispatchToProps = (dispatch) => ({
+  resetEmployeeValues: () => dispatch(resetEmployeeValues()),
+});
+
+export default connect(mapStateToProps, mapDispatchToProps)(Entry);

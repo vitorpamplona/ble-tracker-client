@@ -29,6 +29,7 @@ export default function globalReducer(state = INITIAL_STATE, action) {
         ...state,
         loading: action.payload.loading,
       };
+
     default:
       return state;
   }

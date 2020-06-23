@@ -20,6 +20,7 @@ function AppNavigation() {
   const { loading, policyAccepted, permissionsGranted } = useSelector(
     (store) => store.global
   );
+  const { deviceId, server } = useSelector((store) => store.device);
 
   return (
     <NavigationContainer>
@@ -39,10 +40,12 @@ function AppNavigation() {
             component={PrivacyPolicy}
           />
         )}
-        {isPersonal && (
+        {isPersonal && !deviceId && !server && (
           <Stack.Screen name={screenNames.EMPLOYEE_ID} component={EmployeeId} />
         )}
-        <Stack.Screen name={screenNames.HOME} component={Home} />
+        {deviceId && server ? (
+          <Stack.Screen name={screenNames.HOME} component={Home} />
+        ) : null}
       </Stack.Navigator>
     </NavigationContainer>
   );

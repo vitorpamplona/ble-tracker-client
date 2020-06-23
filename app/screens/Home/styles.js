@@ -5,6 +5,20 @@ const styles = StyleSheet.create({
   body: {
     backgroundColor: Colors.white,
     height: "100%",
+    position: "relative",
+  },
+  logout: {
+    position: "absolute",
+    right: 20,
+    top: 20,
+    width: 50,
+    height: 50,
+    justifyContent: "center",
+    alignItems: "center",
+    zIndex: 99,
+  },
+  logoutButton: {
+    flex: 1,
   },
   sectionContainerFlex: {
     flex: 1,

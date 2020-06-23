@@ -3,14 +3,12 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 import { NativeModules } from "react-native";
 
-const PROD_HOSTNAME = "safepath.tch.harvard.edu:80";
-
 // Load compiler IP as Server (assuming running ble-tracker-server in the same machine)
 const scriptURL = NativeModules.SourceCode.scriptURL;
 const address = scriptURL.split("://")[1].split("/")[0];
 const DEV_HOSTNAME = address.split(":")[0] + ":4567";
 
-export const SERVER = "192.168.1.120:4567";
+export const SERVER = "192.168.1.120";
 
 const c1MIN = 1000 * 60;
 const ACCEPT_JSON = {
@@ -46,15 +44,15 @@ export async function readyToUploadCounter() {
   return ks.filter((key) => key.startsWith(CONTACT)).length;
 }
 
-async function upload(contact_list) {
-  return fetch("http://" + SERVER + "/api/v1/contacts", {
+async function upload({ values, server }) {
+  return fetch("http://" + server + ":4567/api/v1/contacts", {
     method: "POST",
     headers: ACCEPT_JSON,
     body: JSON.stringify(values),
   });
 }
 
-function upload1000Keys() {
+function upload1000Keys(server) {
   AsyncStorage.getAllKeys().then((ks) => {
     let keysToUpload = ks
       .sort()
@@ -66,7 +64,7 @@ function upload1000Keys() {
         keys = data.map((keyValue) => keyValue[0]);
         values = data.map((keyValue) => JSON.parse(keyValue[1]));
 
-        upload(values)
+        upload({ values, server })
           .then((response) => {
             if (response.status == 200) {
               AsyncStorage.multiRemove(keys);
@@ -80,13 +78,13 @@ function upload1000Keys() {
   });
 }
 
-export async function isOnline() {
-  return fetch("http://" + SERVER + "/api/v1/health", {
+export async function isOnline(server) {
+  return fetch("http://" + server + ":4567/api/v1/health", {
     method: "GET",
     headers: ACCEPT_JSON,
   });
 }
 
-export async function sync() {
-  upload1000Keys();
+export async function sync(server) {
+  upload1000Keys(server);
 }

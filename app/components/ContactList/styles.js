@@ -2,7 +2,7 @@ import { StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 
 const styles = StyleSheet.create({
-  contactWrapper: {
+  noDevicesWrapper: {
     padding: 12,
     borderRadius: 10,
     backgroundColor: colors.lightGrey,
@@ -10,27 +10,12 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     height: 50,
     alignItems: "center",
-    marginBottom: 15,
   },
-  nameWrapper: {
-    backgroundColor: colors.yellow,
-    height: 28,
-    padding: 8,
-    borderRadius: 5,
-  },
-  name: {
-    color: colors.dark,
-    fontSize: 12,
-    lineHeight: 12,
+  noDevicesText: {
+    fontSize: 13,
     fontWeight: "bold",
-  },
-  time: {
-    color: colors.dark,
-    fontSize: 12,
-    fontWeight: "bold",
-  },
-  timeRelative: {
-    fontWeight: "400",
+    color: "#414042",
+    textAlign: "center",
   },
 });
 

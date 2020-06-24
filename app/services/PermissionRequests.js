@@ -3,7 +3,7 @@ import { PermissionsAndroid } from "react-native";
 
 export async function hasLocationPermission() {
   if (Platform.OS === "ios") {
-    return "Yes";
+    return true;
   }
   try {
     const granted = await PermissionsAndroid.check(
@@ -18,7 +18,7 @@ export async function hasLocationPermission() {
 
 export async function hasPhonePermission() {
   if (Platform.OS === "ios") {
-    return "Yes";
+    return true;
   }
   try {
     const granted = await PermissionsAndroid.check(

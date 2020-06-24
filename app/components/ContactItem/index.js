@@ -7,11 +7,17 @@ import styles from "./styles";
 function ContactItem({ device }) {
   return (
     <View style={styles.contactWrapper}>
-      <Text style={styles.id}>{device.serial}</Text>
-      <View style={styles.footer}>
-        <Text>Recent contact: {moment(device.end).format("HH:mm:ss")}</Text>
-        <Text>RSSI: {device.rssi}</Text>
+      <View style={styles.nameWrapper}>
+        <Text style={styles.name}>
+          {device.serial} ({device.rssi})
+        </Text>
       </View>
+      <Text style={styles.time}>
+        {moment(device.end).format("hh:mm")}
+        <Text style={styles.timeRelative}>
+          ({moment(device.end).fromNow()})
+        </Text>
+      </Text>
     </View>
   );
 }

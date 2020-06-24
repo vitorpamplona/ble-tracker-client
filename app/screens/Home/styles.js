@@ -1,11 +1,18 @@
 import { StyleSheet } from "react-native";
-import { Colors } from "react-native/Libraries/NewAppScreen";
+import colors from "../../constants/colors";
 
 const styles = StyleSheet.create({
-  body: {
-    backgroundColor: Colors.white,
-    height: "100%",
+  screen: {
+    backgroundColor: colors.blue,
     position: "relative",
+    flex: 1,
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  logo: {
+    position: "absolute",
+    top: 60,
+    left: 20,
   },
   logout: {
     position: "absolute",
@@ -20,6 +27,37 @@ const styles = StyleSheet.create({
   logoutButton: {
     flex: 1,
   },
+  bottomSheet: {
+    backgroundColor: colors.white,
+    height: "100%",
+  },
+  bottomSheetHeader: {
+    width: "100%",
+    height: 50,
+    backgroundColor: colors.white,
+    borderTopLeftRadius: 20,
+    borderTopRightRadius: 20,
+    alignItems: "center",
+  },
+  bottomSheetHandle: {
+    backgroundColor: colors.lightGrey,
+    height: 8,
+    borderRadius: 4,
+    backgroundColor: "#00000040",
+    marginBottom: 10,
+    width: 100,
+    marginTop: 10,
+  },
+  title: {
+    fontSize: 18,
+    fontWeight: "bold",
+    color: colors.dark,
+    textAlign: "center",
+  },
+  counter: {
+    marginLeft: 5,
+    color: colors.lightGrey,
+  },
   sectionContainerFlex: {
     flex: 1,
     marginTop: 12,
@@ -27,34 +65,15 @@ const styles = StyleSheet.create({
     paddingHorizontal: 24,
   },
   sectionContainer: {
-    flex: 0,
     marginTop: 12,
     marginBottom: 12,
     paddingHorizontal: 24,
-  },
-  sectionTitle: {
-    fontSize: 24,
-    marginBottom: 8,
-    fontWeight: "600",
-    color: Colors.black,
-    textAlign: "center",
   },
   sectionDescription: {
     fontSize: 16,
     fontWeight: "400",
     textAlign: "center",
-    color: Colors.dark,
-  },
-  highlight: {
-    fontWeight: "700",
-  },
-  footer: {
-    color: Colors.dark,
-    fontSize: 12,
-    fontWeight: "600",
-    padding: 4,
-    paddingRight: 12,
-    textAlign: "right",
+    color: colors.white,
   },
   startLoggingButtonTouchable: {
     borderRadius: 12,

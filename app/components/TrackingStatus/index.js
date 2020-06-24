@@ -1,67 +1,31 @@
-import React, { useEffect } from "react";
+import React from "react";
 import PropTypes from "prop-types";
-import { View, Text, Animated, Easing } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
-import colors from "../../constants/colors";
+import { View } from "react-native";
 import styles from "./styles";
+import AnimatedCircle from "./AnimatedCircle";
+import Animated from "react-native-reanimated";
+import { mix, loop } from "react-native-redash";
+
+const { Value, useCode, set } = Animated;
 
 function TrackingStatus({ server, isTracking }) {
-  const scaleAnimation = new Animated.Value(1);
-  const indicatorOpcaity = scaleAnimation.interpolate({
-    inputRange: [1, 2.5],
-    outputRange: [0.8, 0.01],
-    extrapolate: "clamp",
-  });
+  const animation = new Value(0);
 
-  function animateIdicator() {
-    scaleAnimation.setValue(1);
-    Animated.sequence([
-      Animated.delay(300),
-      Animated.timing(scaleAnimation, {
-        toValue: 2.5,
-        duration: 1000,
-        useNativeDriver: true,
-      }),
-    ]).start(() => {
-      if (isTracking) {
-        animateIdicator();
-      }
-    });
-  }
+  useCode(() => set(animation, loop({ duration: 1000, boomerang: true })), []);
 
-  useEffect(() => {
-    if (isTracking) {
-      animateIdicator();
-    }
-  }, [isTracking]);
+  const dotScale = isTracking ? mix(animation, 1, 1.5) : 1;
 
   return (
     <View style={styles.wrapper}>
-      <View style={[styles.iconWrapper, !isTracking && styles.iconError]}>
-        {isTracking && (
-          <Animated.View
-            style={[
-              styles.trackingIndicator,
-              {
-                transform: [{ scale: scaleAnimation }],
-                opacity: indicatorOpcaity,
-              },
-            ]}
-          />
-        )}
-        <Ionicons
-          name={isTracking ? "ios-bluetooth" : "ios-close"}
-          color={colors.white}
-          size={34}
+      {isTracking &&
+        new Array(5)
+          .fill(0)
+          .map((_, i) => <AnimatedCircle key={i} delayTime={i * 1200} />)}
+      <View style={[styles.iconWrapper]}>
+        <Animated.View
+          style={[styles.indicatorDot, { transform: [{ scale: dotScale }] }]}
         />
       </View>
-      {isTracking ? (
-        <Text
-          style={styles.label}
-        >{`You are being tracked by server: ${server}`}</Text>
-      ) : (
-        <Text style={styles.label}>You are not tracked at the moment</Text>
-      )}
     </View>
   );
 }

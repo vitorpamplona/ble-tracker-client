@@ -1,10 +1,12 @@
 import React, { Component } from "react";
 
-import ContactItem from "../../components/ContactItem";
 import TrackingStatus from "../../components/TrackingStatus";
+import ContactList from "../../components/ContactList";
+import BottomSheet from "reanimated-bottom-sheet";
 import Button from "../../components/Button";
-import { SafeAreaView, View, Text, ScrollView } from "react-native";
+import { View, SafeAreaView, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
+import Logo from "../../../assets/images/logo.svg";
 
 import Moment from "moment";
 import update from "immutability-helper";
@@ -184,72 +186,38 @@ class Entry extends Component {
     const { server } = this.props;
 
     return (
-      <SafeAreaView>
-        <View style={styles.body}>
-          <View style={styles.logout}>
-            <TouchableOpacity
-              style={styles.logoutButton}
-              onPress={this.props.resetEmployeeValues}
-            >
-              <Ionicons name="ios-exit" color={colors.blue} size={30} />
-            </TouchableOpacity>
-          </View>
-          <TrackingStatus server={server} isTracking={isLogging} />
-          <ScrollView style={[styles.sectionContainer, { flex: 1 }]}>
-            <Text style={styles.sectionTitle}>BCH Contact Tracer</Text>
-            <Text style={styles.sectionDescription}>
-              Broadcasting:
-              <Text style={styles.highlight}> {this.props.deviceId}</Text>
-            </Text>
-            <Text style={styles.sectionDescription}>
-              Broadcast:
-              <Text style={styles.highlight}>
-                {" "}
-                {this.state.broadcastStatus}
-              </Text>
-              , Scan:
-              <Text style={styles.highlight}> {this.state.scanStatus}</Text>
-            </Text>
-            <Text style={styles.sectionDescription}>
-              BT:
-              <Text style={styles.highlight}>
-                {" "}
-                {this.state.bluetoothStatus}
-              </Text>
-              , Loc:
-              <Text style={styles.highlight}>
-                {" "}
-                {this.state.locationPermission}
-              </Text>
-              , Phone:
-              <Text style={styles.highlight}>
-                {" "}
-                {this.state.phonePermission}
-              </Text>
-            </Text>
-            <Text style={styles.sectionDescription}>
-              Contacts To Upload:
-              <Text style={styles.highlight}> {this.state.readyToUpload}</Text>
-            </Text>
-
-            <View style={styles.sectionContainerFlex}>
-              <Text style={styles.sectionTitle}>Last Seen</Text>
-              {devicesFound.map((device, i) => (
-                <ContactItem key={i} device={device} />
-              ))}
-            </View>
-          </ScrollView>
-
-          <View style={styles.sectionContainer}>
-            <Button
-              background={colors.blue}
-              labelColor={colors.white}
-              onPress={this.onClearArray}
-              label="Clear devices"
-            />
-          </View>
+      <View style={styles.screen}>
+        <Logo width={220} height={42} style={styles.logo} />
+        <View style={styles.logout}>
+          <TouchableOpacity
+            style={styles.logoutButton}
+            onPress={this.props.resetEmployeeValues}
+          >
+            <Ionicons name="ios-exit" color={colors.blue} size={30} />
+          </TouchableOpacity>
         </View>
-      </SafeAreaView>
+        <TrackingStatus server={server} isTracking={isLogging} />
+        <BottomSheet
+          snapPoints={["80%", "35%"]}
+          initialSnap={1}
+          renderContent={() => (
+            <View style={styles.bottomSheet}>
+              <SafeAreaView>
+                <Text style={styles.title}>
+                  Devices around{" "}
+                  <Text style={styles.counter}>({devicesFound.length})</Text>
+                </Text>
+                <ContactList devices={devicesFound} />
+              </SafeAreaView>
+            </View>
+          )}
+          renderHeader={() => (
+            <View style={styles.bottomSheetHeader}>
+              <View style={styles.bottomSheetHandle} />
+            </View>
+          )}
+        />
+      </View>
     );
   }
 }

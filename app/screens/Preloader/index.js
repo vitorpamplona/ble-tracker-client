@@ -9,6 +9,7 @@ import {
   acceptPrivacyPolicy,
   setPermissions,
   setLoading,
+  setUserOnboarded,
 } from "../../actions/global";
 import { useDispatch } from "react-redux";
 
@@ -19,6 +20,12 @@ function Preloader() {
     const isAccepted = await AsyncStorage.getItem("policyAccepted");
 
     if (isAccepted === "true") dispatch(acceptPrivacyPolicy());
+  };
+
+  const checkIfOnboarded = async () => {
+    const isOnboarded = await AsyncStorage.getItem("onboarded");
+
+    if (isOnboarded === "true") dispatch(setUserOnboarded());
   };
 
   const checkPermissions = async () => {
@@ -39,6 +46,8 @@ function Preloader() {
     await checkIfAccepted();
     await checkPermissions();
     await getEmoloyeeValues();
+    await checkIfOnboarded();
+
     dispatch(setLoading(false));
   };
 

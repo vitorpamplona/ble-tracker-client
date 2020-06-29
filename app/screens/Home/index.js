@@ -3,6 +3,7 @@ import React, { Component } from "react";
 import TrackingStatus from "../../components/TrackingStatus";
 import ContactList from "../../components/ContactList";
 import BottomSheet from "reanimated-bottom-sheet";
+import TrackingInfo from "../../components/TrackingInfo";
 import Button from "../../components/Button";
 import { View, SafeAreaView, Text } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
@@ -24,6 +25,7 @@ import { sync, isOnline, readyToUploadCounter } from "../../helpers/SyncDB";
 import styles from "./styles";
 import colors from "../../constants/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
+import { calculatePosition } from "../../helpers/DeviceDotsPosition";
 
 const c1MIN = 1000 * 60;
 
@@ -62,6 +64,9 @@ class Entry extends Component {
         index = i;
       }
     }
+
+    const position = calculatePosition(device.rssi);
+
     if (index < 0) {
       let dev = {
         serial: device.serial,
@@ -69,18 +74,26 @@ class Entry extends Component {
         rssi: device.rssi,
         start: device.date,
         end: device.date,
+        position,
       };
       this.setState({
         devicesFound: update(this.state.devicesFound, { $push: [dev] }),
       });
     } else {
       const itemIndex = index;
+      const { position: currentPosition } = this.state.devicesFound[itemIndex];
       this.setState({
         devicesFound: update(this.state.devicesFound, {
           [itemIndex]: {
             end: { $set: device.date },
             rssi: {
               $set: device.rssi || this.state.devicesFound[itemIndex].rssi,
+            },
+            position: {
+              $set:
+                currentPosition.radius === position.radius
+                  ? currentPosition
+                  : position,
             },
           },
         }),
@@ -182,23 +195,36 @@ class Entry extends Component {
   }
 
   render() {
-    const { isLogging, devicesFound } = this.state;
+    const {
+      isLogging,
+      devicesFound,
+      deviceSerial,
+      scanStatus,
+      broadcastStatus,
+      bluetoothStatus,
+      locationPermission,
+      phonePermission,
+    } = this.state;
     const { server } = this.props;
 
     return (
       <View style={styles.screen}>
-        <Logo width={220} height={42} style={styles.logo} />
-        <View style={styles.logout}>
+        <View style={styles.header}>
+          <Logo width={220} height={42} />
           <TouchableOpacity
             style={styles.logoutButton}
             onPress={this.props.resetEmployeeValues}
           >
-            <Ionicons name="ios-exit" color={colors.blue} size={30} />
+            <Ionicons name="ios-settings" color={colors.white} size={30} />
           </TouchableOpacity>
         </View>
-        <TrackingStatus server={server} isTracking={isLogging} />
+        <TrackingStatus
+          server={server}
+          isTracking={isLogging}
+          devices={devicesFound}
+        />
         <BottomSheet
-          snapPoints={["80%", "35%"]}
+          snapPoints={["80%", 280]}
           initialSnap={1}
           renderContent={() => (
             <View style={styles.bottomSheet}>
@@ -208,6 +234,14 @@ class Entry extends Component {
                   <Text style={styles.counter}>({devicesFound.length})</Text>
                 </Text>
                 <ContactList devices={devicesFound} />
+                <TrackingInfo
+                  deviceId={deviceSerial}
+                  broadcastStatus={broadcastStatus}
+                  scanStatus={scanStatus}
+                  bluetoothStatus={bluetoothStatus}
+                  locationPermission={locationPermission}
+                  phonePermission={phonePermission}
+                />
               </SafeAreaView>
             </View>
           )}

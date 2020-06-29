@@ -8,8 +8,8 @@ function Button({
   style,
   onPress,
   label,
-  background = colors.white,
-  labelColor = colors.blue,
+  background = colors.yellow,
+  labelColor = colors.dark,
   disabled,
   ...props
 }) {

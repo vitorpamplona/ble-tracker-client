@@ -1,19 +1,20 @@
 import { StyleSheet } from "react-native";
-import colors from "../../constants/colors";
+import fontNames from "../../constants/fontNames";
 
 const styles = StyleSheet.create({
   button: {
-    borderRadius: 12,
+    borderRadius: 5,
     height: 52,
     alignSelf: "center",
     width: "100%",
     justifyContent: "center",
+    paddingHorizontal: 20,
   },
   label: {
-    fontSize: 18,
-    lineHeight: 19,
-    letterSpacing: 0,
+    fontSize: 15,
+    lineHeight: 20,
     textAlign: "center",
+    fontFamily: fontNames.OpenSans.bold,
   },
   disabled: {
     backgroundColor: "rgba(220, 220, 220, 0.3)",

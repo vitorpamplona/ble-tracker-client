@@ -1,6 +1,16 @@
 import React from "react";
+import { View, Text } from "react-native";
 
-function TrackingInfo() {
+const styles = {};
+
+function TrackingInfo({
+  deviceId,
+  broadcastStatus,
+  scanStatus,
+  bluetoothStatus,
+  locationPermission,
+  phonePermission,
+}) {
   return (
     <View>
       <Text style={styles.sectionDescription}>
@@ -21,3 +31,5 @@ function TrackingInfo() {
     </View>
   );
 }
+
+export default TrackingInfo;

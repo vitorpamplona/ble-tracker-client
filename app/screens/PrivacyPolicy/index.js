@@ -13,9 +13,7 @@ function PrivacyPolicy({ navigation }) {
 
   const handleContinue = () => {
     AsyncStorage.setItem("policyAccepted", "true");
-    navigation.navigate(
-      isPersonal ? screenNames.EMPLOYEE_ID : screenNames.HOME
-    );
+    navigation.navigate(screenNames.HOME);
   };
 
   return (

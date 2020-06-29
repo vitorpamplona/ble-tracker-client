@@ -9,10 +9,14 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  logo: {
-    position: "absolute",
+  header: {
     top: 60,
-    left: 20,
+    left: 0,
+    width: "100%",
+    paddingHorizontal: 20,
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   logout: {
     position: "absolute",

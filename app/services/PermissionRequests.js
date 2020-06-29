@@ -82,6 +82,13 @@ async function checkBluetoothStatus() {
 
 export async function requestAllPermissions() {
   try {
+    if (Platform.OS === "ios") {
+      return {
+        location: "granted",
+        phoneState: "granted",
+      };
+    }
+
     let permissionsGranted;
 
     if (Platform.OS === "android") {

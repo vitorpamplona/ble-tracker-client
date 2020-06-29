@@ -13,6 +13,7 @@ const styles = StyleSheet.create({
     flex: 1,
     position: "relative",
     marginBottom: 150,
+    width: "100%",
   },
   indicatorDot: {
     width: 16,
@@ -28,7 +29,44 @@ const styles = StyleSheet.create({
     width: WIDTH + 20,
     borderRadius: (WIDTH + 20) / 2,
     position: "absolute",
-    zIndex: 2,
+    zIndex: 1,
+  },
+  footer: {
+    position: "absolute",
+    bottom: 100,
+    width: "100%",
+    alignItems: "center",
+  },
+  copy: {
+    color: colors.white,
+    textAlign: "center",
+    fontSize: 14,
+    lineHeight: 23,
+    marginBottom: 20,
+  },
+  serverStatus: {
+    paddingVertical: 13,
+    paddingHorizontal: 9,
+    backgroundColor: colors.green,
+    borderRadius: 5,
+  },
+  serverStatusInactive: {
+    backgroundColor: colors.error,
+  },
+  serverStatusText: {
+    fontSize: 12,
+    color: colors.white,
+    lineHeight: 16,
+    fontWeight: "bold",
+  },
+  inactiveCircle: {
+    borderColor: colors.white,
+    height: WIDTH + 20,
+    width: WIDTH + 20,
+    borderRadius: (WIDTH + 20) / 2,
+    position: "absolute",
+    borderWidth: 1,
+    opacity: 0.1,
   },
 });
 

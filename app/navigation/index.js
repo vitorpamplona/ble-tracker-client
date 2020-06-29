@@ -12,14 +12,18 @@ import EmployeeId from "../screens/EmployeeId";
 import Home from "../screens/Home";
 import Permissions from "../screens/Permissions";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
+import Onboarding from "../screens/Onboarding";
 
 const Stack = createStackNavigator();
 
 function AppNavigation() {
   const isPersonal = Config.ENV === "PERSONAL";
-  const { loading, policyAccepted, permissionsGranted } = useSelector(
-    (store) => store.global
-  );
+  const {
+    loading,
+    policyAccepted,
+    permissionsGranted,
+    isOnboarded,
+  } = useSelector((store) => store.global);
   const { deviceId, server } = useSelector((store) => store.device);
 
   return (
@@ -28,20 +32,23 @@ function AppNavigation() {
         {loading && (
           <Stack.Screen name={screenNames.PRELOADER} component={Preloader} />
         )}
+        {isOnboarded && (
+          <Stack.Screen name={screenNames.ONBOARDING} component={Onboarding} />
+        )}
         {!permissionsGranted && (
           <Stack.Screen
             name={screenNames.PERMISSIONS}
             component={Permissions}
           />
         )}
+        {isPersonal && !deviceId && !server && (
+          <Stack.Screen name={screenNames.EMPLOYEE_ID} component={EmployeeId} />
+        )}
         {!policyAccepted && (
           <Stack.Screen
             name={screenNames.PRIVACY_POLICY}
             component={PrivacyPolicy}
           />
-        )}
-        {isPersonal && !deviceId && !server && (
-          <Stack.Screen name={screenNames.EMPLOYEE_ID} component={EmployeeId} />
         )}
         {deviceId && server ? (
           <Stack.Screen name={screenNames.HOME} component={Home} />

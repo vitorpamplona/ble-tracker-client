@@ -4,8 +4,7 @@ import Button from "../../components/Button";
 import PermissionItem from "../../components/PermissionItem";
 import AsyncStorage from "@react-native-community/async-storage";
 
-import { View, Text } from "react-native";
-import Ionicons from "react-native-vector-icons/Ionicons";
+import { View, Text, SafeAreaView } from "react-native";
 import { Platform } from "react-native";
 import { useDispatch } from "react-redux";
 import { setDeviceId } from "../../actions/device";
@@ -16,11 +15,10 @@ import {
 } from "../../services/PermissionRequests";
 import DeviceInfo from "react-native-device-info";
 import Config from "react-native-config";
-import NetInfo from "@react-native-community/netinfo";
 
 import styles from "./styles";
-import colors from "../../constants/colors";
 import screenNames from "../../constants/screenNames";
+import Logo from "../../../assets/images/logo.svg";
 
 function Permissions({ navigation }) {
   const isPersonal = Config.ENV === "PERSONAL";
@@ -33,12 +31,6 @@ function Permissions({ navigation }) {
   useEffect(() => {
     const requestPermission = async () => {
       const permissions = await requestAllPermissions();
-
-      if (
-        permissions.location === "granted" &&
-        permissions.phoneState === "granted"
-      )
-        return navigation.navigate(screenNames.PRIVACY_POLICY);
 
       setLocationPermissionsGranted(permissions.location === "granted");
       setPhonePermissionsGranted(permissions.phoneState === "granted");
@@ -72,37 +64,49 @@ function Permissions({ navigation }) {
       setDeviceIdWithSerialNumber();
     }
 
-    navigation.navigate(screenNames.PRIVACY_POLICY);
+    navigation.navigate(screenNames.EMPLOYEE_ID);
   };
 
   const notGranted = !locationPermisionsGranted || !phonePermisionsGranted;
 
   return (
     <View style={styles.screen}>
-      <Ionicons name="md-lock" color={colors.white} size={100} />
-      <Text style={styles.title}>Grant Permissions</Text>
-      <PermissionItem
-        label="Location permission"
-        granted={locationPermisionsGranted}
-        onPress={handleSetLocationPermission}
-      />
-      <PermissionItem
-        label="Phone state permission"
-        granted={phonePermisionsGranted}
-        onPress={handleSetPhonePermission}
-      />
-      <View style={styles.footer}>
-        <Button
-          label="Continue"
-          disabled={notGranted}
-          onPress={handleContinue}
-        />
-        {notGranted && (
-          <Text style={styles.helperText}>
-            Permissions are required to continue
+      <SafeAreaView style={{ flex: 1 }}>
+        <Logo width={220} height={42} style={styles.logo} />
+
+        <View style={styles.content}>
+          <Text style={styles.copy}>
+            To remember where you go, your phone needs to save your location
           </Text>
-        )}
-      </View>
+
+          <Text style={styles.subtitle}>
+            Below select persmissions you want to enable
+          </Text>
+
+          <PermissionItem
+            label="Location permission"
+            granted={locationPermisionsGranted}
+            onPress={handleSetLocationPermission}
+          />
+          <PermissionItem
+            label="Phone state permission"
+            granted={phonePermisionsGranted}
+            onPress={handleSetPhonePermission}
+          />
+        </View>
+        <View style={styles.footer}>
+          <Button
+            label="Continue"
+            disabled={notGranted}
+            onPress={handleContinue}
+          />
+          {notGranted && (
+            <Text style={styles.helperText}>
+              Permissions are required to continue
+            </Text>
+          )}
+        </View>
+      </SafeAreaView>
     </View>
   );
 }

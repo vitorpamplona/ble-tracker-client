@@ -25,7 +25,7 @@
     "react-native-background-fetch": "^3.0.4",
     "react-native-ble-advertiser": "0.0.14",
     "react-native-config": "^1.2.1",
-    "react-native-device-info": "^5.5.4",
+    "react-native-device-info": "^5.6.1",
     "react-native-fs": "^2.16.6",
     "react-native-gesture-handler": "^1.6.1",
     "react-native-reanimated": "^1.9.0",

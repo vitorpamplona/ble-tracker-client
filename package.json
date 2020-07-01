@@ -3,13 +3,20 @@
   "version": "0.1.1",
   "private": true,
   "scripts": {
-    "android": "react-native run-android",
-    "ios": "react-native run-ios",
-    "start": "react-native start",
+    "run:android": "export ENVFILE=.env.personal && npx react-native run-android --variant=personalDebug",
+    "run:mdm": "export ENVFILE=.env.mdm && npx react-native run-android --variant=mdmDebug",
+    "run:ios": "export ENVFILE=.env.personal && npx react-native run-ios",
+    "build:android": "cd android/ && ENVFILE=.env.personal ./gradlew assemblePersonalRelease",
+    "build:mdm": "cd android/ && ENVFILE=.env.mdm ./gradlew assembleMdmRelease",
+    "start": "npx react-native start",
     "postversion": "react-native-version"
   },
   "dependencies": {
     "@react-native-community/async-storage": "^1.9.0",
+    "@react-native-community/masked-view": "^0.1.10",
+    "@react-native-community/netinfo": "^5.9.2",
+    "@react-navigation/native": "^5.5.1",
+    "@react-navigation/stack": "^5.5.1",
     "buffer": "^5.5.0",
     "immutability-helper": "^3.0.2",
     "moment": "^2.24.0",
@@ -17,7 +24,24 @@
     "react-native": "0.62.1",
     "react-native-background-fetch": "^3.0.4",
     "react-native-ble-advertiser": "0.0.14",
-    "react-native-device-info": "^5.5.4",
-    "react-native-version": "^4.0.0"
+    "react-native-config": "^1.2.1",
+    "react-native-device-info": "^5.6.1",
+    "react-native-fs": "^2.16.6",
+    "react-native-gesture-handler": "^1.6.1",
+    "react-native-reanimated": "^1.9.0",
+    "react-native-redash": "^14.1.1",
+    "react-native-safe-area-context": "^3.0.3",
+    "react-native-screens": "^2.8.0",
+    "react-native-svg": "^12.1.0",
+    "react-native-vector-icons": "^6.6.0",
+    "react-native-version": "^4.0.0",
+    "react-redux": "^7.2.0",
+    "reanimated-bottom-sheet": "^1.0.0-alpha.20",
+    "redux": "^4.0.5",
+    "typesafe-actions": "^5.1.0",
+    "use-memo-one": "^1.1.1"
+  },
+  "devDependencies": {
+    "react-native-svg-transformer": "^0.14.3"
   }
 }

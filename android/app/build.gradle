@@ -81,6 +81,7 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
+apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -131,9 +132,25 @@ android {
         applicationId "org.childrenshospital.contacttracer"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 11
-        versionName "0.1.1"
+        versionCode 10
+        versionName "0.1.0"
+        resValue "string", "build_config_package", "org.childrenshospital.contacttracer"
     }
+
+    flavorDimensions "appConfig"
+    productFlavors {
+        mdm {
+            // Pre-compile run ENVFILE=.env.mdm
+            applicationIdSuffix ".mdm"
+            dimension "appConfig"
+        }
+
+       personal {
+           // Pre-compile run ENVFILE=.env.personal
+           dimension "appConfig"
+       }
+   }
+
     splits {
         abi {
             reset()
@@ -199,3 +216,9 @@ task copyDownloadableDepsToLibs(type: Copy) {
 }
 
 apply from: file("../../node_modules/@react-native-community/cli-platform-android/native_modules.gradle"); applyNativeModulesAppBuildGradle(project)
+
+project.ext.vectoricons = [
+    iconFontNames: [ 'Ionicons.ttf' ]
+]
+
+apply from: "../../node_modules/react-native-vector-icons/fonts.gradle"

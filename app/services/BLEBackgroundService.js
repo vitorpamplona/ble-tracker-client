@@ -1,12 +1,12 @@
-import BLEAdvertiser from 'react-native-ble-advertiser'
-import AsyncStorage from '@react-native-community/async-storage';
-import { NativeEventEmitter, NativeModules } from 'react-native';
+import BLEAdvertiser from "react-native-ble-advertiser";
+import AsyncStorage from "@react-native-community/async-storage";
+import { NativeEventEmitter, NativeModules } from "react-native";
 
-import { MY_UUID } from '../constants/storage';
+import { MY_UUID } from "../constants/storage";
 
-import { toUUID, fromUUID } from '../helpers/UUIDFormatter';
-import { hex2a, a2hex }  from '../helpers/Hex2Ascii'
-import { saveContactToUpload, SERVER } from '../helpers/SyncDB';
+import { toUUID, fromUUID } from "../helpers/UUIDFormatter";
+import { hex2a, a2hex } from "../helpers/Hex2Ascii";
+import { saveContactToUpload } from "../helpers/SyncDB";
 
 export default class BLEBackgroundService {
   static eventEmitter = new NativeEventEmitter(NativeModules.BLEAdvertiser);
@@ -17,78 +17,96 @@ export default class BLEBackgroundService {
   static cached_my_uuid;
 
   /**
-   * If the app needs to update the screen at every new device. 
+   * If the app needs to update the screen at every new device.
    */
   static addNewDeviceListener(callback) {
     var index = this.listeners.indexOf(callback);
-    if (index < 0)
-      this.listeners.push(callback);
+    if (index < 0) this.listeners.push(callback);
   }
   static removeNewDeviceListener(callback) {
     var index = this.listeners.indexOf(callback);
     if (index > -1) {
-        this.listeners.splice(index, 1);
+      this.listeners.splice(index, 1);
     }
   }
   static emitNewDevice(data) {
-    this.listeners.forEach(callback => {
+    this.listeners.forEach((callback) => {
       callback.onDevice(data);
     });
   }
   static emitBroadcastingStatus(data) {
-    this.listeners.forEach(callback => {
+    this.listeners.forEach((callback) => {
       callback.onBroadcastStatus(data);
     });
   }
   static emitScanningStatus(data) {
-    this.listeners.forEach(callback => {
+    this.listeners.forEach((callback) => {
       callback.onScanStatus(data);
     });
   }
   static emitBluetoothStatus(data) {
-    this.listeners.forEach(callback => {
+    this.listeners.forEach((callback) => {
       callback.onBluetoothStatus(data);
     });
   }
 
   static init() {
-    BLEAdvertiser.setCompanyId(0x4C); 
+    BLEAdvertiser.setCompanyId(0x4c);
 
     cached_my_uuid = null;
-    this.emitBroadcastingStatus('Initialized');
-    this.emitScanningStatus('Initialized');
+    this.emitBroadcastingStatus("Initialized");
+    this.emitScanningStatus("Initialized");
   }
 
   static requestBluetoothStatus() {
-    BLEAdvertiser.getAdapterState().then(result => {
-      this.emitBluetoothStatus(result === 'STATE_ON' ? "On" : "Off");
-    }).catch(error => { 
-      this.emitBluetoothStatus(error);
-    });
+    BLEAdvertiser.getAdapterState()
+      .then((result) => {
+        this.emitBluetoothStatus(result === "STATE_ON" ? "On" : "Off");
+      })
+      .catch((error) => {
+        this.emitBluetoothStatus(error);
+      });
   }
 
   static isValidUUID(uuid) {
-    if (!uuid)return false;
-    return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{10}00$/.test(uuid);
+    if (!uuid) return false;
+    return /^[0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{4}-[0-9a-fA-F]{10}00$/.test(
+      uuid
+    );
   }
 
-  static addDevice(_uuid, _name, _rssi, _date) {
+  static addDevice(_uuid, _name, _rssi, _date, _employee, _ip_address) {
     if (cached_my_uuid) {
-      saveContactToUpload(
-        hex2a(fromUUID(cached_my_uuid)), 
-        hex2a(fromUUID(_uuid)), _rssi, _date);
+      saveContactToUpload({
+        uploader: hex2a(fromUUID(cached_my_uuid)),
+        contact: hex2a(fromUUID(_uuid)),
+        rssi: _rssi,
+        date: _date,
+        employee_id: _employee,
+        ip_address: _ip_address,
+      });
     } else {
-      AsyncStorage.getItem(MY_UUID).then(uuid => {
+      AsyncStorage.getItem(MY_UUID).then((uuid) => {
         cached_my_uuid = uuid;
 
-        saveContactToUpload(
-          hex2a(fromUUID(cached_my_uuid)), 
-          hex2a(fromUUID(_uuid)), _rssi, _date);
+        saveContactToUpload({
+          uploader: hex2a(fromUUID(cached_my_uuid)),
+          contact: hex2a(fromUUID(_uuid)),
+          rssi: _rssi,
+          date: _date,
+          employee_id: _employee,
+          ip_address: _ip_address,
+        });
       });
     }
 
-    let device = {serial: hex2a(fromUUID(_uuid)), name: _name, rssi: _rssi, date: _date}
-    this.emitNewDevice(device);  
+    let device = {
+      serial: hex2a(fromUUID(_uuid)),
+      name: _name,
+      rssi: _rssi,
+      date: _date,
+    };
+    this.emitNewDevice(device);
   }
 
   static setServicesUUID(deviceSerial) {
@@ -104,7 +122,7 @@ export default class BLEBackgroundService {
     BLEAdvertiser.disableAdapter();
   }
 
-  // Called by Background function. 
+  // Called by Background function.
   static pulse() {
     this.enableBT();
     this.init();
@@ -123,75 +141,99 @@ export default class BLEBackgroundService {
     }
   }
 
-  static start() {
+  static start({ employeeId, ipAddress }) {
     console.log("[BLEService] Starting BLE service");
 
     cached_my_uuid = null;
     this.clearListener();
 
-    this.emitBroadcastingStatus('Starting');
-    this.emitScanningStatus('Starting');
+    this.emitBroadcastingStatus("Starting");
+    this.emitScanningStatus("Starting");
 
-    this.onDeviceFoundListener = this.eventEmitter.addListener('onDeviceFound', (event) => {
-      if (event.serviceUuids) {
-        for(let i=0; i< event.serviceUuids.length; i++){
-          if (this.isValidUUID(event.serviceUuids[i])) {
-            //console.log("[BLEService]", 'onDeviceFound', event);
-            this.addDevice(event.serviceUuids[i], event.deviceName, event.rssi, new Date())   
+    this.onDeviceFoundListener = this.eventEmitter.addListener(
+      "onDeviceFound",
+      (event) => {
+        if (event.serviceUuids) {
+          for (let i = 0; i < event.serviceUuids.length; i++) {
+            if (this.isValidUUID(event.serviceUuids[i])) {
+              // console.log("[BLEService]", "onDeviceFound", event);
+              this.addDevice(
+                event.serviceUuids[i],
+                event.deviceName,
+                event.rssi,
+                new Date(),
+                employeeId,
+                ipAddress
+              );
+            }
           }
         }
       }
-    });
+    );
 
-    this.onBluetoothStatusListener = this.eventEmitter.addListener('onBTStatusChange', (bluetooth) => {
-      this.emitBluetoothStatus(bluetooth.enabled ? "On" : "Off");
+    this.onBluetoothStatusListener = this.eventEmitter.addListener(
+      "onBTStatusChange",
+      (bluetooth) => {
+        this.emitBluetoothStatus(bluetooth.enabled ? "On" : "Off");
 
-      if (!bluetooth.enabled) {
-        this.emitBroadcastingStatus('Bluetooth Off');
-        this.emitScanningStatus('Bluetooth Off');
+        if (!bluetooth.enabled) {
+          this.emitBroadcastingStatus("Bluetooth Off");
+          this.emitScanningStatus("Bluetooth Off");
+        }
       }
-    });
+    );
 
-    AsyncStorage.getItem(MY_UUID).then(uuid => {
+    AsyncStorage.getItem(MY_UUID).then((uuid) => {
       if (uuid) {
-        console.log("[BLEService]", hex2a(fromUUID(uuid)), "Starting Advertising");
-        BLEAdvertiser.broadcast(uuid, [1,0,0,0], {
-          advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER, 
-          txPowerLevel: BLEAdvertiser.ADVERTISE_TX_POWER_LOW, 
-          connectable: false, 
-          includeDeviceName: false, includeTxPowerLevel: false
+        console.log(
+          "[BLEService]",
+          hex2a(fromUUID(uuid)),
+          "Starting Advertising"
+        );
+        BLEAdvertiser.broadcast(uuid, [1, 0, 0, 0], {
+          advertiseMode: BLEAdvertiser.ADVERTISE_MODE_LOW_POWER,
+          txPowerLevel: BLEAdvertiser.ADVERTISE_TX_POWER_LOW,
+          connectable: false,
+          includeDeviceName: false,
+          includeTxPowerLevel: false,
         })
-        .then(sucess => this.emitBroadcastingStatus("Started"))
-        .catch(error => this.emitBroadcastingStatus(error));
-        
+          .then((sucess) => this.emitBroadcastingStatus("Started"))
+          .catch((error) => this.emitBroadcastingStatus(error));
+
         console.log("[BLEService]", hex2a(fromUUID(uuid)), "Starting Scanner");
-        BLEAdvertiser.scan([1,0,0,0], {scanMode: BLEAdvertiser.SCAN_MODE_BALANCED})
-        .then(sucess => this.emitScanningStatus("Started"))
-        .catch(error => this.emitScanningStatus(error)); 
+        BLEAdvertiser.scan([1, 0, 0, 0], {
+          scanMode: BLEAdvertiser.SCAN_MODE_BALANCED,
+        })
+          .then((sucess) => this.emitScanningStatus("Started"))
+          .catch((error) => this.emitScanningStatus(error));
       }
     });
   }
 
-  static stop(){
+  static stop() {
     console.log("[BLEService] Stopping BLE service");
 
     cached_my_uuid = null;
     this.clearListener();
 
-    this.emitBroadcastingStatus('Stopping');
-    this.emitScanningStatus('Stopping');
+    this.emitBroadcastingStatus("Stopping");
+    this.emitScanningStatus("Stopping");
 
-    AsyncStorage.getItem(MY_UUID).then(uuid => {
+    AsyncStorage.getItem(MY_UUID).then((uuid) => {
       if (uuid) {
-        console.log("[BLEService]", hex2a(fromUUID(uuid)), "Stopping Broadcast");
+        console.log(
+          "[BLEService]",
+          hex2a(fromUUID(uuid)),
+          "Stopping Broadcast"
+        );
         BLEAdvertiser.stopBroadcast()
-          .then(sucess => this.emitBroadcastingStatus("Stopped"))
-          .catch(error => this.emitBroadcastingStatus(error));
+          .then((sucess) => this.emitBroadcastingStatus("Stopped"))
+          .catch((error) => this.emitBroadcastingStatus(error));
 
         console.log("[BLEService]", hex2a(fromUUID(uuid)), "Stopping Scanning");
         BLEAdvertiser.stopScan()
-          .then(sucess => this.emitScanningStatus("Stopped"))
-          .catch(error => this.emitScanningStatus(error));
+          .then((sucess) => this.emitScanningStatus("Stopped"))
+          .catch((error) => this.emitScanningStatus(error));
       }
     });
   }

@@ -1,15 +1,15 @@
-# Bluetooth LE Contact Tracing Uploader. 
+# Bluetooth LE Contact Tracing Uploader.
 
 <img align="right" src="./docs/preview.png" data-canonical-src="./docs/preview.png" width="350px"/>
 
-Ultra simple app to track BLE devices on Android using the Phone's Serial Number as UUID (not private). 
+Ultra simple app to track BLE devices on Android using the Phone's Serial Number as UUID (not private).
 
-Together with the server, this app allows companies to track their phones when they are near each other. 
+Together with the server, this app allows companies to track their phones when they are near each other.
 
 ## Behavior
 
 1. Locally tracks bluetooth by exposing the Phone's Serial Number (non private)
-2. Cache a minute-by-minute database of: ``` Contact |  Time  |  RSSI ```
+2. Cache a minute-by-minute database of: `Contact | Time | RSSI`
 3. Wake the app at every 15 minutes to scan and broadcast BLE
 4. Upload all data to a https://github.com/vitorpamplona/ble-tracker-server (not private).
 
@@ -19,27 +19,38 @@ This is a React Native app version 61.5
 
 ## Requirements
 
-* Git
-* NVM
-* Node (10.1 or newer)
-* Yarn
-* Watchman
-* OpenJDK (for Android building and installing)
-* Android Studio (SDK, AVD)
-* CocoaPods (Required for installing iOS dependencies)
-* XCode (for iOS Dev)
-* ios-deploy (installing your app on a physical device with the CLI)
+- Git
+- NVM
+- Node (10.1 or newer)
+- Yarn
+- Watchman
+- OpenJDK (for Android building and installing)
+- Android Studio (SDK, AVD)
+- CocoaPods (Required for installing iOS dependencies)
+- XCode (for iOS Dev)
+- ios-deploy (installing your app on a physical device with the CLI)
 
 ## Running
 
 Install modules:
-```yarn install``` 
+`yarn install`
 
 To run, do:
+
+**For MDM**
+
 ```
-npx react-native run-android
+yarn run:mdm
 ```
+
+**For Android**
+
+```
+yarn run:android
+```
+
 or
+
 ```
 npx react-native run-ios --simulator="iPhone 8 Plus"
 ```

@@ -52,7 +52,7 @@ function EmployeeId({ navigation }) {
         <View style={styles.footer}>
           <Input
             label="Server URL"
-            placeholder="Enter server URL"
+            placeholder="Enter server URL and port"
             style={{ marginBottom: 20 }}
             onChangeText={(text) => setServerAddress(text)}
           />

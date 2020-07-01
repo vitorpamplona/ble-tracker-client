@@ -231,7 +231,7 @@ class Entry extends Component {
           />
         </SafeAreaView>
         <BottomSheet
-          snapPoints={["80%", 160]}
+          snapPoints={["80%", 80]}
           initialSnap={1}
           renderContent={() => (
             <View style={styles.bottomSheet}>

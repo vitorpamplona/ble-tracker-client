@@ -3,13 +3,11 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
 		00E356F31AD99517003FC87E /* BCHContactTracingTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 00E356F21AD99517003FC87E /* BCHContactTracingTests.m */; };
-		0133DD099795465E8DD6AEA1 /* SimpleLineIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = DA1D946AB7ED48898A02B2F1 /* SimpleLineIcons.ttf */; };
-		058CDA501654429293BD83BD /* Fontisto.ttf in Resources */ = {isa = PBXBuildFile; fileRef = AB59B425B3F5489C896F00BD /* Fontisto.ttf */; };
 		13B07FBC1A68108700A75B9A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 13B07FB01A68108700A75B9A /* AppDelegate.m */; };
 		13B07FBD1A68108700A75B9A /* LaunchScreen.xib in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB11A68108700A75B9A /* LaunchScreen.xib */; };
 		13B07FBF1A68108700A75B9A /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 13B07FB51A68108700A75B9A /* Images.xcassets */; };
@@ -19,26 +17,12 @@
 		24EBCEBEBDBE4D38B6B32696 /* OpenSans-Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = C0433C3027C64F0F96CC7E9C /* OpenSans-Regular.ttf */; };
 		290E270F5FF74DEEAA5973C9 /* OpenSans-ExtraBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 4C5FF1A75E5C4E948F6F89B4 /* OpenSans-ExtraBoldItalic.ttf */; };
 		2F2E429C2EEB5222967A40BD /* libPods-BCHContactTracing.a in Frameworks */ = {isa = PBXBuildFile; fileRef = FE5ABAAB17F68671B5A9BC52 /* libPods-BCHContactTracing.a */; };
-		4963E2B6E3FB41CDB50F3CD5 /* FontAwesome5_Solid.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EBB5AC02687D4B2D85247C75 /* FontAwesome5_Solid.ttf */; };
-		530F68BF2B094708BA067131 /* AntDesign.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 152F603FF89A47249D180F48 /* AntDesign.ttf */; };
-		559A860AD66C4802BA361422 /* MaterialIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 0CF81D572BBA46E4AA04F778 /* MaterialIcons.ttf */; };
-		68A1F166E52A485CA1BA8588 /* Feather.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 004B39A400CB4237BAE238FE /* Feather.ttf */; };
-		709173CC7FC042F7ABC58BC6 /* FontAwesome5_Regular.ttf in Resources */ = {isa = PBXBuildFile; fileRef = EFD17263E96D4F3BA9E529B7 /* FontAwesome5_Regular.ttf */; };
 		70C07449F89B41258BCF2255 /* OpenSans-SemiBoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 29B653FF4B0A4ECE8A4B9771 /* OpenSans-SemiBoldItalic.ttf */; };
-		70E0821C6E4E4FE393AC3A63 /* FontAwesome.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 7002F16C88604BCE9B8B4298 /* FontAwesome.ttf */; };
-		72344667A6F6481CA4BF5117 /* Entypo.ttf in Resources */ = {isa = PBXBuildFile; fileRef = B47519D3108E46E790C9ECC1 /* Entypo.ttf */; };
 		85D9BFD9D095467DBAFDBDF0 /* OpenSans-SemiBold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 89B5AFEBCDB24ED49FD12B2B /* OpenSans-SemiBold.ttf */; };
-		95005E5E4C494804B27090EB /* Zocial.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 07FB6F9714564429A3306554 /* Zocial.ttf */; };
-		98B8673AC61043628A8B649B /* MaterialCommunityIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3B1DC0A8F9AD4241B96710D3 /* MaterialCommunityIcons.ttf */; };
 		A6C2CA769060479292A0018B /* OpenSans-LightItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = FF6C3883AA924C4780A49A1D /* OpenSans-LightItalic.ttf */; };
 		A935CB1EFCA64BE2931EE091 /* OpenSans-Light.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 6B8B6E17A9954884B5C350D5 /* OpenSans-Light.ttf */; };
-		AA3C8B90150545E2A8CC6272 /* Foundation.ttf in Resources */ = {isa = PBXBuildFile; fileRef = A59C17EA4FCE44C685F78786 /* Foundation.ttf */; };
-		C97EABC29EF547FCAEE18812 /* FontAwesome5_Brands.ttf in Resources */ = {isa = PBXBuildFile; fileRef = F919BC61A21441B1AD35C726 /* FontAwesome5_Brands.ttf */; };
 		DFC1FB4B88034131AB15A047 /* OpenSans-Bold.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 3976D017E15C46DD8F6F0B60 /* OpenSans-Bold.ttf */; };
 		F3562260F3318E087E369650 /* libPods-BCHContactTracingTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5242468837AFDFB2B5357739 /* libPods-BCHContactTracingTests.a */; };
-		F5AE3474925744CC843A2F8E /* EvilIcons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 9A47F42BBF7E4521B8830832 /* EvilIcons.ttf */; };
-		F807CF8BFB9A44D8BDB025FB /* Octicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 5348F8809D954F1CB92E284E /* Octicons.ttf */; };
-		F9D895BDD7924A1C9E85F9B2 /* Ionicons.ttf in Resources */ = {isa = PBXBuildFile; fileRef = BB38205805934BFFBDADF582 /* Ionicons.ttf */; };
 		FE92E164AC474D6B9696F8DD /* OpenSans-BoldItalic.ttf in Resources */ = {isa = PBXBuildFile; fileRef = 716C8F3F90214063BC37393D /* OpenSans-BoldItalic.ttf */; };
 /* End PBXBuildFile section */
 
@@ -302,17 +286,16 @@
 				TargetAttributes = {
 					00E356ED1AD99517003FC87E = {
 						CreatedOnToolsVersion = 6.2;
-						DevelopmentTeam = T22YG9T7N6;
+						DevelopmentTeam = 2UG3E8ZWCH;
 						TestTargetID = 13B07F861A680F5B00A75B9A;
 					};
 					13B07F861A680F5B00A75B9A = {
-						DevelopmentTeam = T22YG9T7N6;
 						ProvisioningStyle = Automatic;
 					};
 				};
 			};
 			buildConfigurationList = 83CBB9FA1A601CBA00E9B192 /* Build configuration list for PBXProject "BCHContactTracing" */;
-			compatibilityVersion = "Xcode 3.2";
+			compatibilityVersion = "Xcode 10.0";
 			developmentRegion = en;
 			hasScannedForEncodings = 0;
 			knownRegions = (
@@ -354,22 +337,6 @@
 				24EBCEBEBDBE4D38B6B32696 /* OpenSans-Regular.ttf in Resources */,
 				85D9BFD9D095467DBAFDBDF0 /* OpenSans-SemiBold.ttf in Resources */,
 				70C07449F89B41258BCF2255 /* OpenSans-SemiBoldItalic.ttf in Resources */,
-				530F68BF2B094708BA067131 /* AntDesign.ttf in Resources */,
-				72344667A6F6481CA4BF5117 /* Entypo.ttf in Resources */,
-				F5AE3474925744CC843A2F8E /* EvilIcons.ttf in Resources */,
-				68A1F166E52A485CA1BA8588 /* Feather.ttf in Resources */,
-				70E0821C6E4E4FE393AC3A63 /* FontAwesome.ttf in Resources */,
-				C97EABC29EF547FCAEE18812 /* FontAwesome5_Brands.ttf in Resources */,
-				709173CC7FC042F7ABC58BC6 /* FontAwesome5_Regular.ttf in Resources */,
-				4963E2B6E3FB41CDB50F3CD5 /* FontAwesome5_Solid.ttf in Resources */,
-				058CDA501654429293BD83BD /* Fontisto.ttf in Resources */,
-				AA3C8B90150545E2A8CC6272 /* Foundation.ttf in Resources */,
-				F9D895BDD7924A1C9E85F9B2 /* Ionicons.ttf in Resources */,
-				98B8673AC61043628A8B649B /* MaterialCommunityIcons.ttf in Resources */,
-				559A860AD66C4802BA361422 /* MaterialIcons.ttf in Resources */,
-				F807CF8BFB9A44D8BDB025FB /* Octicons.ttf in Resources */,
-				0133DD099795465E8DD6AEA1 /* SimpleLineIcons.ttf in Resources */,
-				95005E5E4C494804B27090EB /* Zocial.ttf in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -419,10 +386,41 @@
 			);
 			inputPaths = (
 				"${PODS_ROOT}/Target Support Files/Pods-BCHContactTracing/Pods-BCHContactTracing-resources.sh",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/AntDesign.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Entypo.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/EvilIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Feather.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Brands.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Regular.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/FontAwesome5_Solid.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Fontisto.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Foundation.ttf",
 				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Ionicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialCommunityIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/MaterialIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Octicons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/SimpleLineIcons.ttf",
+				"${PODS_ROOT}/../../node_modules/react-native-vector-icons/Fonts/Zocial.ttf",
 			);
 			name = "[CP] Copy Pods Resources";
 			outputPaths = (
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/AntDesign.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Entypo.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/EvilIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Feather.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Brands.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Regular.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/FontAwesome5_Solid.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Fontisto.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Foundation.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Ionicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialCommunityIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/MaterialIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Octicons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/SimpleLineIcons.ttf",
+				"${TARGET_BUILD_DIR}/${UNLOCALIZED_RESOURCES_FOLDER_PATH}/Zocial.ttf",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
@@ -519,14 +517,18 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				"CODE_SIGN_IDENTITY[sdk=macosx*]" = "Apple Development";
-				DEVELOPMENT_TEAM = T22YG9T7N6;
+				DEVELOPMENT_TEAM = 2UG3E8ZWCH;
 				GCC_PREPROCESSOR_DEFINITIONS = (
 					"DEBUG=1",
 					"$(inherited)",
 				);
 				INFOPLIST_FILE = BCHContactTracingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -544,10 +546,14 @@
 			buildSettings = {
 				BUNDLE_LOADER = "$(TEST_HOST)";
 				COPY_PHASE_STRIP = NO;
-				DEVELOPMENT_TEAM = T22YG9T7N6;
+				DEVELOPMENT_TEAM = 2UG3E8ZWCH;
 				INFOPLIST_FILE = BCHContactTracingTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-lc++",
@@ -568,9 +574,13 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 13;
 				DEAD_CODE_STRIPPING = NO;
-				DEVELOPMENT_TEAM = T22YG9T7N6;
+				DEVELOPMENT_TEAM = 2UG3E8ZWCH;
 				INFOPLIST_FILE = BCHContactTracing/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 0.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -592,9 +602,13 @@
 				CODE_SIGN_IDENTITY = "Apple Development";
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 13;
-				DEVELOPMENT_TEAM = T22YG9T7N6;
+				DEVELOPMENT_TEAM = 2UG3E8ZWCH;
 				INFOPLIST_FILE = BCHContactTracing/Info.plist;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				MARKETING_VERSION = 0.2.0;
 				OTHER_LDFLAGS = (
 					"$(inherited)",
@@ -655,7 +669,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -702,7 +716,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				VALIDATE_PRODUCT = YES;

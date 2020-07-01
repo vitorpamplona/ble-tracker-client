@@ -52,7 +52,6 @@ export async function readyToUploadCounter() {
 }
 
 async function upload({ values, server }) {
-  console.log(values);
   return fetch("http://" + server + ":4567/api/v1/contacts", {
     method: "POST",
     headers: ACCEPT_JSON,

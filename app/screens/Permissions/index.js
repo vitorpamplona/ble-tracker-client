@@ -8,6 +8,7 @@ import { View, Text, SafeAreaView, StatusBar } from "react-native";
 import { Platform } from "react-native";
 import { useDispatch } from "react-redux";
 import { setDeviceId } from "../../actions/device";
+import { setPermissions } from "../../actions/global";
 import {
   requestAllPermissions,
   requestLocationPermission,
@@ -65,7 +66,7 @@ function Permissions({ navigation }) {
       setDeviceIdWithSerialNumber();
     }
 
-    navigation.navigate(screenNames.EMPLOYEE_ID);
+    dispatch(setPermissions());
   };
 
   const notGranted = !locationPermisionsGranted || !phonePermisionsGranted;

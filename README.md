@@ -55,4 +55,6 @@ or
 npx react-native run-ios --simulator="iPhone 8 Plus"
 ```
 
+For development, the Metro IP must be the same as the Ruby ble-tracer-server server. ABD uses a reverse port scheme (default IP is "localhost") to access the Metro server. iOS uses the real IP. In order to debug iOS and Android at the same time, the Ruby server must be started with the real IP of the computer, which will be acessible by iOS devices right away. Shake the Android device and hit settings to insert the IP address of your Metro server (same as the ble-tracer-server) to make the Android devices work. 
+
 NOTE: In some cases, the abovementioned procedure leads to the error `Failed to load bundle - Could not connect to development server`. In these cases, kill all other react-native processes and try it again.

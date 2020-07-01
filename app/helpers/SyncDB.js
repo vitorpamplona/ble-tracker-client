@@ -52,7 +52,7 @@ export async function readyToUploadCounter() {
 }
 
 async function upload({ values, server }) {
-  return fetch("http://" + server + ":4567/api/v1/contacts", {
+  return fetch("http://" + server + "/api/v1/contacts", {
     method: "POST",
     headers: ACCEPT_JSON,
     body: JSON.stringify(values),
@@ -86,7 +86,7 @@ function upload1000Keys(server) {
 }
 
 export async function isOnline(server) {
-  return fetch("http://" + server + ":4567/api/v1/health", {
+  return fetch("http://" + server + "/api/v1/health", {
     method: "GET",
     headers: ACCEPT_JSON,
   });

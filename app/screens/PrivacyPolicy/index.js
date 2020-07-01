@@ -21,7 +21,7 @@ function PrivacyPolicy({ navigation }) {
 
   const fetchPolicy = async () => {
     try {
-      const res = await fetch(`http://${serverAddress}:4567/terms`);
+      const res = await fetch(`http://${serverAddress}/terms`);
       const terms = await res.text();
 
       setTerms(terms);

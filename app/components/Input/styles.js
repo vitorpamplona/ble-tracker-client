@@ -7,7 +7,7 @@ const styles = StyleSheet.create({
     width: "100%",
   },
   input: {
-    color: colors.lightGrey,
+    color: colors.dark,
     fontSize: 15,
     borderRadius: 5,
     backgroundColor: colors.white,

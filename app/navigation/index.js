@@ -13,6 +13,7 @@ import Home from "../screens/Home";
 import Permissions from "../screens/Permissions";
 import PrivacyPolicy from "../screens/PrivacyPolicy";
 import Onboarding from "../screens/Onboarding";
+import Settings from "../screens/Settings";
 
 const Stack = createStackNavigator();
 
@@ -32,7 +33,7 @@ function AppNavigation() {
         {loading && (
           <Stack.Screen name={screenNames.PRELOADER} component={Preloader} />
         )}
-        {isOnboarded && (
+        {!isOnboarded && (
           <Stack.Screen name={screenNames.ONBOARDING} component={Onboarding} />
         )}
         {!permissionsGranted && (
@@ -53,6 +54,7 @@ function AppNavigation() {
         {deviceId && server ? (
           <Stack.Screen name={screenNames.HOME} component={Home} />
         ) : null}
+        <Stack.Screen name={screenNames.SETTINGS} component={Settings} />
       </Stack.Navigator>
     </NavigationContainer>
   );

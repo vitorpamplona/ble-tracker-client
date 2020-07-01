@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 import fontNames from "../../constants/fontNames";
+import { isSmallDevice } from "../../constants/dimensions";
 
 const styles = StyleSheet.create({
   screen: {
@@ -16,7 +17,7 @@ const styles = StyleSheet.create({
     flex: 1,
     alignItems: "flex-end",
     flexDirection: "row",
-    marginBottom: 50,
+    marginBottom: isSmallDevice ? 30 : 50,
     paddingHorizontal: 30,
     position: "relative",
   },
@@ -26,16 +27,16 @@ const styles = StyleSheet.create({
     alignSelf: "center",
   },
   title: {
-    fontSize: 28,
+    fontSize: isSmallDevice ? 24 : 28,
     color: colors.white,
     fontFamily: fontNames.OpenSans.bold,
   },
   footer: {
     paddingHorizontal: 30,
-    paddingBottom: 50,
+    paddingBottom: isSmallDevice ? 30 : 50,
   },
   button: {
-    marginTop: 30,
+    marginTop: isSmallDevice ? 20 : 30,
   },
 });
 

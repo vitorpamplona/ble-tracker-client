@@ -4,8 +4,7 @@ import TrackingStatus from "../../components/TrackingStatus";
 import ContactList from "../../components/ContactList";
 import BottomSheet from "reanimated-bottom-sheet";
 import TrackingInfo from "../../components/TrackingInfo";
-import Button from "../../components/Button";
-import { View, SafeAreaView, Text } from "react-native";
+import { View, SafeAreaView, Text, StatusBar } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Logo from "../../../assets/images/logo.svg";
 
@@ -26,6 +25,7 @@ import styles from "./styles";
 import colors from "../../constants/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { calculatePosition } from "../../helpers/DeviceDotsPosition";
+import screenNames from "../../constants/screenNames";
 
 const c1MIN = 1000 * 60;
 
@@ -128,7 +128,7 @@ class Entry extends Component {
     BLEBackgroundService.addNewDeviceListener(this);
     BLEBackgroundService.requestBluetoothStatus();
     BLEBackgroundService.setServicesUUID(this.props.deviceId);
-    this.start();
+    this.start({});
 
     hasLocationPermission().then((result) => {
       this.setState({
@@ -151,12 +151,15 @@ class Entry extends Component {
   start() {
     BLEBackgroundService.enableBT();
 
+    const { employeeId, ipAddress } = this.props;
+
     isOnline(this.props.server)
       .then((response) => {
         if (response.status == 200) {
           // is online
           console.log("[Entry] Server is online, starting to track");
-          BLEBackgroundService.start();
+
+          BLEBackgroundService.start({ employeeId, ipAddress });
 
           this.setState({
             isLogging: true,
@@ -198,33 +201,37 @@ class Entry extends Component {
     const {
       isLogging,
       devicesFound,
-      deviceSerial,
       scanStatus,
       broadcastStatus,
       bluetoothStatus,
       locationPermission,
       phonePermission,
+      readyToUpload,
     } = this.state;
-    const { server } = this.props;
+    const { server, deviceId } = this.props;
 
     return (
       <View style={styles.screen}>
-        <View style={styles.header}>
-          <Logo width={220} height={42} />
-          <TouchableOpacity
-            style={styles.logoutButton}
-            onPress={this.props.resetEmployeeValues}
-          >
-            <Ionicons name="ios-settings" color={colors.white} size={30} />
-          </TouchableOpacity>
-        </View>
-        <TrackingStatus
-          server={server}
-          isTracking={isLogging}
-          devices={devicesFound}
-        />
+        <SafeAreaView style={styles.wrapper}>
+          <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
+          <View style={styles.header}>
+            <Logo width={220} height={42} />
+            <TouchableOpacity
+              onPress={() =>
+                this.props.navigation.navigate(screenNames.SETTINGS)
+              }
+            >
+              <Ionicons name="ios-settings" color={colors.white} size={30} />
+            </TouchableOpacity>
+          </View>
+          <TrackingStatus
+            server={server}
+            isTracking={isLogging}
+            devices={devicesFound}
+          />
+        </SafeAreaView>
         <BottomSheet
-          snapPoints={["80%", 280]}
+          snapPoints={["80%", 160]}
           initialSnap={1}
           renderContent={() => (
             <View style={styles.bottomSheet}>
@@ -235,12 +242,13 @@ class Entry extends Component {
                 </Text>
                 <ContactList devices={devicesFound} />
                 <TrackingInfo
-                  deviceId={deviceSerial}
+                  deviceId={deviceId}
                   broadcastStatus={broadcastStatus}
                   scanStatus={scanStatus}
                   bluetoothStatus={bluetoothStatus}
                   locationPermission={locationPermission}
                   phonePermission={phonePermission}
+                  toUpload={readyToUpload}
                 />
               </SafeAreaView>
             </View>
@@ -259,6 +267,8 @@ class Entry extends Component {
 const mapStateToProps = (state) => ({
   deviceId: state.device.deviceId,
   server: state.device.server,
+  employeeId: state.device.employeeId,
+  ipAddress: state.device.ipAddress,
 });
 
 const mapDispatchToProps = (dispatch) => ({

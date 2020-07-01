@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { View, Text } from "react-native";
+import { View, Text, SafeAreaView } from "react-native";
 import styles from "./styles";
 import AsyncStorage from "@react-native-community/async-storage";
 import Config from "react-native-config";
 import { hasAllPermissions } from "../../services/PermissionRequests";
-import { setDeviceId, setServer } from "../../actions/device";
+import { setDeviceId, setServer, setEmployeeData } from "../../actions/device";
 import {
   acceptPrivacyPolicy,
   setPermissions,
@@ -12,6 +12,11 @@ import {
   setUserOnboarded,
 } from "../../actions/global";
 import { useDispatch } from "react-redux";
+import { WIDTH } from "../../constants/dimensions";
+import NetInfo from "@react-native-community/netinfo";
+
+import Logo from "../../../assets/images/logo.svg";
+import Circles from "../../../assets/images/circles.svg";
 
 function Preloader() {
   const isPersonal = Config.ENV === "PERSONAL";
@@ -34,11 +39,18 @@ function Preloader() {
 
   const getEmoloyeeValues = async () => {
     if (isPersonal) {
-      const employee = await AsyncStorage.getItem("employee");
+      const netInfo = await NetInfo.fetch();
+      const employee = await AsyncStorage.getItem("employeeId");
       const server = await AsyncStorage.getItem("server");
+      await AsyncStorage.setItem("ipAddress", netInfo.details.ipAddress);
 
-      dispatch(setDeviceId(employee));
-      dispatch(setServer(server));
+      dispatch(
+        setEmployeeData({
+          employeeId: employee,
+          ipAddress: netInfo.details.ipAddress,
+          serverAddress: server,
+        })
+      );
     }
   };
 
@@ -57,7 +69,13 @@ function Preloader() {
 
   return (
     <View style={styles.screen}>
-      <Text style={styles.text}>Loading...</Text>
+      <SafeAreaView style={{ flex: 1 }}>
+        <Logo width={220} height={42} style={styles.logo} />
+        <View style={{ flex: 1 }}>
+          <Circles style={styles.circles} width={WIDTH} />
+          <Text style={styles.text}>Loading...</Text>
+        </View>
+      </SafeAreaView>
     </View>
   );
 }

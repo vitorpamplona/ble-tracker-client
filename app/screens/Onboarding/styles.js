@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 import fontNames from "../../constants/fontNames";
+import { isSmallDevice } from "../../constants/dimensions";
 
 const styles = StyleSheet.create({
   screen: {
@@ -20,10 +21,10 @@ const styles = StyleSheet.create({
     alignItems: "flex-end",
     flexDirection: "row",
     paddingHorizontal: 30,
-    marginBottom: 50,
+    marginBottom: isSmallDevice ? 30 : 50,
   },
   copy: {
-    fontSize: 28,
+    fontSize: isSmallDevice ? 24 : 28,
     color: colors.white,
     fontFamily: fontNames.OpenSans.bold,
   },
@@ -34,14 +35,14 @@ const styles = StyleSheet.create({
   },
   footer: {
     paddingHorizontal: 30,
-    paddingBottom: 50,
+    paddingBottom: isSmallDevice ? 30 : 50,
   },
   subtitle: {
     fontSize: 14,
     lineHeight: 23,
     color: colors.white,
     fontFamily: fontNames.OpenSans.regular,
-    marginBottom: 50,
+    marginBottom: isSmallDevice ? 30 : 50,
   },
 });
 

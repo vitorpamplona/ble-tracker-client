@@ -1,22 +1,27 @@
 import { StyleSheet } from "react-native";
 import colors from "../../constants/colors";
+import { isSmallDevice } from "../../constants/dimensions";
 
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.blue,
+    flex: 1,
+  },
+  wrapper: {
     position: "relative",
     flex: 1,
     alignItems: "center",
     justifyContent: "center",
   },
   header: {
-    top: 60,
+    top: isSmallDevice ? 20 : 40,
     left: 0,
     width: "100%",
     paddingHorizontal: 20,
     flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
+    zIndex: 1,
   },
   logout: {
     position: "absolute",
@@ -37,11 +42,12 @@ const styles = StyleSheet.create({
   },
   bottomSheetHeader: {
     width: "100%",
-    height: 50,
+    height: 40,
     backgroundColor: colors.white,
     borderTopLeftRadius: 20,
     borderTopRightRadius: 20,
     alignItems: "center",
+    justifyContent: "center",
   },
   bottomSheetHandle: {
     backgroundColor: colors.lightGrey,

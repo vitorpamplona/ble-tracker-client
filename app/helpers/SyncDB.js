@@ -8,8 +8,6 @@ const scriptURL = NativeModules.SourceCode.scriptURL;
 const address = scriptURL.split("://")[1].split("/")[0];
 const DEV_HOSTNAME = address.split(":")[0] + ":4567";
 
-export const SERVER = "192.168.1.120";
-
 const c1MIN = 1000 * 60;
 const ACCEPT_JSON = {
   Accept: "application/json",
@@ -18,24 +16,33 @@ const ACCEPT_JSON = {
 
 var cashedLastSeen = {};
 
-export async function saveContactToUpload(_uploader, _contact, _rssi, _date) {
-  lastSeenInMilliseconds = cashedLastSeen[_contact];
+export async function saveContactToUpload({
+  uploader,
+  contact,
+  rssi,
+  date,
+  employee_id,
+  ip_address,
+}) {
+  lastSeenInMilliseconds = cashedLastSeen[contact];
 
   if (
     !lastSeenInMilliseconds ||
-    _date.getTime() > lastSeenInMilliseconds + c1MIN
+    date.getTime() > lastSeenInMilliseconds + c1MIN
   ) {
     let contactData = {
-      uploader: _uploader,
-      contact: _contact,
-      rssi: _rssi,
-      date: _date.toISOString(),
+      uploader,
+      contact,
+      rssi,
+      date: date.toISOString(),
+      employee_id,
+      ip_address,
     };
     AsyncStorage.setItem(
-      CONTACT + _contact + _date.toISOString(),
+      CONTACT + contact + date.toISOString(),
       JSON.stringify(contactData)
     );
-    cashedLastSeen[_contact] = _date.getTime();
+    cashedLastSeen[contact] = date.getTime();
   }
 }
 
@@ -45,6 +52,7 @@ export async function readyToUploadCounter() {
 }
 
 async function upload({ values, server }) {
+  console.log(values);
   return fetch("http://" + server + ":4567/api/v1/contacts", {
     method: "POST",
     headers: ACCEPT_JSON,

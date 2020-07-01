@@ -75,24 +75,28 @@ export default class BLEBackgroundService {
     );
   }
 
-  static addDevice(_uuid, _name, _rssi, _date) {
+  static addDevice(_uuid, _name, _rssi, _date, _employee, _ip_address) {
     if (cached_my_uuid) {
-      saveContactToUpload(
-        hex2a(fromUUID(cached_my_uuid)),
-        hex2a(fromUUID(_uuid)),
-        _rssi,
-        _date
-      );
+      saveContactToUpload({
+        uploader: hex2a(fromUUID(cached_my_uuid)),
+        contact: hex2a(fromUUID(_uuid)),
+        rssi: _rssi,
+        date: _date,
+        employee_id: _employee,
+        ip_address: _ip_address,
+      });
     } else {
       AsyncStorage.getItem(MY_UUID).then((uuid) => {
         cached_my_uuid = uuid;
 
-        saveContactToUpload(
-          hex2a(fromUUID(cached_my_uuid)),
-          hex2a(fromUUID(_uuid)),
-          _rssi,
-          _date
-        );
+        saveContactToUpload({
+          uploader: hex2a(fromUUID(cached_my_uuid)),
+          contact: hex2a(fromUUID(_uuid)),
+          rssi: _rssi,
+          date: _date,
+          employee_id: _employee,
+          ip_address: _ip_address,
+        });
       });
     }
 
@@ -137,7 +141,7 @@ export default class BLEBackgroundService {
     }
   }
 
-  static start() {
+  static start({ employeeId, ipAddress }) {
     console.log("[BLEService] Starting BLE service");
 
     cached_my_uuid = null;
@@ -152,12 +156,14 @@ export default class BLEBackgroundService {
         if (event.serviceUuids) {
           for (let i = 0; i < event.serviceUuids.length; i++) {
             if (this.isValidUUID(event.serviceUuids[i])) {
-              //console.log("[BLEService]", 'onDeviceFound', event);
+              // console.log("[BLEService]", "onDeviceFound", event);
               this.addDevice(
                 event.serviceUuids[i],
                 event.deviceName,
                 event.rssi,
-                new Date()
+                new Date(),
+                employeeId,
+                ipAddress
               );
             }
           }

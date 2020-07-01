@@ -4,6 +4,7 @@ import {
   SET_PERMISSIONS,
   SET_LOADING,
   SET_USER_ONBOARDED,
+  LOGOUT,
 } from "./types";
 
 export const acceptPrivacyPolicy = () => action(ACCEPT_PRIVACY_POLICY, {});

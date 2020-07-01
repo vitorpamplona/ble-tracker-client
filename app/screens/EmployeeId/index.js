@@ -1,16 +1,23 @@
 import React, { useState } from "react";
 import { useDispatch } from "react-redux";
-import { setDeviceId, setServer } from "../../actions/device";
-import { View, SafeAreaView, Text, KeyboardAvoidingView } from "react-native";
+import { setEmployeeData } from "../../actions/device";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  KeyboardAvoidingView,
+  StatusBar,
+} from "react-native";
 import Input from "../../components/Input";
 import Button from "../../components/Button";
-import screenNames from "../../constants/screenNames";
 import AsyncStorage from "@react-native-community/async-storage";
 import { WIDTH } from "../../constants/dimensions";
+import NetInfo from "@react-native-community/netinfo";
 
 import Logo from "../../../assets/images/logo.svg";
 import Circles from "../../../assets/images/circles.svg";
 import styles from "./styles";
+import colors from "../../constants/colors";
 
 function EmployeeId({ navigation }) {
   const dispatch = useDispatch();
@@ -18,17 +25,24 @@ function EmployeeId({ navigation }) {
   const [serverAddress, setServerAddress] = useState("");
 
   const handleSubmit = async () => {
+    const netInfo = await NetInfo.fetch();
+
     await AsyncStorage.setItem("server", serverAddress);
-    await AsyncStorage.setItem("employee", employeeId);
+    await AsyncStorage.setItem("employeeId", employeeId);
+    await AsyncStorage.setItem("ipAddress", netInfo.details.ipAddress);
 
-    dispatch(setDeviceId(employeeId));
-    dispatch(setServer(serverAddress));
-
-    navigation.navigate(screenNames.PRIVACY_POLICY);
+    dispatch(
+      setEmployeeData({
+        employeeId,
+        ipAddress: netInfo.details.ipAddress,
+        serverAddress,
+      })
+    );
   };
 
   return (
     <KeyboardAvoidingView style={styles.screen} behavior="padding">
+      <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
       <SafeAreaView style={{ flex: 1 }}>
         <Logo width={220} height={42} style={styles.logo} />
         <View style={styles.content}>

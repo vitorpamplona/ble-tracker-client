@@ -1,19 +1,30 @@
 import { StyleSheet } from "react-native";
 import colors from "../../constants/colors";
+import fontNames from "../../constants/fontNames";
 
 const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.blue,
+    position: "relative",
     flex: 1,
-    justifyContent: "center",
     alignItems: "center",
-    padding: 20,
+    justifyContent: "center",
+  },
+  logo: {
+    top: 30,
+    left: 20,
+    marginBottom: 34,
   },
   text: {
-    fontSize: 24,
+    fontSize: 28,
     color: colors.white,
-    fontWeight: "bold",
-    marginBottom: 40,
+    fontFamily: fontNames.OpenSans.regular,
+    textAlign: "center",
+  },
+  circles: {
+    flex: 1,
+    alignSelf: "center",
+    marginVertical: 40,
   },
 });
 

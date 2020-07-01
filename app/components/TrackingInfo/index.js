@@ -1,18 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
-const styles = {};
+import styles from "./styles";
 
-function TrackingInfo({
-  deviceId,
-  broadcastStatus,
-  scanStatus,
-  bluetoothStatus,
-  locationPermission,
-  phonePermission,
-}) {
+function TrackingInfo({ deviceId, broadcastStatus, scanStatus, toUpload = 0 }) {
   return (
-    <View>
+    <View style={styles.wrapper}>
+      <Text style={styles.title}>BCH Concact Tracer</Text>
       <Text style={styles.sectionDescription}>
         Broadcasting:
         <Text style={styles.highlight}> {deviceId}</Text>
@@ -23,10 +17,8 @@ function TrackingInfo({
         <Text style={styles.highlight}> {scanStatus}</Text>
       </Text>
       <Text style={styles.sectionDescription}>
-        BT:
-        <Text style={styles.highlight}> {bluetoothStatus}</Text>, Loc:
-        <Text style={styles.highlight}> {locationPermission}</Text>, Phone:
-        <Text style={styles.highlight}> {phonePermission}</Text>
+        Contacts to upload:
+        <Text style={styles.highlight}> {toUpload}</Text>
       </Text>
     </View>
   );

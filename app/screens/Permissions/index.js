@@ -4,7 +4,7 @@ import Button from "../../components/Button";
 import PermissionItem from "../../components/PermissionItem";
 import AsyncStorage from "@react-native-community/async-storage";
 
-import { View, Text, SafeAreaView } from "react-native";
+import { View, Text, SafeAreaView, StatusBar } from "react-native";
 import { Platform } from "react-native";
 import { useDispatch } from "react-redux";
 import { setDeviceId } from "../../actions/device";
@@ -19,6 +19,7 @@ import Config from "react-native-config";
 import styles from "./styles";
 import screenNames from "../../constants/screenNames";
 import Logo from "../../../assets/images/logo.svg";
+import colors from "../../constants/colors";
 
 function Permissions({ navigation }) {
   const isPersonal = Config.ENV === "PERSONAL";
@@ -71,6 +72,7 @@ function Permissions({ navigation }) {
 
   return (
     <View style={styles.screen}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
       <SafeAreaView style={{ flex: 1 }}>
         <Logo width={220} height={42} style={styles.logo} />
 

@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 import { WIDTH } from "../../constants/dimensions";
+import { isSmallDevice } from "../../constants/dimensions";
 
 const styles = StyleSheet.create({
   iconWrapper: {
@@ -9,7 +10,7 @@ const styles = StyleSheet.create({
   wrapper: {
     justifyContent: "center",
     alignItems: "center",
-    padding: 50,
+    padding: isSmallDevice ? 30 : 50,
     flex: 1,
     position: "relative",
     marginBottom: 150,
@@ -33,7 +34,7 @@ const styles = StyleSheet.create({
   },
   footer: {
     position: "absolute",
-    bottom: 100,
+    bottom: 20,
     width: "100%",
     alignItems: "center",
   },
@@ -42,7 +43,7 @@ const styles = StyleSheet.create({
     textAlign: "center",
     fontSize: 14,
     lineHeight: 23,
-    marginBottom: 20,
+    marginBottom: isSmallDevice ? 14 : 20,
   },
   serverStatus: {
     paddingVertical: 13,

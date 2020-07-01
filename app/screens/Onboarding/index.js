@@ -1,5 +1,5 @@
 import React from "react";
-import { View, SafeAreaView, Text } from "react-native";
+import { View, SafeAreaView, Text, StatusBar } from "react-native";
 import { WIDTH } from "../../constants/dimensions";
 import Button from "../../components/Button";
 import AsyncStorage from "@react-native-community/async-storage";
@@ -10,19 +10,20 @@ import Logo from "../../../assets/images/logo.svg";
 import Circles from "../../../assets/images/circles.svg";
 import styles from "./styles";
 import screenNames from "../../constants/screenNames";
+import colors from "../../constants/colors";
 import { useDispatch } from "react-redux";
 
-function Onboarding({ navigation }) {
+function Onboarding() {
   const dispatch = useDispatch();
 
   const handleContinue = async () => {
     await AsyncStorage.setItem("onboarded", "true");
     dispatch(setUserOnboarded());
-    navigation.navigate(screenNames.PERMISSIONS);
   };
 
   return (
     <View style={styles.screen}>
+      <StatusBar barStyle="light-content" backgroundColor={colors.blue} />
       <SafeAreaView style={{ flex: 1 }}>
         <Logo width={220} height={42} style={styles.logo} />
         <View style={styles.content}>

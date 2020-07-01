@@ -5,7 +5,7 @@
   "scripts": {
     "run:android": "export ENVFILE=.env.personal && npx react-native run-android --variant=personalDebug",
     "run:mdm": "export ENVFILE=.env.mdm && npx react-native run-android --variant=mdmDebug",
-    "run:ios": "export ENVFILE=.env.personal && npx react-native run-ios",
+    "run:ios": "export ENVFILE=.env.personal && npx react-native run-ios --device",
     "build:android": "cd android/ && ENVFILE=.env.personal ./gradlew assemblePersonalRelease",
     "build:mdm": "cd android/ && ENVFILE=.env.mdm ./gradlew assembleMdmRelease",
     "start": "npx react-native start",

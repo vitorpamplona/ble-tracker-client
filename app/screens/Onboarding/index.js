@@ -29,7 +29,7 @@ function Onboarding() {
         <View style={styles.content}>
           <Circles style={styles.circles} width={WIDTH} />
           <Text style={styles.copy}>
-            Contact Tracing can privately save the places you visit and store
+            Contact Tracing can save the places you visit and store
             them on your phone.
           </Text>
         </View>

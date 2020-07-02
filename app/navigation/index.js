@@ -45,16 +45,15 @@ function AppNavigation() {
         {isPersonal && !deviceId && !server && (
           <Stack.Screen name={screenNames.EMPLOYEE_ID} component={EmployeeId} />
         )}
-        {!policyAccepted && (
-          <Stack.Screen
-            name={screenNames.PRIVACY_POLICY}
-            component={PrivacyPolicy}
-          />
-        )}
+
         {deviceId && server ? (
           <Stack.Screen name={screenNames.HOME} component={Home} />
         ) : null}
         <Stack.Screen name={screenNames.SETTINGS} component={Settings} />
+        <Stack.Screen
+          name={screenNames.PRIVACY_POLICY}
+          component={PrivacyPolicy}
+        />
       </Stack.Navigator>
     </NavigationContainer>
   );

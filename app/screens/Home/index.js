@@ -7,6 +7,7 @@ import TrackingInfo from "../../components/TrackingInfo";
 import { View, SafeAreaView, Text, StatusBar } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Logo from "../../../assets/images/logo.svg";
+import PushNotification from "react-native-push-notification";
 
 import Moment from "moment";
 import update from "immutability-helper";
@@ -26,6 +27,7 @@ import colors from "../../constants/colors";
 import { TouchableOpacity } from "react-native-gesture-handler";
 import { calculatePosition } from "../../helpers/DeviceDotsPosition";
 import screenNames from "../../constants/screenNames";
+import { isSmallDevice } from "../../constants/dimensions";
 
 const c1MIN = 1000 * 60;
 
@@ -231,7 +233,7 @@ class Entry extends Component {
           />
         </SafeAreaView>
         <BottomSheet
-          snapPoints={["80%", 80]}
+          snapPoints={["80%", isSmallDevice ? 80 : 160]}
           initialSnap={1}
           renderContent={() => (
             <View style={styles.bottomSheet}>

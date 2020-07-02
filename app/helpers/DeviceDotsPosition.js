@@ -1,5 +1,5 @@
 import { WIDTH, HEIGHT } from "../constants/dimensions";
-const radiusRange = [30, 70, 100, 130, 150];
+const radiusRange = [10, 30, 70, 100, 130];
 
 // (0,0) is top-left corner of the screen
 

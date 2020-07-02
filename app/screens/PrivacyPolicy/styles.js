@@ -5,12 +5,11 @@ const styles = StyleSheet.create({
   screen: {
     backgroundColor: colors.blue,
     flex: 1,
-    justifyContent: "center",
-    alignItems: "center",
-    paddingVertical: 20,
+    paddingHorizontal: 20,
   },
   pdf: {
     flex: 1,
+    marginTop: 20,
   },
   license: {
     color: colors.white,
@@ -32,6 +31,9 @@ const styles = StyleSheet.create({
   helperText: {
     color: "#ccc",
     marginBottom: 10,
+  },
+  backButton: {
+    marginTop: 20,
   },
 });
 

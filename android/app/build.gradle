@@ -132,8 +132,8 @@ android {
         applicationId "org.childrenshospital.contacttracer"
         minSdkVersion rootProject.ext.minSdkVersion
         targetSdkVersion rootProject.ext.targetSdkVersion
-        versionCode 15
-        versionName "0.2.2"
+        versionCode 16
+        versionName "0.2.3"
         resValue "string", "build_config_package", "org.childrenshospital.contacttracer"
     }
 

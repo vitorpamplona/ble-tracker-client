@@ -21,6 +21,7 @@ import Circles from "../../../assets/images/circles.svg";
 function Preloader() {
   const isPersonal = Config.ENV === "PERSONAL";
   const dispatch = useDispatch();
+
   const checkIfAccepted = async () => {
     const isAccepted = await AsyncStorage.getItem("policyAccepted");
 
@@ -42,7 +43,9 @@ function Preloader() {
       const netInfo = await NetInfo.fetch();
       const employee = await AsyncStorage.getItem("employeeId");
       const server = await AsyncStorage.getItem("server");
-      await AsyncStorage.setItem("ipAddress", netInfo.details.ipAddress);
+
+      if (netInfo.details.ipAddress)
+        await AsyncStorage.setItem("ipAddress", netInfo.details.ipAddress);
 
       dispatch(
         setEmployeeData({

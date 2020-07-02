@@ -18,6 +18,13 @@ const styles = StyleSheet.create({
     flex: 1,
     padding: 20,
   },
+  linkText: {
+    paddingVertical: 5,
+    color: colors.dark,
+    textAlign: "center",
+    marginTop: 10,
+    fontFamily: fontNames.OpenSans.regular,
+  },
 });
 
 export default styles;

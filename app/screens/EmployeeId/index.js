@@ -18,6 +18,7 @@ import Logo from "../../../assets/images/logo.svg";
 import Circles from "../../../assets/images/circles.svg";
 import styles from "./styles";
 import colors from "../../constants/colors";
+import screenNames from "../../constants/screenNames";
 
 function EmployeeId({ navigation }) {
   const dispatch = useDispatch();
@@ -38,6 +39,8 @@ function EmployeeId({ navigation }) {
         serverAddress,
       })
     );
+
+    navigation.navigate(screenNames.PRIVACY_POLICY);
   };
 
   return (

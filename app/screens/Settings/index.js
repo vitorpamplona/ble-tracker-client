@@ -28,6 +28,13 @@ function Settings({ navigation }) {
         </TouchableOpacity>
         <Text style={styles.title}>Settings</Text>
         <Button label="Logout" onPress={handleLogout} />
+        <TouchableOpacity
+          onPress={() =>
+            navigation.navigate(screenNames.PRIVACY_POLICY, { readOnly: true })
+          }
+        >
+          <Text style={styles.linkText}>Terms and conditions</Text>
+        </TouchableOpacity>
       </View>
     </SafeAreaView>
   );

@@ -8,9 +8,7 @@ function ContactItem({ device }) {
   return (
     <View style={styles.contactWrapper}>
       <View style={styles.nameWrapper}>
-        <Text style={styles.name}>
-          {device.serial} ({device.rssi})
-        </Text>
+        <Text style={styles.name}>Device ({device.rssi})</Text>
       </View>
       <Text style={styles.time}>
         {moment(device.end).format("hh:mm")}

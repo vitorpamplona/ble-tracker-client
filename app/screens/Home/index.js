@@ -4,10 +4,11 @@ import TrackingStatus from "../../components/TrackingStatus";
 import ContactList from "../../components/ContactList";
 import BottomSheet from "reanimated-bottom-sheet";
 import TrackingInfo from "../../components/TrackingInfo";
-import { View, SafeAreaView, Text, StatusBar } from "react-native";
+import { View, SafeAreaView, Text, StatusBar, Platform } from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Logo from "../../../assets/images/logo.svg";
-import PushNotification from "react-native-push-notification";
+import NotifService from "../../services/NotificationService";
+import NetInfo from "@react-native-community/netinfo";
 
 import Moment from "moment";
 import update from "immutability-helper";
@@ -30,6 +31,7 @@ import screenNames from "../../constants/screenNames";
 import { isSmallDevice } from "../../constants/dimensions";
 
 const c1MIN = 1000 * 60;
+const PushNotification = new NotifService();
 
 class Entry extends Component {
   constructor(props) {
@@ -125,12 +127,25 @@ class Entry extends Component {
     });
   }
 
+  scheduleNotifications = () => {
+    PushNotification.cancelAll();
+    PushNotification.scheduleNotif();
+
+    setTimeout(() => {
+      this.scheduleNotifications();
+    }, 60 * 1000);
+  };
+
   componentDidMount() {
     BLEBackgroundService.init();
     BLEBackgroundService.addNewDeviceListener(this);
     BLEBackgroundService.requestBluetoothStatus();
     BLEBackgroundService.setServicesUUID(this.props.deviceId);
     this.start({});
+
+    NetInfo.addEventListener(this.handleConnectionStateChange);
+
+    if (Platform.OS === "ios") this.scheduleNotifications();
 
     hasLocationPermission().then((result) => {
       this.setState({
@@ -145,6 +160,21 @@ class Entry extends Component {
 
     this.refreshReadyToUpload();
   }
+
+  handleConnectionStateChange = async (connectionInfo) => {
+    const { details } = connectionInfo;
+    const serverStatus = await isOnline(this.props.server);
+
+    if (details && details.ipAddress && serverStatus.status === 200) {
+      this.setState({
+        isLogging: true,
+      });
+    } else {
+      this.setState({
+        isLogging: false,
+      });
+    }
+  };
 
   componentWillUnmount() {
     BLEBackgroundService.removeNewDeviceListener(this);

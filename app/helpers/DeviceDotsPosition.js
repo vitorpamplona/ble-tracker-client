@@ -4,7 +4,7 @@ const radiusRange = [10, 30, 70, 100, 130];
 // (0,0) is top-left corner of the screen
 
 export function calculatePosition(rssi) {
-  const radiusIndex = Math.round(Math.abs(rssi) / 30);
+  const radiusIndex = Math.floor(Math.abs(rssi) / 40);
   const radius = radiusRange[radiusIndex];
 
   const radarHeight = HEIGHT - 150;

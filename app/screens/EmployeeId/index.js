@@ -30,7 +30,9 @@ function EmployeeId({ navigation }) {
 
     await AsyncStorage.setItem("server", serverAddress);
     await AsyncStorage.setItem("employeeId", employeeId);
-    await AsyncStorage.setItem("ipAddress", netInfo.details.ipAddress);
+
+    if (netInfo.details.ipAddress)
+      await AsyncStorage.setItem("ipAddress", netInfo.details.ipAddress);
 
     dispatch(
       setEmployeeData({

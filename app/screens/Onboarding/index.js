@@ -9,7 +9,6 @@ import { setUserOnboarded } from "../../actions/global";
 import Logo from "../../../assets/images/logo.svg";
 import Circles from "../../../assets/images/circles.svg";
 import styles from "./styles";
-import screenNames from "../../constants/screenNames";
 import colors from "../../constants/colors";
 import { useDispatch } from "react-redux";
 
@@ -29,8 +28,8 @@ function Onboarding() {
         <View style={styles.content}>
           <Circles style={styles.circles} width={WIDTH} />
           <Text style={styles.copy}>
-            Contact Tracing can save the places you visit and store
-            them on your phone.
+            Contact Tracing can save the places you visit and store them on your
+            phone.
           </Text>
         </View>
         <View style={styles.footer}>

@@ -1,10 +1,16 @@
 import React, { useEffect } from "react";
-import { View, Text, SafeAreaView } from "react-native";
+import {
+  View,
+  Text,
+  SafeAreaView,
+  PermissionsAndroid,
+  Platform,
+} from "react-native";
 import styles from "./styles";
 import AsyncStorage from "@react-native-community/async-storage";
-import Config from "react-native-config";
 import { hasAllPermissions } from "../../services/PermissionRequests";
-import { setDeviceId, setServer, setEmployeeData } from "../../actions/device";
+import RNFS from "react-native-fs";
+import { setEmployeeData } from "../../actions/device";
 import {
   acceptPrivacyPolicy,
   setPermissions,
@@ -19,8 +25,25 @@ import Logo from "../../../assets/images/logo.svg";
 import Circles from "../../../assets/images/circles.svg";
 
 function Preloader() {
-  const isPersonal = Config.ENV === "PERSONAL";
   const dispatch = useDispatch();
+  const isPersonal = useSelector((state) => state.global.isPersonal);
+
+  const findConfigFile = async () => {
+    await PermissionsAndroid.request(
+      PermissionsAndroid.PERMISSIONS.WRITE_EXTERNAL_STORAGE
+    );
+    const result = await RNFS.readDir(RNFS.DownloadDirectoryPath);
+
+    if (result.find((file) => file.name === "bch-ct.config.json")) {
+      const file = await RNFS.readFile(
+        RNFS.DownloadDirectoryPath + "/bch-ct.config.json"
+      );
+
+      const parsedFile = JSON.parse(file);
+
+      if (parsedFile.scheme === "MDM") dispatch(setAppIsPersonal(false));
+    }
+  };
 
   const checkIfAccepted = async () => {
     const isAccepted = await AsyncStorage.getItem("policyAccepted");
@@ -58,6 +81,10 @@ function Preloader() {
   };
 
   const checkAll = async () => {
+    if (Platform.OS === "android") {
+      await findConfigFile();
+    }
+
     await checkIfAccepted();
     await checkPermissions();
     await getEmoloyeeValues();

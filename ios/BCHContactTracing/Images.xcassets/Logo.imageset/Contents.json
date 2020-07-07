@@ -1,0 +1,23 @@
+{
+  "images" : [
+    {
+      "filename" : "BCHlogomotto_primary_KO_300dpi 1.png",
+      "idiom" : "universal",
+      "scale" : "1x"
+    },
+    {
+      "filename" : "BCHlogomotto_primary_KO_300dpi 1 (1).png",
+      "idiom" : "universal",
+      "scale" : "2x"
+    },
+    {
+      "filename" : "BCHlogomotto_primary_KO_300dpi 1 (2).png",
+      "idiom" : "universal",
+      "scale" : "3x"
+    }
+  ],
+  "info" : {
+    "author" : "xcode",
+    "version" : 1
+  }
+}

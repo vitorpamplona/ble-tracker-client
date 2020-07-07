@@ -7,39 +7,25 @@
  */
 
 import "react-native-gesture-handler";
-import React from "react";
+import React, { useEffect } from "react";
 import { Provider } from "react-redux";
 import { createStore } from "redux";
 import reducers from "./app/reducers";
-import PushNotification from "react-native-push-notification";
-import PushNotificationIOS from "@react-native-community/push-notification-ios";
+import SplashScreen from "react-native-splash-screen";
 
 import AppNavigation from "./app/navigation";
 
 export const store = createStore(reducers);
 
-PushNotification.configure({
-  onRegister: function (token) {
-    console.log("TOKEN:", token);
-  },
-
-  onNotification: function (notification) {
-    notification.finish(PushNotificationIOS.FetchResult.NoData);
-  },
-  permissions: {
-    alert: true,
-    badge: true,
-    sound: true,
-  },
-
-  popInitialNotification: true,
-  requestPermissions: true,
-});
-
-const App = () => (
-  <Provider store={store}>
-    <AppNavigation />
-  </Provider>
-);
+const App = () => {
+  useEffect(() => {
+    SplashScreen.hide();
+  }, []);
+  return (
+    <Provider store={store}>
+      <AppNavigation />
+    </Provider>
+  );
+};
 
 export default App;

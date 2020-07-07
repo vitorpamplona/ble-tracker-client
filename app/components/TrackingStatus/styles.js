@@ -13,7 +13,7 @@ const styles = StyleSheet.create({
     padding: isSmallDevice ? 30 : 50,
     flex: 1,
     position: "relative",
-    marginBottom: 150,
+    marginBottom: isSmallDevice ? 80 : 180,
     width: "100%",
   },
   indicatorDot: {

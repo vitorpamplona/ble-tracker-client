@@ -5,7 +5,7 @@ import styles from "./styles";
 
 function ContactList({ devices }) {
   return (
-    <ScrollView contentContainerStyle={{ padding: 20 }}>
+    <ScrollView contentContainerStyle={{ padding: 20, paddigTop: 10 }}>
       {devices.length ? (
         devices.map((device, i) => <ContactItem device={device} key={i} />)
       ) : (

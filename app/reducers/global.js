@@ -10,6 +10,7 @@ const INITIAL_STATE = {
   permissionsGranted: false,
   loading: true,
   isOnboarded: false,
+  isPersonal: true,
 };
 
 export default function globalReducer(state = INITIAL_STATE, action) {

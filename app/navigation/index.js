@@ -18,13 +18,9 @@ import Settings from "../screens/Settings";
 const Stack = createStackNavigator();
 
 function AppNavigation() {
-  const isPersonal = Config.ENV === "PERSONAL";
-  const {
-    loading,
-    policyAccepted,
-    permissionsGranted,
-    isOnboarded,
-  } = useSelector((store) => store.global);
+  const { loading, permissionsGranted, isOnboarded, isPersonal } = useSelector(
+    (store) => store.global
+  );
   const { deviceId, server } = useSelector((store) => store.device);
 
   return (

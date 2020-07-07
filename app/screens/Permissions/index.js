@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 import { View, Text, SafeAreaView, StatusBar } from "react-native";
 import { Platform } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDeviceId } from "../../actions/device";
 import { setPermissions } from "../../actions/global";
 import {
@@ -15,16 +15,15 @@ import {
   requestPhonePermission,
 } from "../../services/PermissionRequests";
 import DeviceInfo from "react-native-device-info";
-import Config from "react-native-config";
 
 import styles from "./styles";
 import screenNames from "../../constants/screenNames";
 import Logo from "../../../assets/images/logo.svg";
 import colors from "../../constants/colors";
 
-function Permissions({ navigation }) {
-  const isPersonal = Config.ENV === "PERSONAL";
+function Permissions() {
   const dispatch = useDispatch();
+  const isPersonal = useSelector((state) => state.global.isPersonal);
   const [locationPermisionsGranted, setLocationPermissionsGranted] = useState(
     false
   );

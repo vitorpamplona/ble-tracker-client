@@ -123,10 +123,10 @@ export default class BLEBackgroundService {
   }
 
   // Called by Background function.
-  static pulse() {
+  static pulse({ employeeId, ipAddress }) {
     this.enableBT();
     this.init();
-    this.start();
+    this.start({ employeeId, ipAddress });
   }
 
   static clearListener() {

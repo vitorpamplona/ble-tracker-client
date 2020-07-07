@@ -4,11 +4,21 @@ import TrackingStatus from "../../components/TrackingStatus";
 import ContactList from "../../components/ContactList";
 import BottomSheet from "reanimated-bottom-sheet";
 import TrackingInfo from "../../components/TrackingInfo";
-import { View, SafeAreaView, Text, StatusBar, Platform } from "react-native";
+import ToggleSwitch from "../../components/ToggleSwitch";
+import {
+  View,
+  SafeAreaView,
+  Text,
+  StatusBar,
+  Platform,
+  AppState,
+  TouchableOpacity,
+} from "react-native";
 import Ionicons from "react-native-vector-icons/Ionicons";
 import Logo from "../../../assets/images/logo.svg";
 import NotifService from "../../services/NotificationService";
 import NetInfo from "@react-native-community/netinfo";
+import BackgroundTaskServices from "../../services/BackgroundTaskService";
 
 import Moment from "moment";
 import update from "immutability-helper";
@@ -25,7 +35,6 @@ import BLEBackgroundService from "../../services/BLEBackgroundService";
 import { sync, isOnline, readyToUploadCounter } from "../../helpers/SyncDB";
 import styles from "./styles";
 import colors from "../../constants/colors";
-import { TouchableOpacity } from "react-native-gesture-handler";
 import { calculatePosition } from "../../helpers/DeviceDotsPosition";
 import screenNames from "../../constants/screenNames";
 import { isSmallDevice } from "../../constants/dimensions";
@@ -46,6 +55,7 @@ class Entry extends Component {
       phonePermission: false,
       readyToUpload: 0,
       lastRefreshReadyToUpload: 0,
+      appState: AppState.currentState,
     };
   }
 
@@ -127,16 +137,34 @@ class Entry extends Component {
     });
   }
 
+  startBroadcasting = () => {
+    const { employeeId, ipAddress } = this.props;
+    BLEBackgroundService.start({ employeeId, ipAddress });
+    this.setState({
+      isLogging: true,
+    });
+  };
+
+  stopBroadcasting = () => {
+    BLEBackgroundService.stop();
+    this.setState({
+      isLogging: false,
+      devicesFound: [],
+    });
+  };
+
   scheduleNotifications = () => {
     PushNotification.cancelAll();
     PushNotification.scheduleNotif();
 
     setTimeout(() => {
       this.scheduleNotifications();
-    }, 60 * 1000);
+    }, 15 * 60 * 1000);
   };
 
   componentDidMount() {
+    const { employeeId, ipAddress, server } = this.props;
+    BackgroundTaskServices.start({ server, employeeId, ipAddress });
     BLEBackgroundService.init();
     BLEBackgroundService.addNewDeviceListener(this);
     BLEBackgroundService.requestBluetoothStatus();
@@ -144,6 +172,7 @@ class Entry extends Component {
     this.start({});
 
     NetInfo.addEventListener(this.handleConnectionStateChange);
+    AppState.addEventListener("change", this.handleAppStateChange);
 
     if (Platform.OS === "ios") this.scheduleNotifications();
 
@@ -163,21 +192,48 @@ class Entry extends Component {
 
   handleConnectionStateChange = async (connectionInfo) => {
     const { details } = connectionInfo;
-    const serverStatus = await isOnline(this.props.server);
 
-    if (details && details.ipAddress && serverStatus.status === 200) {
-      this.setState({
-        isLogging: true,
-      });
+    if (details && details.ipAddress) {
+      const serverStatus = await isOnline(this.props.server);
+
+      if (serverStatus.status === 200 && !this.state.isLogging)
+        this.startBroadcasting();
+      else if (serverStatus.status !== 200 && this.state.isLogging)
+        this.stopBroadcasting();
     } else {
-      this.setState({
-        isLogging: false,
-      });
+      this.stopBroadcasting();
     }
+  };
+
+  handleAppStateChange = async (nextAppState) => {
+    if (
+      this.state.appState.match(/inactive|background/) &&
+      nextAppState === "active"
+    ) {
+      try {
+        const { details } = await NetInfo.fetch();
+
+        if (details && details.ipAddress) {
+          const serverStatus = await isOnline(this.props.server);
+
+          if (serverStatus.status === 200 && !this.state.isLogging)
+            this.startBroadcasting();
+          else if (serverStatus.status !== 200 && this.state.isLogging)
+            this.stopBroadcasting();
+        } else {
+          this.stopBroadcasting();
+        }
+      } catch (error) {
+        this.stopBroadcasting();
+      }
+    }
+
+    this.setState({ appState: nextAppState });
   };
 
   componentWillUnmount() {
     BLEBackgroundService.removeNewDeviceListener(this);
+    AppState.removeEventListener("change", this.handleAppStateChange);
   }
 
   start() {
@@ -229,6 +285,9 @@ class Entry extends Component {
     return Moment(dt).format("H:mm:ss");
   }
 
+  handleBroadcastToggle = () =>
+    this.state.isLogging ? this.stopBroadcasting() : this.startBroadcasting();
+
   render() {
     const {
       isLogging,
@@ -263,7 +322,7 @@ class Entry extends Component {
           />
         </SafeAreaView>
         <BottomSheet
-          snapPoints={["80%", isSmallDevice ? 80 : 160]}
+          snapPoints={["80%", isSmallDevice ? 80 : 190]}
           initialSnap={1}
           renderContent={() => (
             <View style={styles.bottomSheet}>
@@ -272,6 +331,20 @@ class Entry extends Component {
                   Devices around{" "}
                   <Text style={styles.counter}>({devicesFound.length})</Text>
                 </Text>
+                <TouchableOpacity
+                  style={styles.broadcastingStatus}
+                  onPress={this.handleBroadcastToggle}
+                >
+                  <ToggleSwitch
+                    checked={isLogging}
+                    onPress={this.handleBroadcastToggle}
+                  />
+                  <Text style={styles.statusText}>
+                    {isLogging
+                      ? "Broadcasting Active"
+                      : "Broadcasting Inactive"}
+                  </Text>
+                </TouchableOpacity>
                 <ContactList devices={devicesFound} />
                 <TrackingInfo
                   deviceId={deviceId}

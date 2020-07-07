@@ -1,6 +1,7 @@
 import { StyleSheet } from "react-native";
 import colors from "../../constants/colors";
 import { isSmallDevice } from "../../constants/dimensions";
+import fontNames from "../../constants/fontNames";
 
 const styles = StyleSheet.create({
   screen: {
@@ -70,7 +71,7 @@ const styles = StyleSheet.create({
   },
   sectionContainerFlex: {
     flex: 1,
-    marginTop: 12,
+    marginTop: 6,
     marginBottom: 12,
     paddingHorizontal: 24,
   },
@@ -120,6 +121,19 @@ const styles = StyleSheet.create({
     paddingBottom: 3,
     fontSize: 18,
     fontWeight: "400",
+  },
+  broadcastingStatus: {
+    flexDirection: "row",
+    height: 30,
+    justifyContent: "center",
+    alignItems: "center",
+    marginTop: 10,
+  },
+  statusText: {
+    marginHorizontal: 12,
+    fontSize: 13,
+    lineHeight: 18,
+    fontFamily: fontNames.OpenSans.bold,
   },
 });
 

@@ -7,7 +7,6 @@ import App from "./App";
 import { name as appName } from "./app.json";
 import BackgroundFetch from "react-native-background-fetch";
 
-import BackgroundTaskServices from "./app/services/BackgroundTaskService";
 import { executeTask } from "./app/services/BackgroundTaskService";
 
 let MyHeadlessTask = async ({ taskId }) => {
@@ -25,5 +24,3 @@ let MyHeadlessTask = async ({ taskId }) => {
 BackgroundFetch.registerHeadlessTask(MyHeadlessTask);
 
 AppRegistry.registerComponent(appName, () => App);
-
-BackgroundTaskServices.start();

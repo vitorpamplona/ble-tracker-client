@@ -42,19 +42,9 @@ function TrackingStatus({ devices = [], isTracking }) {
       </View>
       <View style={styles.footer}>
         <Text style={styles.copy}>
-          Contact Tracing is saving the places you visit and storing
-          them on your phone.
+          Contact Tracing is saving the places you visit and storing them on
+          your phone.
         </Text>
-        <View
-          style={[
-            styles.serverStatus,
-            !isTracking && styles.serverStatusInactive,
-          ]}
-        >
-          <Text style={styles.serverStatusText}>
-            {isTracking ? "Broadcasting Active" : "Broadcasting Inactive"}
-          </Text>
-        </View>
       </View>
     </View>
   );

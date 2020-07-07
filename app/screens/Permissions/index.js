@@ -6,7 +6,7 @@ import AsyncStorage from "@react-native-community/async-storage";
 
 import { View, Text, SafeAreaView, StatusBar } from "react-native";
 import { Platform } from "react-native";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { setDeviceId } from "../../actions/device";
 import { setPermissions } from "../../actions/global";
 import {

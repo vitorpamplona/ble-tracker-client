@@ -17,7 +17,7 @@ import {
   setLoading,
   setUserOnboarded,
 } from "../../actions/global";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { WIDTH } from "../../constants/dimensions";
 import NetInfo from "@react-native-community/netinfo";
 

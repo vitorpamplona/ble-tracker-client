@@ -5,7 +5,7 @@ import BLEBackgroundService from "../services/BLEBackgroundService";
 const INTERVAL = 15; // the value is received in minutes
 const TASK_ID = "com.transistorsoft.childrenshospital.contacttracer.pulse";
 
-export function executeTask(server) {
+export function executeTask({ server, employeeId, ipAddress }) {
   console.log("[BackgroundService] ExecuteTask Sync");
 
   isOnline(server)
@@ -14,14 +14,14 @@ export function executeTask(server) {
         // is online
         console.log("[BackgroundService] ExecuteTask Pulse");
         sync(server);
-        BLEBackgroundService.pulse();
+        BLEBackgroundService.pulse({ employeeId, ipAddress });
       } else {
         console.log("[BackgroundService] Server Offline, stopping");
         BLEBackgroundService.stop();
       }
     })
     .catch((error) => {
-      console.log("[BackgroundService] Not online, stopping");
+      console.log("[BackgroundService] Not online, stopping", error);
       BLEBackgroundService.stop();
     });
 
@@ -50,7 +50,7 @@ export const scheduleTask = async () => {
 };
 
 export default class BackgroundTaskServices {
-  static start() {
+  static start({ server, employeeId, ipAddress }) {
     // Configure it.
     console.log("[BackgroundService] Configuring Background Task object");
     BackgroundFetch.configure(
@@ -69,7 +69,7 @@ export default class BackgroundTaskServices {
       },
       async (taskId) => {
         console.log("[BackgroundService] Inner task start: ", taskId);
-        executeTask();
+        executeTask({ server, employeeId, ipAddress });
 
         // If it comes from the Scheduler, start it again.
         if (
@@ -105,7 +105,7 @@ export default class BackgroundTaskServices {
           break;
         case BackgroundFetch.STATUS_AVAILABLE:
           console.log("[BackgroundService] BackgroundFetch is enabled");
-          executeTask();
+          executeTask({ server, employeeId, ipAddress });
           //scheduleTask();
           break;
       }

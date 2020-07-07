@@ -1,6 +1,6 @@
 {
   "name": "BCHContactTracing",
-  "version": "0.2.3",
+  "version": "0.2.4",
   "private": true,
   "scripts": {
     "run:android": "export ENVFILE=.env.personal && npx react-native run-android --variant=personalDebug",

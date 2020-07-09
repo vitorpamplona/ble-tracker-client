@@ -164,7 +164,12 @@ class Entry extends Component {
 
   componentDidMount() {
     const { employeeId, ipAddress, server } = this.props;
-    BackgroundTaskServices.start({ server, employeeId, ipAddress });
+    BackgroundTaskServices.start({
+      server,
+      employeeId,
+      ipAddress,
+      onStop: this.stopBroadcasting,
+    });
     BLEBackgroundService.init();
     BLEBackgroundService.addNewDeviceListener(this);
     BLEBackgroundService.requestBluetoothStatus();
@@ -174,7 +179,7 @@ class Entry extends Component {
     NetInfo.addEventListener(this.handleConnectionStateChange);
     AppState.addEventListener("change", this.handleAppStateChange);
 
-    if (Platform.OS === "ios") this.scheduleNotifications();
+    // if (Platform.OS === "ios") this.scheduleNotifications();
 
     hasLocationPermission().then((result) => {
       this.setState({
@@ -190,19 +195,8 @@ class Entry extends Component {
     this.refreshReadyToUpload();
   }
 
-  handleConnectionStateChange = async (connectionInfo) => {
-    const { details } = connectionInfo;
-
-    if (details && details.ipAddress) {
-      const serverStatus = await isOnline(this.props.server);
-
-      if (serverStatus.status === 200 && !this.state.isLogging)
-        this.startBroadcasting();
-      else if (serverStatus.status !== 200 && this.state.isLogging)
-        this.stopBroadcasting();
-    } else {
-      this.stopBroadcasting();
-    }
+  handleConnectionStateChange = async () => {
+    this.checkServerStatusAndSetBroadcasting();
   };
 
   handleAppStateChange = async (nextAppState) => {
@@ -210,25 +204,29 @@ class Entry extends Component {
       this.state.appState.match(/inactive|background/) &&
       nextAppState === "active"
     ) {
-      try {
-        const { details } = await NetInfo.fetch();
-
-        if (details && details.ipAddress) {
-          const serverStatus = await isOnline(this.props.server);
-
-          if (serverStatus.status === 200 && !this.state.isLogging)
-            this.startBroadcasting();
-          else if (serverStatus.status !== 200 && this.state.isLogging)
-            this.stopBroadcasting();
-        } else {
-          this.stopBroadcasting();
-        }
-      } catch (error) {
-        this.stopBroadcasting();
-      }
+      this.checkServerStatusAndSetBroadcasting();
     }
 
     this.setState({ appState: nextAppState });
+  };
+
+  checkServerStatusAndSetBroadcasting = async () => {
+    try {
+      const { details } = await NetInfo.fetch();
+
+      if (details && details.ipAddress) {
+        const serverStatus = await isOnline(this.props.server);
+
+        if (serverStatus.status === 200 && !this.state.isLogging)
+          this.startBroadcasting();
+        else if (serverStatus.status !== 200 && this.state.isLogging)
+          this.stopBroadcasting();
+      } else {
+        this.stopBroadcasting();
+      }
+    } catch (error) {
+      this.stopBroadcasting();
+    }
   };
 
   componentWillUnmount() {
@@ -286,7 +284,9 @@ class Entry extends Component {
   }
 
   handleBroadcastToggle = () =>
-    this.state.isLogging ? this.stopBroadcasting() : this.startBroadcasting();
+    this.state.isLogging
+      ? this.stopBroadcasting()
+      : this.checkServerStatusAndSetBroadcasting();
 
   render() {
     const {

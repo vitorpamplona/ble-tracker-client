@@ -42,8 +42,8 @@ function TrackingStatus({ devices = [], isTracking }) {
       </View>
       <View style={styles.footer}>
         <Text style={styles.copy}>
-          Contact Tracing is saving the places you visit and storing them on
-          your phone.
+          Contact Tracing is saving the persons you come in contact with and storing them on
+          this phone.
         </Text>
       </View>
     </View>

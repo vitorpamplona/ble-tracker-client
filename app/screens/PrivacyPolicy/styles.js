@@ -17,6 +17,7 @@ const styles = StyleSheet.create({
   footer: {
     width: "100%",
     paddingHorizontal: 20,
+    marginBottom: 20,
   },
   acceptTouchable: {
     marginBottom: 10,
@@ -25,12 +26,12 @@ const styles = StyleSheet.create({
   },
   acceptText: {
     color: colors.white,
-    fontSize: 20,
+    fontSize: 18,
     marginLeft: 10,
   },
   helperText: {
     color: "#ccc",
-    marginBottom: 10,
+    marginBottom: 20,
   },
   backButton: {
     marginTop: 20,

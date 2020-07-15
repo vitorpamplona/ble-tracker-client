@@ -22,10 +22,10 @@ function Settings({ navigation }) {
 
   return (
     <SafeAreaView style={styles.screen}>
+      <TouchableOpacity onPress={() => navigation.goBack()}>
+        <Ionicons name="md-arrow-back" color={colors.dark} size={38} />
+      </TouchableOpacity>
       <View style={styles.innerContainer}>
-        <TouchableOpacity onPress={() => navigation.goBack()}>
-          <Ionicons name="md-arrow-round-back" color={colors.dark} size={38} />
-        </TouchableOpacity>
         <Text style={styles.title}>Settings</Text>
         <Button label="Logout" onPress={handleLogout} />
         <TouchableOpacity

@@ -18,14 +18,14 @@ const styles = StyleSheet.create({
     marginBottom: 10,
   },
   sectionDescription: {
-    color: colors.dark,
+    color: colors.darkGrey,
     fontSize: 12,
     lineHeight: 16,
     fontFamily: fontNames.OpenSans.bold,
     marginBottom: 10,
   },
   highlight: {
-    color: colors.lightGrey,
+    color: colors.dark,
   },
 });
 

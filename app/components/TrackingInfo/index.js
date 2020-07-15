@@ -3,13 +3,17 @@ import { View, Text } from "react-native";
 
 import styles from "./styles";
 
-function TrackingInfo({ deviceId, broadcastStatus, scanStatus, toUpload = 0 }) {
+function TrackingInfo({ server, deviceId, broadcastStatus, scanStatus, toUpload = 0 }) {
   return (
     <View style={styles.wrapper}>
       <Text style={styles.title}>BCH Concact Tracer</Text>
       <Text style={styles.sectionDescription}>
         Broadcasting:
         <Text style={styles.highlight}> {deviceId}</Text>
+      </Text>
+      <Text style={styles.sectionDescription}>
+        Server:
+        <Text style={styles.highlight}> {server}</Text>
       </Text>
       <Text style={styles.sectionDescription}>
         Broadcast:

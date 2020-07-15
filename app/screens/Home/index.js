@@ -347,6 +347,7 @@ class Entry extends Component {
                 </TouchableOpacity>
                 <ContactList devices={devicesFound} />
                 <TrackingInfo
+                  server={server}
                   deviceId={deviceId}
                   broadcastStatus={broadcastStatus}
                   scanStatus={scanStatus}

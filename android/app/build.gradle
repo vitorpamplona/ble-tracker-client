@@ -81,7 +81,6 @@ project.ext.react = [
 ]
 
 apply from: "../../node_modules/react-native/react.gradle"
-apply from: project(':react-native-config').projectDir.getPath() + "/dotenv.gradle"
 
 /**
  * Set this to true to create two separate APKs instead of one:
@@ -134,22 +133,7 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 18
         versionName "0.2.5"
-        resValue "string", "build_config_package", "org.childrenshospital.contacttracer"
     }
-
-    flavorDimensions "appConfig"
-    productFlavors {
-        mdm {
-            // Pre-compile run ENVFILE=.env.mdm
-            applicationIdSuffix ".mdm"
-            dimension "appConfig"
-        }
-
-       personal {
-           // Pre-compile run ENVFILE=.env.personal
-           dimension "appConfig"
-       }
-   }
 
     splits {
         abi {

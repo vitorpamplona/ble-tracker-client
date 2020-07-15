@@ -61,11 +61,11 @@ function PrivacyPolicy({ navigation, route }) {
             >
               <Checkbox checked={accepted} />
               <Text style={styles.acceptText}>
-                I accept the licensing agreement
+                I accept the terms & conditions
               </Text>
             </TouchableOpacity>
             <Text style={styles.helperText}>
-              *You must access in order to use BCH tracker
+              *You must accept in order to use BCH tracker
             </Text>
             <Button
               label="Continue"

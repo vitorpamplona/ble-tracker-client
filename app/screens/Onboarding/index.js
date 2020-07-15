@@ -28,13 +28,12 @@ function Onboarding() {
         <View style={styles.content}>
           <Circles style={styles.circles} width={WIDTH} />
           <Text style={styles.copy}>
-            Contact Tracing can save the places you visit and store them on your
-            phone.
+            Contact Tracing can save the persons you come in contact with and store them on your phone
           </Text>
         </View>
         <View style={styles.footer}>
           <Text style={styles.subtitle}>
-            Your phone can help you remember where you’ve been.
+            Your phone can help you remember who you’ve been in contact with.
           </Text>
           <Button
             label="Start contact tracing"

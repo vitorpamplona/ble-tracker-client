@@ -8,12 +8,11 @@ function ContactItem({ device }) {
   return (
     <View style={styles.contactWrapper}>
       <View style={styles.nameWrapper}>
-        <Text style={styles.name}>Device ({device.rssi})</Text>
+        <Text style={styles.name}>Employee {device.serial} ({device.rssi})</Text>
       </View>
       <Text style={styles.time}>
-        {moment(device.end).format("hh:mm")}
         <Text style={styles.timeRelative}>
-          ({moment(device.end).fromNow()})
+          {moment(device.end).fromNow()}
         </Text>
       </Text>
     </View>

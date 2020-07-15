@@ -23,7 +23,7 @@ import screenNames from "../../constants/screenNames";
 function EmployeeId({ navigation }) {
   const dispatch = useDispatch();
   const [employeeId, setEmployeeId] = useState("");
-  const [serverAddress, setServerAddress] = useState("");
+  const [serverAddress, setServerAddress] = useState("safepath.tch.harvard.edu");
 
   const handleSubmit = async () => {
     const netInfo = await NetInfo.fetch();
@@ -58,6 +58,7 @@ function EmployeeId({ navigation }) {
           <Input
             label="Server URL"
             placeholder="Enter server URL and port"
+            defaultValue={serverAddress}
             style={{ marginBottom: 20 }}
             onChangeText={(text) => setServerAddress(text)}
           />
